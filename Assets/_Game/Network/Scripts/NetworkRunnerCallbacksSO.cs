@@ -4,7 +4,9 @@ using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NetworkRunnerCallbacks", menuName = "ScriptableObjects/Network/NetworkRunnerCallbacks")]
+namespace Networking
+{
+   [CreateAssetMenu(fileName = "NetworkRunnerCallbacks", menuName = "ScriptableObjects/Network/NetworkRunnerCallbacks")]
 public class NetworkRunnerCallbacksSO : ScriptableObject
 {
     public event Action<NetworkRunner, NetworkObject, PlayerRef> ObjectExitAOI; 
@@ -122,4 +124,6 @@ public class NetworkRunnerCallbacksSO : ScriptableObject
         SceneLoadStart?.Invoke(runner);
     }
      
+} 
 }
+
