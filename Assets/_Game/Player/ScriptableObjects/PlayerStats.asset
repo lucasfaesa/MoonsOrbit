@@ -17,5 +17,5 @@ MonoBehaviour:
   <MaxSpeed>k__BackingField: 5
   <RotationSpeed>k__BackingField: 15
   <JumpImpulse>k__BackingField: 8
-  <Gravity>k__BackingField: -15
+  <Gravity>k__BackingField: -20
   <MouseSensitivity>k__BackingField: {x: 2.5, y: 2.5}

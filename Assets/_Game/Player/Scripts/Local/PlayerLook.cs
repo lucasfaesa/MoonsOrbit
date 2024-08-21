@@ -15,6 +15,12 @@ namespace LocalPlayer
         
         private float _verticalLookRotation;
 
+        private void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         private void Update()
         {
             HandleLook();
