@@ -20,10 +20,10 @@ public class PlayerMovement : MonoBehaviour
     public float FallingThreshold { get; } = -0.05f;
     
     //----- State Machine things -----
-    public IdleState IdleState { get; private set; }
-    public WalkState WalkState { get; private set; }
-    public JumpState JumpState { get; private set; }
-    public FallingState FallingState { get; private set; }
+    public MovementIdleState MovementIdleState { get; private set; }
+    public MovementWalkState MovementWalkState { get; private set; }
+    public MovementJumpState MovementJumpState { get; private set; }
+    public MovementFallingState MovementFallingState { get; private set; }
 
     private StateMachine<PlayerMovement> _stateMachine = new();
     //---------
@@ -40,12 +40,12 @@ public class PlayerMovement : MonoBehaviour
     
     void Start()
     {
-        IdleState = new IdleState(this, _stateMachine);
-        WalkState = new WalkState(this, _stateMachine);
-        JumpState = new JumpState(this, _stateMachine);
-        FallingState = new FallingState(this, _stateMachine);
+        MovementIdleState = new MovementIdleState(this, _stateMachine);
+        MovementWalkState = new MovementWalkState(this, _stateMachine);
+        MovementJumpState = new MovementJumpState(this, _stateMachine);
+        MovementFallingState = new MovementFallingState(this, _stateMachine);
 
-        _stateMachine.Initialize(IdleState);
+        _stateMachine.Initialize(MovementIdleState);
     }
 
     void Update()
@@ -73,10 +73,10 @@ public class PlayerMovement : MonoBehaviour
 
         direction = direction.normalized;
 
-        if (IsGrounded && moveVelocity.y < 0)
+        /*if (IsGrounded && moveVelocity.y < 0)
         {
             moveVelocity.y = 0f;
-        }
+        }*/
 
         moveVelocity.y += playerStats.Gravity * deltaTime;
 

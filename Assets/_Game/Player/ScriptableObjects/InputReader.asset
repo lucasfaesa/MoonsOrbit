@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: InputReader
   m_EditorClassIdentifier: 
   move: {fileID: -2704985340314678553, guid: 92ebe36d17a5d8644b4285c015227030, type: 3}
-  mouseDelta: {fileID: -8544619751478259780, guid: 92ebe36d17a5d8644b4285c015227030,
-    type: 3}
+  look: {fileID: -8544619751478259780, guid: 92ebe36d17a5d8644b4285c015227030, type: 3}
   jump: {fileID: -3815790106878311678, guid: 92ebe36d17a5d8644b4285c015227030, type: 3}
+  shoot: {fileID: -4776010533324385237, guid: 92ebe36d17a5d8644b4285c015227030, type: 3}
+  aim: {fileID: 9106009672917851040, guid: 92ebe36d17a5d8644b4285c015227030, type: 3}

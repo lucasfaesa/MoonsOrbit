@@ -307,12 +307,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &430741276 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5119214507320053186, guid: b36878f162d9d624587982cba1290a01,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &441332322
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,27 +413,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441332322}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &501704093 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &501704098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501704093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d26ac91124632a4183ef898270bb518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
-  playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
-  playerCamera: {fileID: 430741276}
 --- !u!1001 &1029741807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -448,16 +421,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1193199613828071586, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1387288679317959547, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_MinMoveDistance
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_Name
@@ -513,52 +476,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4904568690169445039, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7201365166432271464, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7201365166432271464, guid: b36878f162d9d624587982cba1290a01, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1029741809}
-    - targetCorrespondingSourceObject: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 501704098}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b36878f162d9d624587982cba1290a01, type: 3}
---- !u!143 &1029741808 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 1387288679317959547, guid: b36878f162d9d624587982cba1290a01,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1029741809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501704093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 214ba0cb84628bf4a9372479da005750, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
-  playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
-  playerCamera: {fileID: 430741276}
-  characterController: {fileID: 1029741808}
 --- !u!1 &1920284067
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,11 +789,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetworkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151837649115609763, guid: 5bc75f14c8fd92e48ad8a963d3773eae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

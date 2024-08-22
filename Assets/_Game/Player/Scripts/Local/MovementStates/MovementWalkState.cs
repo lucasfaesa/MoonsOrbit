@@ -4,9 +4,9 @@ using DesignPatterns;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
-public class WalkState :  GroundedState
+public class MovementWalkState :  MovementGroundedState
 {
-    public WalkState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public MovementWalkState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
     {
     }
 
@@ -24,12 +24,12 @@ public class WalkState :  GroundedState
         context.HandleMovement();
         
         if(context.InputReader.JumpStatus)
-            stateMachine.ChangeState(context.JumpState);
+            stateMachine.ChangeState(context.MovementJumpState);
+        
+        else if(base.CheckForFalling());
+        //do nothing, the check already does    
         else
-        {
-            base.CheckForFalling();
             base.CheckIdleOrWalk();
-        }
     }
 
     public override void PhysicsUpdate()

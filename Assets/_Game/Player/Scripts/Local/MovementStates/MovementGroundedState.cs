@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
 
-public class GroundedState : State<PlayerMovement>
+public class MovementGroundedState : State<PlayerMovement>
 {
-    public GroundedState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public MovementGroundedState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
     {
     }
 
-    protected void CheckForFalling()
+    protected bool CheckForFalling()
     {
         if (!context.IsGrounded)
-            stateMachine.ChangeState(context.FallingState);
+            stateMachine.ChangeState(context.MovementFallingState);
+        
+        return !context.IsGrounded;
     }
     
     protected void CheckIdleOrWalk()
     {
         if (context.InputReader.Direction == Vector2.zero)
         {
-            stateMachine.ChangeState(context.IdleState);
+            stateMachine.ChangeState(context.MovementIdleState);
         }
         else
         {
-            stateMachine.ChangeState(context.WalkState);
+            stateMachine.ChangeState(context.MovementWalkState);
         }
     }
     

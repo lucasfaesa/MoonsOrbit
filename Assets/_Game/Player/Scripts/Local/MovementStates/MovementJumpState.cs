@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
 
-public class JumpState : AirborneState
+public class MovementJumpState : MovementAirborneState
 {
-    public JumpState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public MovementJumpState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
     {
     }
 
@@ -25,7 +25,7 @@ public class JumpState : AirborneState
         context.HandleMovement();
         
         if(context.CharacterController.velocity.y < 0)
-            stateMachine.ChangeState(context.FallingState);
+            stateMachine.ChangeState(context.MovementFallingState);
     }
 
     public override void PhysicsUpdate()

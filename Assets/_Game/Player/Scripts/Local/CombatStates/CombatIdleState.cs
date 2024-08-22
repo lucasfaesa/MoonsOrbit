@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
 
-public class AirborneState : State<PlayerMovement>
+public class CombatIdleState : State<PlayerCombatBehavior>
 {
-    public AirborneState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public CombatIdleState(PlayerCombatBehavior context, StateMachine<PlayerCombatBehavior> stateMachine) : base(context, stateMachine)
     {
     }
-    
+
     public override void Enter()
     {
-        
+
     }
 
     public override void LogicUpdate()
     {
-        
+
     }
 
     public override void PhysicsUpdate()
     {
-        
+
     }
 
     public override void Exit()
     {
-        
+
     }
 }

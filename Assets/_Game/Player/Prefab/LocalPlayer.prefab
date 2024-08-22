@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4152742069830811091}
-  - component: {fileID: 7201365166432271464}
+  - component: {fileID: 2468090314056281952}
+  - component: {fileID: 9048846002145129729}
   - component: {fileID: 1193199613828071586}
   - component: {fileID: 1387288679317959547}
   m_Layer: 7
@@ -36,7 +37,7 @@ Transform:
   - {fileID: 1259698701558058579}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7201365166432271464
+--- !u!114 &2468090314056281952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,12 +46,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1729274901573904122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 866cc36e1c8f07e42906d266e32284d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 214ba0cb84628bf4a9372479da005750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
   playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
+  playerCamera: {fileID: 5119214507320053186}
   characterController: {fileID: 1387288679317959547}
+--- !u!114 &9048846002145129729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729274901573904122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d26ac91124632a4183ef898270bb518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
+  playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
   playerCamera: {fileID: 5119214507320053186}
 --- !u!114 &1193199613828071586
 MonoBehaviour:
@@ -91,7 +107,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8026667615753908339
 GameObject:
@@ -158,7 +174,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -166,7 +182,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

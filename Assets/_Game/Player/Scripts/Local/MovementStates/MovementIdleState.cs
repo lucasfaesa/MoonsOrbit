@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
 
-public class IdleState : GroundedState
+public class MovementIdleState : MovementGroundedState
 {
-    public IdleState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public MovementIdleState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
     {
     }
 
@@ -23,12 +23,13 @@ public class IdleState : GroundedState
         context.HandleMovement();
         
         if(context.InputReader.JumpStatus)
-            stateMachine.ChangeState(context.JumpState);
+            stateMachine.ChangeState(context.MovementJumpState);
+        
+        else if(base.CheckForFalling());
+            //do nothing, the check already does    
         else
-        {
-            base.CheckForFalling();
             base.CheckIdleOrWalk();
-        }
+        
     }
 
     public override void PhysicsUpdate()

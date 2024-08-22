@@ -21,7 +21,7 @@ namespace DesignPatterns
             
             CurrentState.Exit();
             CurrentState = newState;
-            newState.Enter();
+            CurrentState.Enter();
         }
 
         public void Update()

@@ -3,10 +3,10 @@ using DesignPatterns;
 using UnityEngine;
 
 
-public class FallingState : AirborneState
+public class MovementFallingState : MovementAirborneState
 {
 
-    public FallingState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
+    public MovementFallingState(PlayerMovement context, StateMachine<PlayerMovement> stateMachine) : base(context, stateMachine)
     {
     }
 
@@ -27,9 +27,9 @@ public class FallingState : AirborneState
         if (context.IsGrounded)
         {
             if (context.InputReader.Direction != Vector2.zero)
-                stateMachine.ChangeState(context.WalkState);
+                stateMachine.ChangeState(context.MovementWalkState);
             else
-                stateMachine.ChangeState(context.IdleState);
+                stateMachine.ChangeState(context.MovementIdleState);
         }
             
     }
