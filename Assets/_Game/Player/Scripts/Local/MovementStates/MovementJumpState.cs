@@ -11,7 +11,7 @@ public class MovementJumpState : MovementAirborneState
 
     public override void Enter()
     {
-        Debug.Log("<color=magenta>Entered jump state</color>");
+        //Debug.Log("<color=magenta>Entered jump state</color>");
         
         base.Enter();
         Jump();

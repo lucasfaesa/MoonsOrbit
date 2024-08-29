@@ -11,12 +11,13 @@ public class CombatIdleState : State<PlayerCombatBehavior>
 
     public override void Enter()
     {
-
+        Debug.Log("<color=blue>Entered combat idle state</color>");
     }
 
     public override void LogicUpdate()
     {
-
+        if(context.InputReader.ShootStatus)
+            stateMachine.ChangeState(context.CombatFightState);
     }
 
     public override void PhysicsUpdate()

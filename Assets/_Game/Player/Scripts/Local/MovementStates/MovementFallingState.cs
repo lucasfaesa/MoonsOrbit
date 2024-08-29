@@ -14,7 +14,7 @@ public class MovementFallingState : MovementAirborneState
     {
         base.Enter();
         
-        Debug.Log("<color=red>Entered falling state</color>");
+        //Debug.Log("<color=red>Entered falling state</color>");
     }
 
     

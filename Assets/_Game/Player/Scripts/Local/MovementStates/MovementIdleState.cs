@@ -12,7 +12,7 @@ public class MovementIdleState : MovementGroundedState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("<color=blue>Entered Idle state </color>");
+        //Debug.Log("<color=blue>Entered Idle state </color>");
     }
 
 
@@ -25,8 +25,8 @@ public class MovementIdleState : MovementGroundedState
         if(context.InputReader.JumpStatus)
             stateMachine.ChangeState(context.MovementJumpState);
         
-        else if(base.CheckForFalling());
-            //do nothing, the check already does    
+        else if(base.CheckForFalling())
+            return; //do nothing, the check already does    
         else
             base.CheckIdleOrWalk();
         

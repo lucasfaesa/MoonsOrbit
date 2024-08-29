@@ -15,8 +15,8 @@ namespace Networking
         [Header("Other")] [SerializeField] private NetworkRunner runnerPrefab;
         [SerializeField] private NetworkSceneManagerDefault networkSceneManagerDefault;
 
+        public bool RunnerInitialized { get; private set; }
         public NetworkRunner NetworkRunner { get; private set; }
-
 
         protected override void Awake()
         {
@@ -26,7 +26,7 @@ namespace Networking
         async void Start()
         {
             CreateRunner();
-
+            RunnerInitialized = true;
             await Connect();
         }
 
