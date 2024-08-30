@@ -289,7 +289,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- Fix bullet, fix bullet moving player
+  todoList: '- make weapon appear to other players
+
+    - pool trails
+
+    - pool
+    bullet marks
+
+    - fix bullet not being able to shoot unless hitscan hit something
+
+    -
+    fix bullet speed varying when target is close or far
+
+    - fix player not being
+    able to walk when looking at 90 degrees up or down
 
 '
 --- !u!4 &376955803
