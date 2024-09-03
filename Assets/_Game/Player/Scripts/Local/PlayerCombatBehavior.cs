@@ -27,14 +27,18 @@ public class PlayerCombatBehavior : SimulationBehaviour
     public BulletBehavior BulletPrefab => bulletPrefab;
     public WeaponStatsSO PistolStats => pistolStats;
     
+    public Vector3 MuzzleWorldVelocity { get; set; }
+    
     //----- State Machine things -----
     public CombatIdleState CombatIdleState { get; private set; }
     public CombatFightState CombatFightState { get; private set; }
     //---------
     
+    private Vector3 _lastMuzzlePosition;
     
     public IEnumerator Start()
     {
+        
         Debug.Log("Init");
         while (!NetworkManager.Instance.RunnerInitialized)
             yield return null;
@@ -61,6 +65,8 @@ public class PlayerCombatBehavior : SimulationBehaviour
     public override void Render()
     {
         base.Render();
+        MuzzleWorldVelocity = (BulletRef.position - _lastMuzzlePosition) / Runner.DeltaTime;
+        _lastMuzzlePosition = BulletRef.position;
         _stateMachine.Update();
     }
 

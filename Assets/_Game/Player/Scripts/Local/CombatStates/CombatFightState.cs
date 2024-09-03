@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DesignPatterns;
+using Unity.FPS.Game;
 using UnityEngine;
 
 public class CombatFightState : State<PlayerCombatBehavior>
@@ -11,9 +12,11 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     private float _lastShotTime = 0f;
     private WeaponStatsSO _weaponStats;
+
     
     public override void Enter()
     {
+        //Time.timeScale = 0.1f;
         Debug.Log("<color=magenta>Entered combat fight state</color>");
         _weaponStats = context.PistolStats;
     }
@@ -27,6 +30,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
             //var bullet = context.Runner.Spawn(context.BulletPrefab, context.BulletRef.position, context.BulletRef.rotation);
             //bullet.gameObject.SetActive(true);
             
+            //TODO instantiate the particle, not play LOL
             context.PistolStats.MuzzleFlashParticle.Play();
 
             var direction = GetDirection();
@@ -34,10 +38,13 @@ public class CombatFightState : State<PlayerCombatBehavior>
             if (Physics.Raycast(context.BulletRef.position, direction, out RaycastHit hit,
                     float.MaxValue, _weaponStats.Mask))
             {
-                TrailRenderer trail = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
-                    Quaternion.identity);
-
-                context.StartCoroutine(SpawnTrail(trail, hit));
+                ProjectileBase newProjectile = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
+                    Quaternion.LookRotation(context.BulletRef.transform.forward));
+                newProjectile.Shoot(context.MuzzleWorldVelocity);
+                /*GameObject trail = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
+                    Quaternion.identity);*/
+                
+                //context.StartCoroutine(SpawnTrail(trail, hit));
             }
         }
 
@@ -49,19 +56,21 @@ public class CombatFightState : State<PlayerCombatBehavior>
     {
         float time = 0;
         Vector3 startPosition = trail.transform.position;
+        float distance = Vector3.Distance(startPosition, hit.point);
+        float duration = distance / _weaponStats.TrailSpeed; 
 
-        while (time < 1)
+        while (time < duration)
         {
-            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
-            time += Time.deltaTime / _weaponStats.TrailTime;
-
+            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time / duration);
+            time += Time.deltaTime;
+    
             yield return null;
         }
 
         trail.transform.position = hit.point;
         Object.Instantiate(_weaponStats.ImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
-        
-        //TODO remove this
+
+        // Optional: Destroy the trail after some time
         Object.Destroy(trail.gameObject, trail.time);
     }
 
