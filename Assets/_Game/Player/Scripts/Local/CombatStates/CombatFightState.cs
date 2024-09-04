@@ -26,52 +26,63 @@ public class CombatFightState : State<PlayerCombatBehavior>
         if (context.Runner.LocalRenderTime - _lastShotTime > _weaponStats.DelayBetweenShots)
         {
             _lastShotTime = context.Runner.LocalRenderTime;
-
-            //var bullet = context.Runner.Spawn(context.BulletPrefab, context.BulletRef.position, context.BulletRef.rotation);
-            //bullet.gameObject.SetActive(true);
             
             //TODO instantiate the particle, not play LOL
             context.PistolStats.MuzzleFlashParticle.Play();
 
             var direction = GetDirection();
-            
-            if (Physics.Raycast(context.BulletRef.position, direction, out RaycastHit hit,
-                    float.MaxValue, _weaponStats.Mask))
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            // Check if the raycast hits something
+            if (Physics.Raycast(context.BulletRef.position, direction, out hit, float.MaxValue, _weaponStats.Mask))
             {
-                ProjectileBase newProjectile = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
-                    Quaternion.LookRotation(context.BulletRef.transform.forward));
-                newProjectile.Shoot(context.MuzzleWorldVelocity);
-                /*GameObject trail = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
-                    Quaternion.identity);*/
-                
-                //context.StartCoroutine(SpawnTrail(trail, hit));
+                targetPoint = hit.point;  // If hit, the target point is the hit point
             }
+            else
+            {
+                // If no hit, calculate a faraway point in the shooting direction
+                targetPoint = context.BulletRef.position + direction * 1000f; // 1000 units away
+            }
+
+            // Instantiate the projectile
+            ProjectileBase newProjectile = Object.Instantiate(_weaponStats.BulletTrail, context.BulletRef.position,
+                Quaternion.LookRotation(direction));
+        
+            // Start the trail coroutine
+            context.StartCoroutine(SpawnTrail(newProjectile, targetPoint, hit));
         }
 
         if (!context.InputReader.ShootStatus)
             stateMachine.ChangeState(context.CombatIdleState);
     }
 
-    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    private IEnumerator SpawnTrail(ProjectileBase trail, Vector3 targetPoint, RaycastHit hit)
     {
         float time = 0;
         Vector3 startPosition = trail.transform.position;
-        float distance = Vector3.Distance(startPosition, hit.point);
+        float distance = Vector3.Distance(startPosition, targetPoint);
         float duration = distance / _weaponStats.TrailSpeed; 
 
         while (time < duration)
         {
-            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time / duration);
+            trail.transform.position = Vector3.Lerp(startPosition, targetPoint, time / duration);
             time += Time.deltaTime;
-    
+
             yield return null;
         }
+    
+        // Destroy the trail after reaching the target point
+        Object.Destroy(trail.gameObject);
 
-        trail.transform.position = hit.point;
-        Object.Instantiate(_weaponStats.ImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+        // If there was a hit, instantiate impact particle
+        if (hit.collider != null)
+        {
+            Object.Instantiate(_weaponStats.ImpactParticle, hit.point, Quaternion.LookRotation(hit.normal));
+        }
 
         // Optional: Destroy the trail after some time
-        Object.Destroy(trail.gameObject, trail.time);
+        //Object.Destroy(trail.gameObject, 5f);
     }
 
     private Vector3 GetDirection()

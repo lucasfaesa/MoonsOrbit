@@ -120,6 +120,7 @@ namespace Unity.FPS.Gameplay
 
         void Update()
         {
+            return;
             // Move
             transform.position += m_Velocity * Time.deltaTime;
             if (InheritWeaponVelocity)

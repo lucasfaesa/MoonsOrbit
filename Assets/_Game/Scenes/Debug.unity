@@ -289,7 +289,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make weapon appear to other players
+  todoList: '- make possible to shoot anywhere
+
+    - make bullet trails networked
+
+    -
+    refactor bullet trails code
+
+    - re-add the bullet impact
+
+    - add the muzzle
+    flash
+
+    - make weapon appear to other players
 
     - pool trails
 
@@ -299,13 +311,11 @@ MonoBehaviour:
     - fix bullet not being able to shoot unless hitscan hit something
 
     -
-    fix bullet speed varying when target is close or far
+    instantiate the muzzle flash particle, not play it
 
     - fix player not being
     able to walk when looking at 90 degrees up or down
 
-    - instantiate the muzzle
-    flash particle, not play it
 
 '
 --- !u!4 &376955803
