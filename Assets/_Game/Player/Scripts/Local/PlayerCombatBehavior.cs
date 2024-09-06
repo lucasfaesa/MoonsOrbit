@@ -7,25 +7,25 @@ using LocalPlayer;
 using Networking;
 using UnityEngine;
 
-public class PlayerCombatBehavior : SimulationBehaviour
+public class PlayerCombatBehavior : MonoBehaviour
 {
     [Header("SOs")]
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
-
     [Space] 
     [SerializeField] private WeaponStatsSO pistolStats;
-    [Header("Other")] 
-    [SerializeField] private Transform bulletRef;
-    [SerializeField] private BulletBehavior bulletPrefab;
+    [Header("Networking")] 
+    [SerializeField] private LocalPlayerToPuppetSynchronizer localPlayerToPuppetSynchronizer;
+    [Header("Other")]
+    [SerializeField] private Transform gunMuzzleRef;
     
     private StateMachine<PlayerCombatBehavior> _stateMachine = new();
     
     public InputReaderSO InputReader => inputReader;
     public PlayerStatsSO PlayerStats => playerStats;
-    public Transform BulletRef => bulletRef;
-    public BulletBehavior BulletPrefab => bulletPrefab;
+    public Transform GunMuzzleRef => gunMuzzleRef;
     public WeaponStatsSO PistolStats => pistolStats;
+    public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     
     public Vector3 MuzzleWorldVelocity { get; set; }
     
@@ -36,24 +36,8 @@ public class PlayerCombatBehavior : SimulationBehaviour
     
     private Vector3 _lastMuzzlePosition;
     
-    public IEnumerator Start()
+    public void Start()
     {
-        
-        Debug.Log("Init");
-        while (!NetworkManager.Instance.RunnerInitialized)
-            yield return null;
-        
-        var runner = NetworkManager.Instance.NetworkRunner;
-        Debug.Log($"Found Runner: {runner != null}");
-        
-        while (!runner.IsRunning)
-            yield return null;
-            
-        
-        runner.AddGlobal(this);
-        Debug.Log("Added Global");
-        
-        
         inputReader.EnableInputActions();
         
         CombatIdleState = new CombatIdleState(this, _stateMachine);
@@ -62,12 +46,12 @@ public class PlayerCombatBehavior : SimulationBehaviour
         _stateMachine.Initialize(CombatIdleState);
     }
 
-    public override void Render()
+    private void Update()
     {
-        base.Render();
-        MuzzleWorldVelocity = (BulletRef.position - _lastMuzzlePosition) / Runner.DeltaTime;
-        _lastMuzzlePosition = BulletRef.position;
+        MuzzleWorldVelocity = (GunMuzzleRef.position - _lastMuzzlePosition) / Time.deltaTime;
+        _lastMuzzlePosition = GunMuzzleRef.position;
+        
         _stateMachine.Update();
     }
-
+    
 }

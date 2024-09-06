@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3659995153115176982}
-  - component: {fileID: 8924682559891268397}
+  - component: {fileID: 4014543480331847223}
+  - component: {fileID: 3151860457728857059}
+  - component: {fileID: 2411927217445719015}
   m_Layer: 0
-  m_Name: Projectile_Blaster
+  m_Name: BulletTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +29,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 6.1229415}
+  m_LocalScale: {x: 0.72849995, y: 0.7284999, z: 2.984934}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8402172112652589804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8924682559891268397
+--- !u!114 &4014543480331847223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,58 +44,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 3659995153115176983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de99b30e1e73fd14e98cc5371da25d12, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f397f5d5da1eee458068e449dd2de1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0.01
-  Root: {fileID: 3659995153115176982}
-  Tip: {fileID: 1135791333161367127}
-  MaxLifeTime: 5
-  ImpactVfx: {fileID: 7655095426451682942, guid: a7d68b1a502e02a49b8efb1b86a8c931,
-    type: 3}
-  ImpactVfxLifetime: 5
-  ImpactVfxSpawnOffset: 0.1
-  ImpactSfxClip: {fileID: 0}
-  HittableLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  Speed: 300
-  GravityDownAcceleration: 0
-  TrajectoryCorrectionDistance: 5
-  InheritWeaponVelocity: 0
-  Damage: 15
-  RadiusColor: {r: 0, g: 1, b: 0.9007921, a: 1}
---- !u!1 &5564024855854763701
-GameObject:
+--- !u!114 &3151860457728857059
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1135791333161367127}
-  m_Layer: 0
-  m_Name: Tip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1135791333161367127
-Transform:
+  m_GameObject: {fileID: 3659995153115176983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
+--- !u!114 &2411927217445719015
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5564024855854763701}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 101.4293}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8402172112652589804}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 3659995153115176983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3702591215
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3151860457728857059}
 --- !u!1 &8402172112652879564
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,11 +108,10 @@ Transform:
   m_GameObject: {fileID: 8402172112652879564}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1135791333161367127}
+  m_Children: []
   m_Father: {fileID: 3659995153115176982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8402172112653884108

@@ -289,32 +289,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make possible to shoot anywhere
+  todoList: '- remove trail speed and impact particle from pistolSO and put somewhere
+    more general
 
-    - make bullet trails networked
+    - organize folders
 
-    -
-    refactor bullet trails code
-
-    - re-add the bullet impact
-
-    - add the muzzle
-    flash
-
-    - make weapon appear to other players
-
-    - pool trails
+    - add the muzzle flash
 
     - pool
-    bullet marks
+    trails
 
-    - fix bullet not being able to shoot unless hitscan hit something
+    - pool bullet marks
 
-    -
-    instantiate the muzzle flash particle, not play it
+    - pool muzzle flash
 
-    - fix player not being
-    able to walk when looking at 90 degrees up or down
+    - instantiate the
+    muzzle flash particle, not play it
+
+    - fix player not being able to walk when
+    looking at 90 degrees up or down
 
 
 '
@@ -637,21 +630,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LocalPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792941494703024776, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.308
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792941494703024776, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.155
-      objectReference: {fileID: 0}
-    - target: {fileID: 2792941494703024776, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.365
       objectReference: {fileID: 0}
     - target: {fileID: 4152742069830811091, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
@@ -1132,11 +1110,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 376955803}
+  - {fileID: 2147653229707471306}
   - {fileID: 2062801532}
   - {fileID: 1920284069}
   - {fileID: 135668048}
   - {fileID: 1029741807}
-  - {fileID: 2147653229707471306}
   - {fileID: 253304542}
   - {fileID: 2108542538}
   - {fileID: 800254200}
