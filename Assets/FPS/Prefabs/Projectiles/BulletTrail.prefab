@@ -47,6 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f397f5d5da1eee458068e449dd2de1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  metalHitEffectPrefab: {fileID: 9064919875212695174, guid: a5e1e2c4d2cd81f4abed6272a2b8187a,
+    type: 3}
+  bloodHitEffectPrefab: {fileID: 8254822079367412463, guid: 0d018a6ccd6659545a514109b64274fd,
+    type: 3}
+  goopHitEffectPrefab: {fileID: 5018703112710723111, guid: d972246566e0caa458ac5ef645ffa563,
+    type: 3}
 --- !u!114 &3151860457728857059
 MonoBehaviour:
   m_ObjectHideFlags: 0

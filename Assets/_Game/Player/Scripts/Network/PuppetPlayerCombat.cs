@@ -52,6 +52,6 @@ public class PuppetPlayerCombat : NetworkBehaviour
         var newProjectile = Instantiate(bulletTrail, gunMuzzleRef.position, Quaternion.LookRotation(data.Direction));
         newProjectile.transform.position += _muzzleWorldVelocity * Runner.DeltaTime;
         
-        newProjectile.Initialize(data.Target, data.TrailSpeed, data.HitSomething, impactParticle, data.TargetNormal);
+        newProjectile.Initialize(data.Target, data.TrailSpeed, data.HitSomething, data.TargetType, data.TargetNormal);
     }
 }

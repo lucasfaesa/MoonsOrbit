@@ -6,6 +6,7 @@ using Fusion;
 using LocalPlayer;
 using Networking;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombatBehavior : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
     [Space] 
+    [SerializeField] private ParticleSystem muzzleFlashParticle;
     [SerializeField] private WeaponStatsSO pistolStats;
     [Header("Networking")] 
     [SerializeField] private LocalPlayerToPuppetSynchronizer localPlayerToPuppetSynchronizer;
@@ -26,6 +28,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     public Transform GunMuzzleRef => gunMuzzleRef;
     public WeaponStatsSO PistolStats => pistolStats;
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
+    public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
     
     public Vector3 MuzzleWorldVelocity { get; set; }
     
@@ -50,6 +53,11 @@ public class PlayerCombatBehavior : MonoBehaviour
     {
         MuzzleWorldVelocity = (GunMuzzleRef.position - _lastMuzzlePosition) / Time.deltaTime;
         _lastMuzzlePosition = GunMuzzleRef.position;
+
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            Time.timeScale = 0.05f;
+        if (Keyboard.current.digit1Key.wasReleasedThisFrame)
+            Time.timeScale = 1f;
         
         _stateMachine.Update();
     }

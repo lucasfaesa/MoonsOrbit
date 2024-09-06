@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Fusion;
+using Helpers;
 using UnityEngine;
 
 namespace Networking
@@ -96,13 +97,15 @@ public struct BulletTrailNetworkData : INetworkInput
     public NetworkBool HitSomething { get; set; }
     public Vector3 TargetNormal { get; set; }
     public Vector3 Direction { get; set; }
+    public ConstantsManager.TargetType TargetType { get; set; }
     public float TrailSpeed { get; set; }
 
-    public BulletTrailNetworkData(Vector3 target, NetworkBool hit, Vector3 normal, Vector3 direction, float trailSpeed)
+    public BulletTrailNetworkData(Vector3 target, NetworkBool hit, Vector3 normal, Vector3 direction, ConstantsManager.TargetType type, float trailSpeed)
     {
         Target = target;
         HitSomething = hit;
         TargetNormal = normal;
+        TargetType = type;
         Direction = direction;
         TrailSpeed = trailSpeed;
     }
