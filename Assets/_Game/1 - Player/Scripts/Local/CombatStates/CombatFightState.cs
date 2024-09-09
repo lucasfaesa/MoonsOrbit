@@ -85,8 +85,8 @@ public class CombatFightState : State<PlayerCombatBehavior>
         
         return layerName switch
         {
-            "Player" or "NetworkPlayer" => ConstantsManager.TargetType.HUMAN,
-            "Enemy" => ConstantsManager.TargetType.MONSTER,
+            ConstantsManager.PlayerLayer or ConstantsManager.NetworkPlayerLayer => ConstantsManager.TargetType.HUMAN,
+            ConstantsManager.EnemyLayer => ConstantsManager.TargetType.MONSTER,
             _ => ConstantsManager.TargetType.METAL
         };
     }
