@@ -12,12 +12,7 @@ public class WeaponStatsSO : ScriptableObject
     
     [field:SerializeField] public bool HasBulletSpread { get; private set; }
     [field:ShowIf("HasBulletSpread")] [field: SerializeField] public Vector3 BulletSpreadVariance { get; private set; } = new Vector3(0.1f, 0.1f, 0.1f);
-
-    [field: SerializeField] public ParticleSystem MuzzleFlashParticle { get; private set; }
-    [field: SerializeField] public ParticleSystem ImpactParticle { get; private set; }
-    [field: SerializeField] public BulletTrailBehavior BulletTrail { get; private set; }
-    [field: SerializeField] public float TrailSpeed { get; private set; } = 15f;
-
+    
     [field: SerializeField] public LayerMask Mask { get; private set; }
     
 

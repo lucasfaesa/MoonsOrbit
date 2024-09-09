@@ -289,15 +289,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- remove trail speed and impact particle from pistolSO and put somewhere
-    more \ngeneral and muzzle flash particle\n- pool in puppet, trail, muzzle e hit
-    effects\n- gun animation (back and forth)\n- reload system\n- fix player not
-    being able to walk when looking at 90 degrees up or down\n- character controller
-    collider doesnt work when receiving raycasts, so, put all characters\ncontrollers
-    on a different layer from the player, and create a collider only to receive raycasts\nso
-    te bullet marks appears\n\n- Uma possibilidade \xE9 mandar s\xF3 que foi realizado
-    o clique com o mouse\n e o puppet player fazer todo o raycast e instanciar o
-    trail e o impact e tal\nao inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
+  todoList: "- pool in puppet, trail, muzzle e hit effects\n- gun animation (back
+    and forth)\n- reload system\n- fix player not being able to walk when looking
+    at 90 degrees up or down\n- character controller collider doesnt work when receiving
+    raycasts, so, put all characters\ncontrollers on a different layer from the player,
+    and create a collider only to receive raycasts\nso te bullet marks appears\n\n-
+    Uma possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n
+    e o puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
+    inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
   m_ObjectHideFlags: 0
@@ -508,85 +507,6 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!1001 &673825340
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1841957730}
-    m_Modifications:
-    - target: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_Name
-      value: MuzzleFlash
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198515452120210940, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
---- !u!4 &673825341 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 673825340}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &673825342 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 673825340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &800254197
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,18 +667,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4589021415814109792, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: muzzleFlashParticle
-      value: 
-      objectReference: {fileID: 673825342}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2792941494703024776, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 673825341}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b36878f162d9d624587982cba1290a01, type: 3}
 --- !u!1 &1452404124
@@ -1011,12 +922,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b36878f162d9d624587982cba1290a01, type: 3}
---- !u!4 &1841957730 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2792941494703024776, guid: b36878f162d9d624587982cba1290a01,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1920284067
 GameObject:
   m_ObjectHideFlags: 0

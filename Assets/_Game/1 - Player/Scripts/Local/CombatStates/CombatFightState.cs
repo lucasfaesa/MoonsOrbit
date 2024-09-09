@@ -31,7 +31,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
         if (!_poolInitialized)
             InitPools();
             
-        Debug.Log("<color=magenta>Entered combat fight state</color>");
+        //Debug.Log("<color=magenta>Entered combat fight state</color>");
         _weaponStats = context.PistolStats;
     }
 
@@ -76,7 +76,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
         
         //sending trail stats to puppet
         context.LocalPlayerToPuppetSynchronizer.SetBulletTrailData(new BulletTrailNetworkData(_targetPoint, _hitSomething, 
-                                                                    _hit.normal, _shotDirection, _targetType, _weaponStats.TrailSpeed));
+                                                                    _hit.normal, _shotDirection, _targetType, context.TrailSpeed));
     }
 
     private ConstantsManager.TargetType GetLayerHit(int layer)
@@ -113,7 +113,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
     private BulletTrailBehavior CreateTrailPrefab()
     {
-        var newPoolObject = Object.Instantiate(_weaponStats.BulletTrail, context.GunMuzzleRef.position, Quaternion.LookRotation(_shotDirection));
+        var newPoolObject = Object.Instantiate(context.BulletTrailPrefab, context.GunMuzzleRef.position, Quaternion.LookRotation(_shotDirection));
         newPoolObject.ObjectPool = _bulletTrailPool;
         return newPoolObject;
     }
@@ -127,7 +127,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     {
         pooledObject.transform.SetPositionAndRotation(context.GunMuzzleRef.position, Quaternion.LookRotation(_shotDirection));
         pooledObject.transform.position += context.MuzzleWorldVelocity * Time.deltaTime; //moving the trail to fit neatly on the muzzle position, without this, moving and shooting the bullet starts to instantiate on the air instead of the muzzle pos 
-        pooledObject.Initialize(_targetPoint, _weaponStats.TrailSpeed, _hitSomething, _targetType , _hit.normal);
+        pooledObject.Initialize(_targetPoint, context.TrailSpeed, _hitSomething, _targetType , _hit.normal);
         
         pooledObject.gameObject.SetActive(true);
     }

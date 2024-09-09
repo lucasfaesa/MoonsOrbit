@@ -11,7 +11,7 @@ public class CombatIdleState : State<PlayerCombatBehavior>
 
     public override void Enter()
     {
-        Debug.Log("<color=blue>Entered combat idle state</color>");
+        //Debug.Log("<color=blue>Entered combat idle state</color>");
     }
 
     public override void LogicUpdate()

@@ -14,22 +14,26 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
     [Space] 
+    [Header("Refs")]
     [SerializeField] private ParticleSystem muzzleFlashParticle;
+    [SerializeField] private BulletTrailBehavior bulletTrailPrefab;
+    [SerializeField] private Transform gunMuzzleRef;
+    [Header("Stats")]
     [SerializeField] private WeaponStatsSO pistolStats;
+    [SerializeField] private float trailSpeed = 300f;  
     [Header("Networking")] 
     [SerializeField] private LocalPlayerToPuppetSynchronizer localPlayerToPuppetSynchronizer;
-    [Header("Other")]
-    [SerializeField] private Transform gunMuzzleRef;
     
     private StateMachine<PlayerCombatBehavior> _stateMachine = new();
     
     public InputReaderSO InputReader => inputReader;
-    public PlayerStatsSO PlayerStats => playerStats;
     public Transform GunMuzzleRef => gunMuzzleRef;
     public WeaponStatsSO PistolStats => pistolStats;
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
-    
+
+    public float TrailSpeed => trailSpeed;
+    public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; set; }
     
     //----- State Machine things -----
