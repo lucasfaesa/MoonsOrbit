@@ -289,11 +289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- gun animation (back and forth)\n- reload system\n- fix player not
-    being able to walk when looking at 90 degrees up or down\n- character controller
-    collider doesnt work when receiving raycasts, so, put all characters\ncontrollers
-    on a different layer from the player, and create a collider only to receive raycasts\nso
-    te bullet marks appears\n\n- Uma possibilidade \xE9 mandar s\xF3 que foi realizado
+  todoList: "- reload system\n- fix player not being able to walk when looking at
+    90 degrees up or down\n- see how to shoot to the center of the screen, and shoot
+    at a close distance\n\n\n\n\n- Uma possibilidade \xE9 mandar s\xF3 que foi realizado
     o clique com o mouse\n e o puppet player fazer todo o raycast e instanciar o
     trail e o impact e tal\nao inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
@@ -688,7 +686,7 @@ GameObject:
   - component: {fileID: 1452404127}
   - component: {fileID: 1452404126}
   - component: {fileID: 1452404125}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

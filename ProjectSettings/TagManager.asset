@@ -14,8 +14,8 @@ TagManager:
   - NetworkPlayer
   - Player
   - WeaponLayer
-  - 
-  - 
+  - PlayerHitDetectionCollider
+  - NetworkPlayerHitDetectionCollider
   - 
   - 
   - 

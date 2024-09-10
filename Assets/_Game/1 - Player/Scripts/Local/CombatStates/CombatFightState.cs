@@ -101,7 +101,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
         
         return layerName switch
         {
-            ConstantsManager.PLAYER_LAYER or ConstantsManager.NETWORK_PLAYER_LAYER => ConstantsManager.TargetType.HUMAN,
+            ConstantsManager.PLAYER_HIT_DETECTION_COLLIDER_LAYER or ConstantsManager.NETWORK_PLAYER_HIT_DETECTION_COLLIDER_LAYER => ConstantsManager.TargetType.HUMAN,
             ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.MONSTER,
             _ => ConstantsManager.TargetType.METAL
         };
