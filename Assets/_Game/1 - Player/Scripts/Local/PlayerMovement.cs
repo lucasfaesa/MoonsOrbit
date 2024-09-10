@@ -57,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public void HandleMovement()
     {
         Vector2 direction = inputReader.Direction;
-        Vector3 moveDirection = playerCamera.transform.right * direction.x +
-                                playerCamera.transform.forward * direction.y;
+        Vector3 moveDirection = playerCamera.transform.right * direction.x + this.transform.forward * direction.y;
         
         Move(moveDirection);
     }
