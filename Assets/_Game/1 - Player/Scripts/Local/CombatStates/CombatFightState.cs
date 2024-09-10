@@ -22,8 +22,6 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     private IObjectPool<BulletTrailBehavior> _bulletTrailPool;
     
-    private ParticleSystem _currentMuzzleFlash;
-    
     private bool _poolInitialized;
     
     public override void Enter()
@@ -75,8 +73,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
         _bulletTrailPool.Get();
         
         //sending trail stats to puppet
-        context.LocalPlayerToPuppetSynchronizer.SetBulletTrailData(new BulletTrailNetworkData(_targetPoint, _hitSomething, 
-                                                                    _hit.normal, _shotDirection, _targetType, context.TrailSpeed));
+        context.LocalPlayerToPuppetSynchronizer.SetBulletTrailData(new BulletTrailNetworkData(_targetPoint, _hitSomething, _hit.normal, _shotDirection, _targetType));
     }
 
     private ConstantsManager.TargetType GetLayerHit(int layer)
@@ -85,8 +82,8 @@ public class CombatFightState : State<PlayerCombatBehavior>
         
         return layerName switch
         {
-            ConstantsManager.PlayerLayer or ConstantsManager.NetworkPlayerLayer => ConstantsManager.TargetType.HUMAN,
-            ConstantsManager.EnemyLayer => ConstantsManager.TargetType.MONSTER,
+            ConstantsManager.PLAYER_LAYER or ConstantsManager.NETWORK_PLAYER_LAYER => ConstantsManager.TargetType.HUMAN,
+            ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.MONSTER,
             _ => ConstantsManager.TargetType.METAL
         };
     }
@@ -127,7 +124,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     {
         pooledObject.transform.SetPositionAndRotation(context.GunMuzzleRef.position, Quaternion.LookRotation(_shotDirection));
         pooledObject.transform.position += context.MuzzleWorldVelocity * Time.deltaTime; //moving the trail to fit neatly on the muzzle position, without this, moving and shooting the bullet starts to instantiate on the air instead of the muzzle pos 
-        pooledObject.Initialize(_targetPoint, context.TrailSpeed, _hitSomething, _targetType , _hit.normal);
+        pooledObject.Initialize(_targetPoint, _hitSomething, _targetType , _hit.normal);
         
         pooledObject.gameObject.SetActive(true);
     }

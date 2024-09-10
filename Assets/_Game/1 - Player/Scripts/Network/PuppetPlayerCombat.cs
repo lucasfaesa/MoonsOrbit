@@ -1,6 +1,7 @@
 using Fusion;
 using Networking;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PuppetPlayerCombat : NetworkBehaviour
 {
@@ -8,34 +9,44 @@ public class PuppetPlayerCombat : NetworkBehaviour
     [SerializeField] private Transform gunMuzzleRef;
     [SerializeField] private Transform gunTransform;
     [Space]
-    [SerializeField] private BulletTrailBehavior bulletTrail;
-    [SerializeField] private ParticleSystem impactParticle;
+    [SerializeField] private BulletTrailBehavior bulletTrailPrefab;
+    [SerializeField] private ParticleSystem muzzleFlashParticle;
+    
+    private IObjectPool<BulletTrailBehavior> _bulletTrailPool;
+    
+    private BulletTrailNetworkData _networkData;
 
     private bool _isLocalPlayer;
-
-    public Vector3 _muzzleWorldVelocity;
+    private Vector3 _muzzleWorldVelocity;
     private Vector3 _lastMuzzlePosition;
     
     public override void Spawned()
     {
         base.Spawned();
         _isLocalPlayer = Object.HasStateAuthority;
+        
+        _bulletTrailPool = new ObjectPool<BulletTrailBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
+            OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
     }
 
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
-
+        
         if (!GetInput<PuppetPlayerInputData>(out var inputData))
             return;
+        
+        CalculateMuzzleVelocity();
         
         var gunTransformNetData = inputData.GunTransformNetworkData;
         
         gunTransform.SetPositionAndRotation(gunTransformNetData.GunModelVisualPos, gunTransformNetData.GunModelVisualRot);
         gunMuzzleRef.SetPositionAndRotation(gunTransformNetData.GunMuzzleRefPos, gunTransformNetData.GunMuzzleRefRot);
-        
+
         if (inputData.HasShotThisFrame)
+        {
             InstantiateBulletRPC(inputData.BulletTrailNetworkData);
+        }
     }
 
     private void CalculateMuzzleVelocity()
@@ -45,13 +56,38 @@ public class PuppetPlayerCombat : NetworkBehaviour
     }
     
     //this will be called by only the input authority and be executed on All (including the input authority), but the InvokeLocal removes that execution on input authority
-    //because I want to invoke my bullets trails locally somewhere
+    //because I want to invoke my bullets trails locally somewhere (in CombatFightState)
     [Rpc(RpcSources.InputAuthority, RpcTargets.All, InvokeLocal = false)]
     private void InstantiateBulletRPC(BulletTrailNetworkData data)
     {
-        var newProjectile = Instantiate(bulletTrail, gunMuzzleRef.position, Quaternion.LookRotation(data.Direction));
-        newProjectile.transform.position += _muzzleWorldVelocity * Runner.DeltaTime;
+        muzzleFlashParticle.Play();
+        _networkData = data;
+        _bulletTrailPool.Get();
+    }
+    
+    private BulletTrailBehavior CreateTrailPrefab()
+    {
+        var newPoolObject = Instantiate(bulletTrailPrefab, gunMuzzleRef.position, Quaternion.LookRotation(_networkData.Direction));
+        newPoolObject.ObjectPool = _bulletTrailPool;
+        return newPoolObject;
+    }
+
+    private void OnReleaseToTrailPool(BulletTrailBehavior pooledObject)
+    {
+        pooledObject.gameObject.SetActive(false);
+    }
+    
+    private void OnGetFromTrailPool(BulletTrailBehavior pooledObject)
+    {
+        pooledObject.transform.SetPositionAndRotation(gunMuzzleRef.position, Quaternion.LookRotation(_networkData.Direction));
+        pooledObject.transform.position += _muzzleWorldVelocity * Runner.DeltaTime; //moving the trail to fit neatly on the muzzle position, without this, moving and shooting the bullet starts to instantiate on the air instead of the muzzle pos 
+        pooledObject.Initialize(_networkData.Target, _networkData.HitSomething, _networkData.TargetType, _networkData.TargetNormal);
         
-        newProjectile.Initialize(data.Target, data.TrailSpeed, data.HitSomething, data.TargetType, data.TargetNormal);
+        pooledObject.gameObject.SetActive(true);
+    }
+    
+    private void OnDestroyTrailOnPool(BulletTrailBehavior pooledObject)
+    {
+        Destroy(pooledObject.gameObject);
     }
 }

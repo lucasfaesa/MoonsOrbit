@@ -13,6 +13,9 @@ namespace Networking
     public class BulletTrailBehavior : MonoBehaviour
     {
 
+        [Header("Refs")] 
+        [SerializeField] private float trailSpeed = 300f;
+        [Space]
         [SerializeField] private ParticleSystem metalHitEffectPrefab;
         [SerializeField] private ParticleSystem bloodHitEffectPrefab;
         [SerializeField] private ParticleSystem goopHitEffectPrefab;
@@ -43,7 +46,7 @@ namespace Networking
             CreatePools();
         }
         
-        public void Initialize(Vector3 target, float speed, bool hitSomething, ConstantsManager.TargetType targetType, Vector3 hitNormal)
+        public void Initialize(Vector3 target, bool hitSomething, ConstantsManager.TargetType targetType, Vector3 hitNormal)
         {
             _targetPoint = target; 
             _hitSomething = hitSomething;
@@ -55,7 +58,7 @@ namespace Networking
             _elapsedTime = 0;
             _startPosition = this.transform.position;
             _distance = Vector3.Distance(_startPosition, _targetPoint);
-            _duration = _distance / speed;
+            _duration = _distance / trailSpeed;
 
             _initialized = true;
         }

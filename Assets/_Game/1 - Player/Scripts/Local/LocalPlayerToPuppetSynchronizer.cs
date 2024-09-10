@@ -98,15 +98,13 @@ public struct BulletTrailNetworkData : INetworkInput
     public Vector3 TargetNormal { get; set; }
     public Vector3 Direction { get; set; }
     public ConstantsManager.TargetType TargetType { get; set; }
-    public float TrailSpeed { get; set; }
 
-    public BulletTrailNetworkData(Vector3 target, NetworkBool hit, Vector3 normal, Vector3 direction, ConstantsManager.TargetType type, float trailSpeed)
+    public BulletTrailNetworkData(Vector3 target, NetworkBool hit, Vector3 normal, Vector3 direction, ConstantsManager.TargetType type)
     {
         Target = target;
         HitSomething = hit;
         TargetNormal = normal;
         TargetType = type;
         Direction = direction;
-        TrailSpeed = trailSpeed;
     }
 }

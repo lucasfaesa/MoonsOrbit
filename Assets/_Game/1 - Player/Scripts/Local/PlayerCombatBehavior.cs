@@ -20,7 +20,6 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private Transform gunMuzzleRef;
     [Header("Stats")]
     [SerializeField] private WeaponStatsSO pistolStats;
-    [SerializeField] private float trailSpeed = 300f;  
     [Header("Networking")] 
     [SerializeField] private LocalPlayerToPuppetSynchronizer localPlayerToPuppetSynchronizer;
     
@@ -31,8 +30,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     public WeaponStatsSO PistolStats => pistolStats;
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
-
-    public float TrailSpeed => trailSpeed;
+    
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; set; }
     
