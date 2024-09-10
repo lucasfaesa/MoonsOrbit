@@ -13,8 +13,9 @@ public class PlayerCombatBehavior : MonoBehaviour
     [Header("SOs")]
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
-    [Space] 
-    [Header("Refs")]
+
+    [Space] [Header("Refs")] 
+    [SerializeField] private Transform playerWeaponHolder;
     [SerializeField] private ParticleSystem muzzleFlashParticle;
     [SerializeField] private BulletTrailBehavior bulletTrailPrefab;
     [SerializeField] private Transform gunMuzzleRef;
@@ -30,7 +31,8 @@ public class PlayerCombatBehavior : MonoBehaviour
     public WeaponStatsSO PistolStats => pistolStats;
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
-    
+
+    public Transform PlayerWeaponHolder => playerWeaponHolder;
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; set; }
     

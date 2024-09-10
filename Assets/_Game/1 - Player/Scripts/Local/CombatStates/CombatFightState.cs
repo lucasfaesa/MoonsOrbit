@@ -1,5 +1,6 @@
 using System.Collections;
 using DesignPatterns;
+using DG.Tweening;
 using Fusion;
 using Helpers;
 using Networking;
@@ -22,12 +23,24 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     private IObjectPool<BulletTrailBehavior> _bulletTrailPool;
     
-    private bool _poolInitialized;
+    private bool _initialized;
+
+    private Sequence _gunRecoilSequence;
     
     public override void Enter()
     {
-        if (!_poolInitialized)
+        if (!_initialized)
+        {
             InitPools();
+            
+            _gunRecoilSequence = 
+                DOTween.Sequence().Append(context.PlayerWeaponHolder.DOLocalMoveZ(-0.019f, 0.05f).SetEase(Ease.OutSine))
+                .Append(context.PlayerWeaponHolder.DOLocalMoveZ(0f, 0.1f).SetEase(Ease.InOutSine))
+                .Pause()
+                .SetAutoKill(false);
+            
+            _initialized = true;
+        }
             
         //Debug.Log("<color=magenta>Entered combat fight state</color>");
         _weaponStats = context.PistolStats;
@@ -35,7 +48,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
     private void InitPools()
     {
-        _poolInitialized = true;
+        
         
         _bulletTrailPool = new ObjectPool<BulletTrailBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
             OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
@@ -58,7 +71,8 @@ public class CombatFightState : State<PlayerCombatBehavior>
         _shotDirection = GetDirection();
         _hitSomething = false;
         _targetType = ConstantsManager.TargetType.NONE;
-        
+
+        GunRecoilAnimation();
         context.MuzzleFlashParticle.Play();
         
         if (Physics.Raycast(context.GunMuzzleRef.position, _shotDirection, out _hit, float.MaxValue, _weaponStats.Mask))
@@ -74,6 +88,11 @@ public class CombatFightState : State<PlayerCombatBehavior>
         
         //sending trail stats to puppet
         context.LocalPlayerToPuppetSynchronizer.SetBulletTrailData(new BulletTrailNetworkData(_targetPoint, _hitSomething, _hit.normal, _shotDirection, _targetType));
+    }
+
+    private void GunRecoilAnimation()
+    {
+        _gunRecoilSequence.Restart();
     }
 
     private ConstantsManager.TargetType GetLayerHit(int layer)

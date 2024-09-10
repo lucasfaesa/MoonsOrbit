@@ -289,14 +289,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- pool in puppet, trail, muzzle e hit effects\n- gun animation (back
-    and forth)\n- reload system\n- fix player not being able to walk when looking
-    at 90 degrees up or down\n- character controller collider doesnt work when receiving
-    raycasts, so, put all characters\ncontrollers on a different layer from the player,
-    and create a collider only to receive raycasts\nso te bullet marks appears\n\n-
-    Uma possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n
-    e o puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
-    inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
+  todoList: "- gun animation (back and forth)\n- reload system\n- fix player not
+    being able to walk when looking at 90 degrees up or down\n- character controller
+    collider doesnt work when receiving raycasts, so, put all characters\ncontrollers
+    on a different layer from the player, and create a collider only to receive raycasts\nso
+    te bullet marks appears\n\n- Uma possibilidade \xE9 mandar s\xF3 que foi realizado
+    o clique com o mouse\n e o puppet player fazer todo o raycast e instanciar o
+    trail e o impact e tal\nao inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
   m_ObjectHideFlags: 0
@@ -667,6 +666,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7988320210516262781, guid: b36878f162d9d624587982cba1290a01,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -795,7 +799,7 @@ PrefabInstance:
     - target: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_Name
-      value: LocalPlayer (1)
+      value: clone
       objectReference: {fileID: 0}
     - target: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
