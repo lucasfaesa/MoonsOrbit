@@ -16,6 +16,7 @@ namespace LocalPlayer
        [SerializeField] private InputActionReference jump;
        [SerializeField] private InputActionReference shoot;
        [SerializeField] private InputActionReference aim;
+       [SerializeField] private InputActionReference reload;
        
        
        private Dictionary<string, InputActionReference> _allActions = new();    
@@ -24,10 +25,12 @@ namespace LocalPlayer
        public NetworkBool JumpStatus { get; private set; } = false;
        public NetworkBool ShootStatus { get; private set; } = false;
        public NetworkBool AimStatus { get; private set; } = false;
+       public NetworkBool ReloadStatus { get; private set; } = false;
        
        public event Action<bool> Jump;
        public event Action<bool> Shoot;
        public event Action<bool> Aim;
+       public event Action<bool> Reload;
        
        public void EnableInputActions()
        {
@@ -36,6 +39,7 @@ namespace LocalPlayer
            _allActions.TryAdd(jump.action.name, jump);
            _allActions.TryAdd(shoot.action.name, shoot);
            _allActions.TryAdd(aim.action.name, aim);
+           _allActions.TryAdd(reload.action.name, reload);
            
            foreach (var actionRef in _allActions.Values)
                actionRef.action.Enable();
@@ -61,7 +65,9 @@ namespace LocalPlayer
            
            aim.action.performed += OnAimPerformed;
            aim.action.canceled += OnAimCanceled;
-           
+
+           reload.action.performed += OnReloadPerformed;
+           reload.action.canceled += OnReloadCanceled;
        }
        
        private void RemoveListeners()
@@ -74,6 +80,9 @@ namespace LocalPlayer
            
            aim.action.performed -= OnAimPerformed;
            aim.action.canceled -= OnAimCanceled;
+           
+           reload.action.performed -= OnReloadPerformed;
+           reload.action.canceled -= OnReloadCanceled;
        }
    
        private void OnJumpPerformed(InputAction.CallbackContext callbackContext)
@@ -110,6 +119,18 @@ namespace LocalPlayer
        {
            Aim?.Invoke(false);
            AimStatus = false;
+       }
+       
+       private void OnReloadPerformed(InputAction.CallbackContext callbackContext)
+       {
+           Reload?.Invoke(true);
+           ReloadStatus = true;
+       }
+   
+       private void OnReloadCanceled(InputAction.CallbackContext callbackContext)
+       {
+           Reload?.Invoke(false);
+           ReloadStatus = false;
        }
    } 
 }

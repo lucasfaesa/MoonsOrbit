@@ -34,22 +34,28 @@ public class PlayerCombatBehavior : MonoBehaviour
 
     public Transform PlayerWeaponHolder => playerWeaponHolder;
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
-    public Vector3 MuzzleWorldVelocity { get; set; }
+    public Vector3 MuzzleWorldVelocity { get; private set; }
+
+    public int BulletsLeft { get; set; }
     
     //----- State Machine things -----
     public CombatIdleState CombatIdleState { get; private set; }
     public CombatFightState CombatFightState { get; private set; }
+    public CombatReloadState CombatReloadState { get; private set; }
     //---------
     
     private Vector3 _lastMuzzlePosition;
     
     public void Start()
     {
+        BulletsLeft = pistolStats.BulletsPerClip;
+        
         inputReader.EnableInputActions();
         
         CombatIdleState = new CombatIdleState(this, _stateMachine);
         CombatFightState = new CombatFightState(this, _stateMachine);
-        
+        CombatReloadState = new CombatReloadState(this, _stateMachine);
+            
         _stateMachine.Initialize(CombatIdleState);
     }
 

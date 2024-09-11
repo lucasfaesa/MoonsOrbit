@@ -14,6 +14,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     }
     
     private float _lastShotTime = 0f;
+    private float _recoilAmount = 0.019f;
     private WeaponStatsSO _weaponStats;
     private Vector3 _shotDirection;
     private RaycastHit _hit;
@@ -26,47 +27,61 @@ public class CombatFightState : State<PlayerCombatBehavior>
     private bool _initialized;
 
     private Sequence _gunRecoilSequence;
+
+    private bool _isCooldownComplete;
+    private bool _hasBullets;
     
     public override void Enter()
     {
         if (!_initialized)
         {
             InitPools();
+
+            var originalPosZ = context.PlayerWeaponHolder.localPosition.z;
             
             _gunRecoilSequence = 
-                DOTween.Sequence().Append(context.PlayerWeaponHolder.DOLocalMoveZ(-0.019f, 0.05f).SetEase(Ease.OutSine))
-                .Append(context.PlayerWeaponHolder.DOLocalMoveZ(0f, 0.1f).SetEase(Ease.InOutSine))
+                DOTween.Sequence().Append(context.PlayerWeaponHolder.DOLocalMoveZ(originalPosZ - _recoilAmount, 0.05f).SetEase(Ease.OutSine))
+                .Append(context.PlayerWeaponHolder.DOLocalMoveZ(originalPosZ, 0.1f).SetEase(Ease.InOutSine))
                 .Pause()
                 .SetAutoKill(false);
             
             _initialized = true;
         }
             
-        //Debug.Log("<color=magenta>Entered combat fight state</color>");
+        Debug.Log("<color=magenta>Entered combat fight state</color>");
         _weaponStats = context.PistolStats;
     }
 
     private void InitPools()
     {
-        
-        
         _bulletTrailPool = new ObjectPool<BulletTrailBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
             OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
     }
     
     public override void LogicUpdate()
     {
-        if (Time.time - _lastShotTime > _weaponStats.DelayBetweenShots)
+        _isCooldownComplete = Time.time - _lastShotTime > _weaponStats.DelayBetweenShots;
+        _hasBullets = context.BulletsLeft > 0;
+        
+        if(context.InputReader.ReloadStatus && context.BulletsLeft < context.PistolStats.BulletsPerClip)
+            stateMachine.ChangeState(context.CombatReloadState);
+        
+        if (context.InputReader.ShootStatus)
         {
-            Shoot();
+            if (_hasBullets && _isCooldownComplete)
+                Shoot();
+            else if (!_hasBullets && _isCooldownComplete) 
+                stateMachine.ChangeState(context.CombatReloadState); //will only auto-reload when the shoot cooldown is complete
         }
-
-        if (!context.InputReader.ShootStatus)
+        else
             stateMachine.ChangeState(context.CombatIdleState);
     }
 
     private void Shoot()
     {
+        context.BulletsLeft--;
+        Debug.Log($"Bullets Left{context.BulletsLeft}");
+        
         _lastShotTime = Time.time;
         _shotDirection = GetDirection();
         _hitSomething = false;

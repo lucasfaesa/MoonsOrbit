@@ -7,6 +7,7 @@ using UnityEngine;
 public class WeaponStatsSO : ScriptableObject
 {
     [field:SerializeField] public float Damage { get; private set; }
+    [field:SerializeField] public int BulletsPerClip { get; private set; }
     [field:SerializeField] public float DelayBetweenShots { get; private set; }
     [field:SerializeField] public float ReloadTime { get; private set; }
     

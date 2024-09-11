@@ -13,17 +13,11 @@ MonoBehaviour:
   m_Name: PistolStats
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 10
+  <BulletsPerClip>k__BackingField: 20
   <DelayBetweenShots>k__BackingField: 0.15
   <ReloadTime>k__BackingField: 1
   <HasBulletSpread>k__BackingField: 1
   <BulletSpreadVariance>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}
-  <MuzzleFlashParticle>k__BackingField: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
-    type: 3}
-  <ImpactParticle>k__BackingField: {fileID: 9064919875212695174, guid: a5e1e2c4d2cd81f4abed6272a2b8187a,
-    type: 3}
-  <BulletTrail>k__BackingField: {fileID: 4014543480331847223, guid: 3c6b27d949cdda749892906e1f1d1b27,
-    type: 3}
-  <TrailSpeed>k__BackingField: 300
   <Mask>k__BackingField:
     serializedVersion: 2
     m_Bits: 4294967295
