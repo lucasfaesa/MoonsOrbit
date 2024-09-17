@@ -15,6 +15,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private PlayerStatsSO playerStats;
 
     [Space] [Header("Refs")] 
+    [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform playerWeaponHolder;
     [SerializeField] private ParticleSystem muzzleFlashParticle;
     [SerializeField] private BulletTrailBehavior bulletTrailPrefab;
@@ -35,7 +36,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     public Transform PlayerWeaponHolder => playerWeaponHolder;
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; private set; }
-
+    public Transform PlayerCameraTransform => playerCamera.transform;
     public int BulletsLeft { get; set; }
     
     //----- State Machine things -----

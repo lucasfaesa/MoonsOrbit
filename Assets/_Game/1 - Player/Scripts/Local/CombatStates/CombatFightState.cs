@@ -90,14 +90,14 @@ public class CombatFightState : State<PlayerCombatBehavior>
         GunRecoilAnimation();
         context.MuzzleFlashParticle.Play();
         
-        if (Physics.Raycast(context.GunMuzzleRef.position, _shotDirection, out _hit, float.MaxValue, _weaponStats.Mask))
+        if (Physics.Raycast(context.PlayerCameraTransform.position, _shotDirection, out _hit, float.MaxValue, _weaponStats.Mask))
         {
             _targetPoint = _hit.point;
             _targetType = GetLayerHit(_hit.collider.gameObject.layer);
             _hitSomething = true;
         }
         else
-            _targetPoint = context.GunMuzzleRef.position + _shotDirection * 1000f; // If no hit, calculate a faraway point in the shooting direction
+            _targetPoint = context.PlayerCameraTransform.position + _shotDirection * 1000f; // If no hit, calculate a faraway point in the shooting direction
         
         _bulletTrailPool.Get();
         
@@ -124,7 +124,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     private Vector3 GetDirection()
     {
-        Vector3 direction = context.GunMuzzleRef.forward;
+        Vector3 direction = context.PlayerCameraTransform.forward;
 
         if (_weaponStats.HasBulletSpread)
         {
