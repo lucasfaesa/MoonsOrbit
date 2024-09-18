@@ -80,6 +80,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     private void Shoot()
     {
         context.BulletsLeft--;
+
         Debug.Log($"Bullets Left{context.BulletsLeft}");
         
         _lastShotTime = Time.time;

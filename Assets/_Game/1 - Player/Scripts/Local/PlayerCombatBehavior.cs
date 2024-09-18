@@ -13,7 +13,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     [Header("SOs")]
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
-
+    [SerializeField] private GunStatusChannelSO gunStatusChannel;
     [Space] [Header("Refs")] 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform playerWeaponHolder;
@@ -26,6 +26,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private LocalPlayerToPuppetSynchronizer localPlayerToPuppetSynchronizer;
     
     private StateMachine<PlayerCombatBehavior> _stateMachine = new();
+    private int _bulletsLeft;
     
     public InputReaderSO InputReader => inputReader;
     public Transform GunMuzzleRef => gunMuzzleRef;
@@ -37,7 +38,8 @@ public class PlayerCombatBehavior : MonoBehaviour
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; private set; }
     public Transform PlayerCameraTransform => playerCamera.transform;
-    public int BulletsLeft { get; set; }
+
+    public GunStatusChannelSO GunStatusChannel => gunStatusChannel;
     
     //----- State Machine things -----
     public CombatIdleState CombatIdleState { get; private set; }
@@ -47,6 +49,15 @@ public class PlayerCombatBehavior : MonoBehaviour
     
     private Vector3 _lastMuzzlePosition;
     
+    public int BulletsLeft
+    {
+        get => _bulletsLeft;
+        set
+        {
+            _bulletsLeft = value;
+            gunStatusChannel.CurrentBulletsAmount = _bulletsLeft;
+        }
+    }
     public void Start()
     {
         BulletsLeft = pistolStats.BulletsPerClip;
