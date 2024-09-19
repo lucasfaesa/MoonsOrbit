@@ -19,6 +19,9 @@ public class CombatReloadState : State<PlayerCombatBehavior>
     {
         Debug.Log("<color=magenta>Entered combat reload state</color>");
 
+        context.CanAim = false;
+        context.ToggleAim(false);
+        
         _isReloading = true;
         
         if (!_initalized)
@@ -55,6 +58,6 @@ public class CombatReloadState : State<PlayerCombatBehavior>
 
     public override void Exit()
     {
-        
+        context.CanAim = true;
     }
 }

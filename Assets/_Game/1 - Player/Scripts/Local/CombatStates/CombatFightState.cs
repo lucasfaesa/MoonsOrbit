@@ -14,7 +14,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     }
     
     private float _lastShotTime = 0f;
-    private float _recoilAmount = 0.019f;
+    private float _recoilAmount = 0.033f;
     private WeaponStatsSO _weaponStats;
     private Vector3 _shotDirection;
     private RaycastHit _hit;
@@ -30,20 +30,13 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
     private bool _isCooldownComplete;
     private bool _hasBullets;
+    private float _aimingSpreadVarianceNerf = 0.4f;
     
     public override void Enter()
     {
         if (!_initialized)
         {
             InitPools();
-
-            var originalPosZ = context.PlayerWeaponHolder.localPosition.z;
-            
-            _gunRecoilSequence = 
-                DOTween.Sequence().Append(context.PlayerWeaponHolder.DOLocalMoveZ(originalPosZ - _recoilAmount, 0.05f).SetEase(Ease.OutSine))
-                .Append(context.PlayerWeaponHolder.DOLocalMoveZ(originalPosZ, 0.1f).SetEase(Ease.InOutSine))
-                .Pause()
-                .SetAutoKill(false);
             
             _initialized = true;
         }
@@ -108,7 +101,10 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
     private void GunRecoilAnimation()
     {
-        _gunRecoilSequence.Restart();
+        DOTween.Sequence().Append(context.PlayerWeaponHolder
+                .DOLocalMoveZ(context.PlayerWeaponHolder.localPosition.z - _recoilAmount, 0.03f).SetEase(Ease.Linear))
+            .Append(context.PlayerWeaponHolder.DOLocalMoveZ(context.PlayerWeaponHolder.localPosition.z, 0.04f)
+                .SetEase(Ease.Linear));
     }
 
     private ConstantsManager.TargetType GetLayerHit(int layer)
@@ -129,13 +125,15 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
         if (_weaponStats.HasBulletSpread)
         {
-            var spreadVariance = _weaponStats.BulletSpreadVariance;
-            var spreadX = Random.Range(-spreadVariance.x, spreadVariance.x);
-            var spreadY = Random.Range(-spreadVariance.y, spreadVariance.y);
-            var spreadZ = Random.Range(-spreadVariance.z, spreadVariance.z);
-            
-            direction += new Vector3(spreadX,spreadY,spreadZ);
-            
+            Vector3 spreadVariance = context.IsAiming ? _weaponStats.BulletSpreadVariance * _aimingSpreadVarianceNerf : _weaponStats.BulletSpreadVariance;
+
+            // Generate random spread values
+            float spreadX = Random.Range(-spreadVariance.x, spreadVariance.x);
+            float spreadY = Random.Range(-spreadVariance.y, spreadVariance.y);
+            float spreadZ = Random.Range(-spreadVariance.z, spreadVariance.z);
+
+            // Apply the spread to the direction and normalize
+            direction += new Vector3(spreadX, spreadY, spreadZ);
             direction.Normalize();
         }
         

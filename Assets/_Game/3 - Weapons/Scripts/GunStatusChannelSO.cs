@@ -19,9 +19,15 @@ public class GunStatusChannelSO : ScriptableObject
     }
 
     public event Action<int> CurrentBulletsAmountChanged;
+    public event Action<bool> IsAiming;
 
-    public void OnCurrentBulletsAmountChanged()
+    private void OnCurrentBulletsAmountChanged()
     {
         CurrentBulletsAmountChanged?.Invoke(CurrentBulletsAmount);
+    }
+
+    public void OnIsAiming(bool status)
+    {
+        IsAiming?.Invoke(status);
     }
 }
