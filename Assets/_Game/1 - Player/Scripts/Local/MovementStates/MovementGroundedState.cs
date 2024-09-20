@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MovementGroundedState : State<PlayerMovement>
 {
@@ -40,11 +41,11 @@ public class MovementGroundedState : State<PlayerMovement>
 
     public override void PhysicsUpdate()
     {
-        
+           
     }
 
     public override void Exit()
     {
-        
+        base.Exit();
     }
 }

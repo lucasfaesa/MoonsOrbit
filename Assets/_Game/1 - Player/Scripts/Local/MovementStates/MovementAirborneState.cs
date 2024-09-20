@@ -26,6 +26,6 @@ public class MovementAirborneState : State<PlayerMovement>
 
     public override void Exit()
     {
-        
+        base.Exit();
     }
 }

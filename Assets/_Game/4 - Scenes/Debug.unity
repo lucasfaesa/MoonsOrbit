@@ -289,10 +289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- weapon sway when moving (use some dotween call?)\n\nhttps://kenney.nl/assets\n\n-
-    Uma possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n
-    e o puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
-    inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
+  todoList: "- implement enemies\n\nhttps://kenney.nl/assets\n\n- Uma possibilidade
+    \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n e o puppet player
+    fazer todo o raycast e instanciar o trail e o impact e tal\nao inves de passar
+    posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
   m_ObjectHideFlags: 0
@@ -1576,7 +1576,7 @@ PrefabInstance:
     - target: {fileID: 8151837649115609763, guid: 5bc75f14c8fd92e48ad8a963d3773eae,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

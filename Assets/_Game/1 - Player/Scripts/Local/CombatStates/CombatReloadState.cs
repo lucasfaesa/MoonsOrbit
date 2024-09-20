@@ -17,6 +17,7 @@ public class CombatReloadState : State<PlayerCombatBehavior>
     
     public override void Enter()
     {
+        base.Enter();
         Debug.Log("<color=magenta>Entered combat reload state</color>");
 
         context.CanAim = false;
@@ -53,11 +54,11 @@ public class CombatReloadState : State<PlayerCombatBehavior>
 
     public override void PhysicsUpdate()
     {
-        
     }
 
     public override void Exit()
     {
+        base.Exit();
         context.CanAim = true;
     }
 }

@@ -46,13 +46,14 @@ public class PlayerCombatBehavior : MonoBehaviour
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
 
+    public Vector3 WeaponHolderInitialPosition { get; private set; }
     public Transform PlayerWeaponHolder => playerWeaponHolder;
     public BulletTrailBehavior BulletTrailPrefab => bulletTrailPrefab;
     public Vector3 MuzzleWorldVelocity { get; private set; }
     public Transform PlayerCameraTransform => playerCamera.transform;
     public bool IsAiming => _isAiming;
     public bool CanAim { get; set; } = true;
-
+    
     //----- State Machine things -----
     public CombatIdleState CombatIdleState { get; private set; }
     public CombatFightState CombatFightState { get; private set; }
@@ -72,6 +73,7 @@ public class PlayerCombatBehavior : MonoBehaviour
 
     public void Start()
     {
+        WeaponHolderInitialPosition = playerWeaponHolder.localPosition;
         _defaultFov = playerCamera.fieldOfView;
         _weaponHolderDefaultPositionAndRotation = (playerWeaponHolder.localPosition, playerWeaponHolder.localRotation.eulerAngles);
         

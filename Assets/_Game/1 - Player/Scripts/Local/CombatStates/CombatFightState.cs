@@ -53,6 +53,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     public override void LogicUpdate()
     {
+
         _isCooldownComplete = Time.time - _lastShotTime > _weaponStats.DelayBetweenShots;
         _hasBullets = context.BulletsLeft > 0;
         
@@ -170,7 +171,6 @@ public class CombatFightState : State<PlayerCombatBehavior>
     
     public override void PhysicsUpdate()
     {
-
     }
 
     public override void Exit()
