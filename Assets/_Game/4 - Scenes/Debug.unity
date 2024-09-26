@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!198 &76740881 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4700036373385629905, guid: b36878f162d9d624587982cba1290a01,
+    type: 3}
+  m_PrefabInstance: {fileID: 1029741807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &80521550
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,13 +153,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80521550}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.3, y: 1.3, z: 77.5}
+  m_LocalRotation: {x: -0.08232679, y: 0.18349922, z: 0.20729299, w: 0.95738184}
+  m_LocalPosition: {x: 5.8, y: 4.5, z: 69.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8768601155739111599}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.516, y: 19.042, z: 22.157}
 --- !u!1 &128932382
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,10 +838,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- implement enemies\nhttps://www.youtube.com/watch?v=rs7xUi9BqjE\n\nhttps://kenney.nl/assets\n\n-
-    Uma possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n
-    e o puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
-    inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
+  todoList: "- implement enemies\nhttps://www.youtube.com/watch?v=rs7xUi9BqjE\n-
+    implemented object pool\n- fix shooting direction\n- fix bullet hit effect\n-
+    fix muzzle flash\n- make damageable\n\n\nhttps://kenney.nl/assets\n\n- Uma possibilidade
+    \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n e o puppet player
+    fazer todo o raycast e instanciar o trail e o impact e tal\nao inves de passar
+    posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
   m_ObjectHideFlags: 0
@@ -1871,7 +1879,7 @@ PrefabInstance:
     - target: {fileID: 5119214507320053186, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 127
+      value: 2175
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3938,6 +3946,10 @@ MonoBehaviour:
   enemyStats: {fileID: 11400000, guid: 4f3c21c15b241054186047240b15747d, type: 2}
   navMeshAgent: {fileID: 8768601155739536612}
   animator: {fileID: 8768601155732127587}
+  gunMuzzle: {fileID: 80521551}
+  muzzleFlashParticle: {fileID: 76740881}
+  physicalBulletPrefab: {fileID: 3959586117232672942, guid: 5a9e498caff33e244be1eac9ca75344a,
+    type: 3}
   <Target>k__BackingField: {fileID: 1637920201}
 --- !u!195 &8768601155739536612
 NavMeshAgent:

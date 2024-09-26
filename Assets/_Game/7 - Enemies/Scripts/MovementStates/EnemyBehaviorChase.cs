@@ -32,7 +32,7 @@ namespace Enemy
                 stateMachine.ChangeState(context.BehaviorAttackState);
             }
             
-            LookAtTarget();
+            context.LookAtTarget();
             UpdatePath();
             context.UpdateMovementBlendTree();
         }
@@ -45,16 +45,6 @@ namespace Enemy
         public override void Exit()
         {
             base.Exit();
-        }
-
-        private void LookAtTarget()
-        {
-            Vector3 lookPos = context.Target.position - context.transform.position;
-            lookPos.y = 0;
-            
-            Quaternion desiredRotation = Quaternion.LookRotation(lookPos);
-
-            context.transform.rotation = Quaternion.Slerp(context.transform.rotation, desiredRotation, 0.2f);
         }
 
         private void UpdatePath()

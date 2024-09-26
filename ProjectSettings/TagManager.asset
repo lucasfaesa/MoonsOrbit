@@ -16,7 +16,7 @@ TagManager:
   - WeaponCameraLayer
   - PlayerHitDetectionCollider
   - NetworkPlayerHitDetectionCollider
-  - 
+  - PhysicalBullet
   - 
   - 
   - 

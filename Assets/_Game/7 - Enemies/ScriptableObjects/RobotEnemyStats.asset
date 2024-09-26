@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5725738a311e4444db32c49d1dcbc890, type: 3}
   m_Name: RobotEnemyStats
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 10
-  <Braking>k__BackingField: 10
-  <MaxSpeed>k__BackingField: 2
-  <RotationSpeed>k__BackingField: 15
-  <JumpImpulse>k__BackingField: 8
-  <Gravity>k__BackingField: -20
+  <IdleTime>k__BackingField: 2
+  <DetectionDistance>k__BackingField: 12
+  <AttackDistance>k__BackingField: 12
+  <PathUpdateDelay>k__BackingField: 0.2
+  <BulletSpeed>k__BackingField: 45
+  <ShootingLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  <BulletSpread>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}
+  <RotationRate>k__BackingField: 0.2
