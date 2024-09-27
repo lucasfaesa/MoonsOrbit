@@ -123,11 +123,101 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!198 &76740881 stripped
+--- !u!1001 &25138303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 80521551}
+    m_Modifications:
+    - target: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_Name
+      value: MuzzleFlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 83.09184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 83.09184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 83.09184
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199338666435788112, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 849f373c950e96144ae9ae4402dcad82, type: 2}
+    - target: {fileID: 199409127382122440, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 849f373c950e96144ae9ae4402dcad82, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+--- !u!198 &25138304 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4700036373385629905, guid: b36878f162d9d624587982cba1290a01,
+  m_CorrespondingSourceObject: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
     type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
+  m_PrefabInstance: {fileID: 25138303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &25138305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+    type: 3}
+  m_PrefabInstance: {fileID: 25138303}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &80521550
 GameObject:
@@ -157,7 +247,8 @@ Transform:
   m_LocalPosition: {x: 5.8, y: 4.5, z: 69.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 25138305}
   m_Father: {fileID: 8768601155739111599}
   m_LocalEulerAnglesHint: {x: -13.516, y: 19.042, z: 22.157}
 --- !u!1 &128932382
@@ -840,10 +931,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   todoList: "- implement enemies\nhttps://www.youtube.com/watch?v=rs7xUi9BqjE\n-
     implemented object pool\n- fix shooting direction\n- fix bullet hit effect\n-
-    fix muzzle flash\n- make damageable\n\n\nhttps://kenney.nl/assets\n\n- Uma possibilidade
-    \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n e o puppet player
-    fazer todo o raycast e instanciar o trail e o impact e tal\nao inves de passar
-    posi\xE7\xF5es e tudo mais na rede\n\n"
+    make damageable\n- implement enemy patrol\n\nhttps://kenney.nl/assets\n\n- Uma
+    possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n e o
+    puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
+    inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
   m_ObjectHideFlags: 0
@@ -3947,7 +4038,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 8768601155739536612}
   animator: {fileID: 8768601155732127587}
   gunMuzzle: {fileID: 80521551}
-  muzzleFlashParticle: {fileID: 76740881}
+  muzzleFlashParticle: {fileID: 25138304}
   physicalBulletPrefab: {fileID: 3959586117232672942, guid: 5a9e498caff33e244be1eac9ca75344a,
     type: 3}
   <Target>k__BackingField: {fileID: 1637920201}

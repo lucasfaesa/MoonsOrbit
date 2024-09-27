@@ -44,6 +44,7 @@ namespace Enemy
         {
             base.Exit();
             context.ShootingAnimationEvent -= ShootForward;
+            context.MuzzleFlashParticle.Stop();
             context.Animator.SetBool(_shootingAnimatorParameter, false);
         }
 
@@ -51,27 +52,28 @@ namespace Enemy
         {
             Vector3 forwardDirection = context.GunMuzzle.forward;
 
-// Add bullet spread to the direction by adding random values to the direction vector
+            // Add bullet spread to the direction by adding random values to the direction vector
             Vector3 randomSpread = new Vector3(
                 Random.Range(-context.EnemyStats.BulletSpread.x, context.EnemyStats.BulletSpread.x),
                 Random.Range(-context.EnemyStats.BulletSpread.y, context.EnemyStats.BulletSpread.y),
                 Random.Range(-context.EnemyStats.BulletSpread.z, context.EnemyStats.BulletSpread.z)
             );
 
-// Apply the random spread to the forward direction and normalize it to ensure it stays a direction vector
+            // Apply the random spread to the forward direction and normalize it to ensure it stays a direction vector
             Vector3 spreadDirection = (forwardDirection + randomSpread).normalized;
 
-// Instantiate the bullet with the new spread direction
+            // Instantiate the bullet with the new spread direction
             var bullet = Object.Instantiate(
                 context.PhysicalBulletPrefab, 
                 context.GunMuzzle.position, 
                 Quaternion.LookRotation(spreadDirection)
             );
 
-// Calculate the target point, a faraway point in the spread direction
+            // Calculate the target point, a faraway point in the spread direction
             var _targetPoint = spreadDirection * 1000f;
 
-// Initialize the bullet with the target point and bullet speed
+            // Initialize the bullet with the target point and bullet speed
+            context.MuzzleFlashParticle.Play();
             bullet.Initialize(_targetPoint, context.EnemyStats.BulletSpeed);
         }
     }

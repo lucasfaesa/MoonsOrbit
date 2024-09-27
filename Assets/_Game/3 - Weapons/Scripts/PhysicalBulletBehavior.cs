@@ -124,14 +124,13 @@ public class PhysicalBulletBehavior : MonoBehaviour
                 Debug.Log("Hit Human");
             }
             
-            /*RaycastHit hit;
-            Vector3 directionToOther = other.transform.position - transform.position;
-
-            if (Physics.Raycast(transform.position, directionToOther, out hit))
+            if (Physics.Raycast(transform.position, transform.forward, out var hit, 10f))
             {
                 impactParticle.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
                 impactParticle.Play();
-            }*/
+            }
+            
+            Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);  // Visualizes the ray in red for 2 seconds
             
             this.gameObject.SetActive(false);
             //_thisObjectPool.Release(this);

@@ -11,6 +11,7 @@ namespace Helpers
         public const string NETWORK_PLAYER_LAYER = "NetworkPlayer";
         public const string NETWORK_PLAYER_HITDETECTION_COLLIDER_LAYER = "NetworkPlayerHitDetectionCollider";
         public const string ENEMY_LAYER = "Enemy";
+        public const string PHYSICAL_BULLET_LAYER = "PhysicalBullet";
         
         
     }    
