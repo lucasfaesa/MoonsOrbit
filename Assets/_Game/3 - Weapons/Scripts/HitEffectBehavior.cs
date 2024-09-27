@@ -11,10 +11,7 @@ public class HitEffectBehavior : MonoBehaviour
     private IObjectPool<ParticleSystem> _thisObjectPool;
     public IObjectPool<ParticleSystem> ObjectPool { set => _thisObjectPool = value; }
 
-    
-    
-    //the particle system is marked to auto disabled when animation ends
-    private void OnDisable()
+    private void OnParticleSystemStopped()
     {
         _thisObjectPool.Release(particleSystem);
     }

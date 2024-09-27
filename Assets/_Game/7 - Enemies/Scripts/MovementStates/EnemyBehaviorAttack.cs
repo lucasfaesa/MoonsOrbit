@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DesignPatterns;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Enemy
 {
@@ -10,10 +11,22 @@ namespace Enemy
         
         public EnemyBehaviorAttack(EnemyBehavior context, StateMachine<EnemyBehavior> stateMachine) : base(context, stateMachine)
         {
-            
+            InitPools();
         }
 
         private readonly int _shootingAnimatorParameter = Animator.StringToHash("Shooting");
+        
+        private IObjectPool<PhysicalBulletBehavior> _physicalBulletPool;
+
+        private Vector3 _randomSpread;
+        private Vector3 _spreadDirection;
+        
+        
+        private void InitPools()
+        {
+            _physicalBulletPool = new ObjectPool<PhysicalBulletBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
+                OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
+        }
         
         public override void Enter()
         {
@@ -51,30 +64,47 @@ namespace Enemy
         private void ShootForward()
         {
             Vector3 forwardDirection = context.GunMuzzle.forward;
-
-            // Add bullet spread to the direction by adding random values to the direction vector
-            Vector3 randomSpread = new Vector3(
+            
+            _spreadDirection = (forwardDirection + _randomSpread).normalized;
+            
+            _randomSpread = new Vector3(
                 Random.Range(-context.EnemyStats.BulletSpread.x, context.EnemyStats.BulletSpread.x),
                 Random.Range(-context.EnemyStats.BulletSpread.y, context.EnemyStats.BulletSpread.y),
                 Random.Range(-context.EnemyStats.BulletSpread.z, context.EnemyStats.BulletSpread.z)
             );
-
-            // Apply the random spread to the forward direction and normalize it to ensure it stays a direction vector
-            Vector3 spreadDirection = (forwardDirection + randomSpread).normalized;
-
-            // Instantiate the bullet with the new spread direction
-            var bullet = Object.Instantiate(
-                context.PhysicalBulletPrefab, 
-                context.GunMuzzle.position, 
-                Quaternion.LookRotation(spreadDirection)
-            );
-
-            // Calculate the target point, a faraway point in the spread direction
-            var _targetPoint = spreadDirection * 1000f;
-
-            // Initialize the bullet with the target point and bullet speed
+            
             context.MuzzleFlashParticle.Play();
-            bullet.Initialize(_targetPoint, context.EnemyStats.BulletSpeed);
+            
+            _physicalBulletPool.Get();
+            
+        }
+        
+        private PhysicalBulletBehavior CreateTrailPrefab()
+        {
+            var newPoolObject = Object.Instantiate(context.PhysicalBulletPrefab, context.GunMuzzle.position, Quaternion.LookRotation(_spreadDirection));
+            newPoolObject.ObjectPool = _physicalBulletPool;
+            return newPoolObject;
+        }
+
+        private void OnReleaseToTrailPool(PhysicalBulletBehavior pooledObject)
+        {
+            pooledObject.gameObject.SetActive(false);
+        }
+    
+        private void OnGetFromTrailPool(PhysicalBulletBehavior pooledObject)
+        {
+            pooledObject.transform.SetPositionAndRotation(context.GunMuzzle.position, Quaternion.LookRotation(_spreadDirection));
+            
+            var targetPoint = _spreadDirection * 1000f;
+            
+            pooledObject.Initialize(targetPoint, context.EnemyStats.BulletSpeed);
+        
+            pooledObject.gameObject.SetActive(true);
+        }
+    
+        private void OnDestroyTrailOnPool(PhysicalBulletBehavior pooledObject)
+        {
+            Object.Destroy(pooledObject.gameObject);
         }
     }
 }

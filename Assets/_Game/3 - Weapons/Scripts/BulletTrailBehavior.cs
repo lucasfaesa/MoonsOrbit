@@ -46,9 +46,9 @@ namespace Networking
             CreatePools();
         }
         
-        public void Initialize(Vector3 target, bool hitSomething, ConstantsManager.TargetType targetType, Vector3 hitNormal)
+        public void Initialize(Vector3 targetPoint, bool hitSomething, ConstantsManager.TargetType targetType, Vector3 hitNormal)
         {
-            _targetPoint = target; 
+            _targetPoint = targetPoint;
             _hitSomething = hitSomething;
 
             _impactParticle = SetImpactParticle(targetType);
@@ -129,6 +129,12 @@ namespace Networking
                 if (_hitSomething)
                 {
                     _impactParticle.transform.SetPositionAndRotation(_targetPoint, Quaternion.LookRotation(_hitNormal));
+                    
+                    if (Physics.SphereCast(transform.position, 0.1f, transform.forward, out var hit, 10f))
+                    {
+                        _impactParticle.transform.SetParent(hit.transform);
+                    }
+                    
                     _impactParticle.Play();
                 }
                 

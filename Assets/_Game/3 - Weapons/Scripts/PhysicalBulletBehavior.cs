@@ -8,6 +8,8 @@ using UnityEngine.Pool;
 
 public class PhysicalBulletBehavior : MonoBehaviour
 {
+    [SerializeField] private Transform modelTransform;
+    [Space]
         [SerializeField] private ParticleSystem metalHitEffectPrefab;
         [SerializeField] private ParticleSystem bloodHitEffectPrefab;
         
@@ -105,35 +107,32 @@ public class PhysicalBulletBehavior : MonoBehaviour
                 
                 _initialized = false;
                 
-                //_thisObjectPool.Release(this);
+                _thisObjectPool.Release(this);
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"Collided with {other.gameObject.name}", other.gameObject);
+            //Debug.Log($"Collided with {other.gameObject.name}", other.gameObject);
             var targetType = GetLayerHit(other.gameObject.layer);
 
             if (targetType == ConstantsManager.TargetType.MONSTER)
                 return;
 
             var impactParticle = SetImpactParticle(targetType);
-            
-            if (targetType == ConstantsManager.TargetType.HUMAN)
-            {
-                Debug.Log("Hit Human");
-            }
-            
+
+
             if (Physics.Raycast(transform.position, transform.forward, out var hit, 10f))
             {
+                //Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red, 3f);
+                
                 impactParticle.transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
+                impactParticle.transform.parent = other.gameObject.transform;
                 impactParticle.Play();
             }
             
-            Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);  // Visualizes the ray in red for 2 seconds
             
-            this.gameObject.SetActive(false);
-            //_thisObjectPool.Release(this);
+            _thisObjectPool.Release(this);
         }
         
         private ConstantsManager.TargetType GetLayerHit(int layer)

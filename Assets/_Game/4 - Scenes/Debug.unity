@@ -190,7 +190,7 @@ PrefabInstance:
     - target: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
         type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199338666435788112, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
         type: 3}
@@ -929,11 +929,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- implement enemies\nhttps://www.youtube.com/watch?v=rs7xUi9BqjE\n-
-    implemented object pool\n- fix shooting direction\n- fix bullet hit effect\n-
-    make damageable\n- implement enemy patrol\n\nhttps://kenney.nl/assets\n\n- Uma
-    possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n e o
-    puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
+  todoList: "- implement enemies\n- fix shooting direction\n- make damageable\n-
+    implement enemy patrol\n- fix enemy target (its serialized to the player)\n\nhttps://kenney.nl/assets\n\n-
+    Uma possibilidade \xE9 mandar s\xF3 que foi realizado o clique com o mouse\n
+    e o puppet player fazer todo o raycast e instanciar o trail e o impact e tal\nao
     inves de passar posi\xE7\xF5es e tudo mais na rede\n\n"
 --- !u!4 &376955803
 Transform:
@@ -3932,6 +3931,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1562995076386183881, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5170963900711931383, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
         type: 3}
       propertyPath: m_Name
