@@ -103,7 +103,7 @@ namespace Networking
             return type switch
             {
                 ConstantsManager.TargetType.HUMAN => _bloodHitEffectPool.Get(),
-                ConstantsManager.TargetType.MONSTER => _goopHitEffectPool.Get(),
+                ConstantsManager.TargetType.ENEMY => _goopHitEffectPool.Get(),
                 _ => _metalHitEffectPool.Get()
             };
             

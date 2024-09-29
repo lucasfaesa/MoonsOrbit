@@ -20,11 +20,11 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
     {
         //context.UpdateMovementBlendTree();
         
-        if (Vector3.Distance(context.transform.position, context.Target.position) <=
+        /*if (Vector3.Distance(context.transform.position, context.Target.position) <=
             context.EnemyStats.DetectionDistance)
         {
             stateMachine.ChangeState(context.BehaviorChaseState);
-        }
+        }*/
     }
 
     public override void PhysicsUpdate()

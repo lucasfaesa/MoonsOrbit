@@ -116,7 +116,7 @@ public class PhysicalBulletBehavior : MonoBehaviour
             //Debug.Log($"Collided with {other.gameObject.name}", other.gameObject);
             var targetType = GetLayerHit(other.gameObject.layer);
 
-            if (targetType == ConstantsManager.TargetType.MONSTER)
+            if (targetType == ConstantsManager.TargetType.ENEMY)
                 return;
 
             var impactParticle = SetImpactParticle(targetType);
@@ -142,7 +142,7 @@ public class PhysicalBulletBehavior : MonoBehaviour
             return layerName switch
             {
                 ConstantsManager.PLAYER_HITDETECTION_COLLIDER_LAYER or ConstantsManager.NETWORK_PLAYER_HITDETECTION_COLLIDER_LAYER => ConstantsManager.TargetType.HUMAN,
-                ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.MONSTER,
+                ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.ENEMY,
                 _ => ConstantsManager.TargetType.METAL
             };
         }

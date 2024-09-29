@@ -13,6 +13,7 @@ public class HitEffectBehavior : MonoBehaviour
 
     private void OnParticleSystemStopped()
     {
+        this.transform.parent = null;
         _thisObjectPool.Release(particleSystem);
     }
 }

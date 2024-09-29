@@ -90,6 +90,8 @@ public class CombatFightState : State<PlayerCombatBehavior>
             _targetPoint = _hit.point;
             _targetType = GetLayerHit(_hit.collider.gameObject.layer);
             _hitSomething = true;
+            
+            _hit.collider.GetComponent<IDamageable>().TakeDamage();
         }
         else
             _targetPoint = context.PlayerCameraTransform.position + _shotDirection * 1000f; // If no hit, calculate a faraway point in the shooting direction
@@ -115,7 +117,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
         return layerName switch
         {
             ConstantsManager.PLAYER_HITDETECTION_COLLIDER_LAYER or ConstantsManager.NETWORK_PLAYER_HITDETECTION_COLLIDER_LAYER => ConstantsManager.TargetType.HUMAN,
-            ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.MONSTER,
+            ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.ENEMY,
             _ => ConstantsManager.TargetType.METAL
         };
     }

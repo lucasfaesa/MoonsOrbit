@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 30d202c3ed0e1db459388841d41a4fda, type: 2}
+    - target: {fileID: 1487156300348492095, guid: 0d018a6ccd6659545a514109b64274fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1649717404013367983, guid: 0d018a6ccd6659545a514109b64274fd,
         type: 3}
       propertyPath: playOnAwake
@@ -91,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 8866210459607588752, guid: 0d018a6ccd6659545a514109b64274fd,
         type: 3}
       propertyPath: m_Name
-      value: HitEffectGoop
+      value: HitEffectOil
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
