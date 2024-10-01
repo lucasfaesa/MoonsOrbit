@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-   void TakeDamage();
+   void InitializeHealth();
+   void OnDamageTaken(float damage);
+
 }

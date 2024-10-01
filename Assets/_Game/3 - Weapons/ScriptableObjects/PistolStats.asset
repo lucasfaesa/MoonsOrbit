@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d123b8ae1a586f241a8d07d5d6ac2987, type: 3}
   m_Name: PistolStats
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 2
   <BulletsPerClip>k__BackingField: 20
   <DelayBetweenShots>k__BackingField: 0.15
   <ReloadTime>k__BackingField: 1

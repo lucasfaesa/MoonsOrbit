@@ -90,8 +90,11 @@ public class CombatFightState : State<PlayerCombatBehavior>
             _targetPoint = _hit.point;
             _targetType = GetLayerHit(_hit.collider.gameObject.layer);
             _hitSomething = true;
-            
-            _hit.collider.GetComponent<IDamageable>().TakeDamage();
+
+            if (_targetType == ConstantsManager.TargetType.ENEMY)
+            {
+                _hit.collider.GetComponent<IDamageable>().OnDamageTaken(_weaponStats.Damage);
+            }
         }
         else
             _targetPoint = context.PlayerCameraTransform.position + _shotDirection * 1000f; // If no hit, calculate a faraway point in the shooting direction
