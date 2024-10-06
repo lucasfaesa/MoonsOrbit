@@ -20,17 +20,20 @@ namespace Enemy
         [SerializeField] private Transform gunMuzzle;
         [SerializeField] private ParticleSystem muzzleFlashParticle;
         [SerializeField] private PhysicalBulletBehavior physicalBulletPrefab;
+        [Header("Patrol Points")] 
+        [SerializeField] private Transform patrolLocations;
+        [SerializeField] private List<Transform> patrolPoints = new();
         
-        //TODO remove this atrocity later
-        [field:SerializeField] public Transform Target { get; set; }
-
+        
+        public Transform Target { get; set; }
         public EnemyStatsSO EnemyStats => enemyStats;
         public NavMeshAgent NavMeshAgent => navMeshAgent;
         public Animator Animator => animator;
         public Transform GunMuzzle => gunMuzzle;
         public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
         public PhysicalBulletBehavior PhysicalBulletPrefab => physicalBulletPrefab;
-
+        public List<Transform> PatrolPoints => patrolPoints;
+        
         public event Action ShootingAnimationEvent;
         
         //----- State Machine things -----
@@ -43,9 +46,12 @@ namespace Enemy
         //---------
         
         private readonly int _speedAnimatorParameter = Animator.StringToHash("Speed");
+        private float _updatePathTimer = 0;
         
         void Start()
         {
+            patrolLocations.SetParent(null);
+            
             navMeshAgent.stoppingDistance = enemyStats.AttackDistance;
             
             BehaviorIdleState = new EnemyBehaviorIdle(this, _stateMachine);
@@ -80,6 +86,22 @@ namespace Enemy
         public void AnimationShootingEvent()
         {
             ShootingAnimationEvent?.Invoke();
+        }
+
+        public void TriggerImmediatePathUpdate()
+        {
+            _updatePathTimer = enemyStats.PathUpdateDelay;
+        }
+        
+        public void UpdatePath()
+        {
+            _updatePathTimer += Time.deltaTime;
+
+            if (_updatePathTimer >= EnemyStats.PathUpdateDelay)
+            {
+                _updatePathTimer = 0;
+                NavMeshAgent.SetDestination(Target.position);
+            }
         }
 
     }

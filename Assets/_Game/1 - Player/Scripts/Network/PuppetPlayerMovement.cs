@@ -19,7 +19,8 @@ namespace Networking
         
             this.transform.SetPositionAndRotation(inputData.PlayerTransformNetworkData.PlayerModelVisualPos, inputData.PlayerTransformNetworkData.PlayerModelVisualRot);
         }
-    
+        
+        
     }
 }
 

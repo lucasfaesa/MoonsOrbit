@@ -12,16 +12,12 @@ namespace Enemy
         {
         }
 
-        private float _timer = 0;
-
-
         public override void Enter()
         {
             base.Enter();
             Debug.Log("<color=red>Enemy Chase State</color>");
-            
-            //just for it to update the path right when it enters this state, hehe
-            _timer = context.EnemyStats.PathUpdateDelay;
+            context.NavMeshAgent.stoppingDistance = context.EnemyStats.AttackDistance;
+            context.TriggerImmediatePathUpdate();
         }
 
         public override void LogicUpdate()
@@ -33,7 +29,7 @@ namespace Enemy
             }
             
             context.LookAtTarget();
-            UpdatePath();
+            context.UpdatePath();
             context.UpdateMovementBlendTree();
         }
 
@@ -46,16 +42,6 @@ namespace Enemy
         {
             base.Exit();
         }
-
-        private void UpdatePath()
-        {
-            _timer += Time.deltaTime;
-
-            if (_timer >= context.EnemyStats.PathUpdateDelay)
-            {
-                _timer = 0;
-                context.NavMeshAgent.SetDestination(context.Target.position);
-            }
-        }
+        
     }
 }
