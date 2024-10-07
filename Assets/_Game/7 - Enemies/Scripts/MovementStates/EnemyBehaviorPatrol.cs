@@ -74,6 +74,7 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
 
         _inRestTimeBetweenWaypoints = false;
         context.TriggerImmediatePathUpdate();
+        
         Debug.Log("Set New Destination");
     }
     

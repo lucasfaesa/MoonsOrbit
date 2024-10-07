@@ -1212,12 +1212,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6598914765504932740}
   - component: {fileID: 1562995076386183881}
+  - component: {fileID: 1403949846296976477}
+  - component: {fileID: -4449187088048350910}
   - component: {fileID: 4125853816013041965}
   - component: {fileID: 4249814087652870669}
   - component: {fileID: 8666603171133599636}
   - component: {fileID: 9112100280534091262}
   m_Layer: 12
-  m_Name: PolyartCharacter
+  m_Name: RobotEnemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1268,6 +1270,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1403949846296976477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170963900711931383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 180682272
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: -4449187088048350910}
+  - {fileID: 4125853816013041965}
+--- !u!114 &-4449187088048350910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170963900711931383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!114 &4125853816013041965
 MonoBehaviour:
   m_ObjectHideFlags: 0

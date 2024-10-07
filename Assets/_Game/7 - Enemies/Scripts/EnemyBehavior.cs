@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DesignPatterns;
+using Fusion;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,7 +10,7 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class EnemyBehavior : MonoBehaviour
+    public class EnemyBehavior : NetworkBehaviour
     {
 
         [Header("SOs")]
