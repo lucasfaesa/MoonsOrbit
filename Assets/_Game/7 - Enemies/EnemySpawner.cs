@@ -6,7 +6,7 @@ using Fusion;
 using Networking;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : NetworkBehaviour
 {
     [Header("SO's")]
     [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
@@ -15,18 +15,29 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Points")]
     [SerializeField] private List<Transform> spawnPoints = new();
     
-    public void OnEnable()
+    [Networked] public NetworkBool EnemiesSpawned { get; set; }
+
+
+    public override void Spawned()
     {
-        networkRunnerCallbacks.ConnectedToServer += SpawnEnemies;
+        base.Spawned();
+        SpawnEnemies(Runner);
     }
 
-    private void OnDisable()
+    public override void Despawned(NetworkRunner runner, bool hasState)
     {
-        networkRunnerCallbacks.ConnectedToServer -= SpawnEnemies;
+        base.Despawned(runner, hasState);
+        
     }
+
 
     private void SpawnEnemies(NetworkRunner networkRunner)
     {
+        Debug.LogError($"Enemies spawned: {EnemiesSpawned}");
+        
+        if (EnemiesSpawned) return;
+        
+        EnemiesSpawned = true;
         foreach (var spawnPoint in spawnPoints)
         {
             networkRunner.Spawn(robotEnemy, spawnPoint.position, spawnPoint.rotation, PlayerRef.None);

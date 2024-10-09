@@ -48,9 +48,11 @@ namespace Enemy
         
         private readonly int _speedAnimatorParameter = Animator.StringToHash("Speed");
         private float _updatePathTimer = 0;
-        
-        void Start()
+
+        public override void Spawned()
         {
+            base.Spawned();
+            
             patrolLocations.SetParent(null);
             
             navMeshAgent.stoppingDistance = enemyStats.AttackDistance;
@@ -63,7 +65,7 @@ namespace Enemy
             _stateMachine.Initialize(BehaviorIdleState);
         }
 
-        void Update()
+        public void Update()
         {
             _stateMachine.Update();
         }
@@ -96,7 +98,7 @@ namespace Enemy
         
         public void UpdatePath()
         {
-            _updatePathTimer += Time.deltaTime;
+            _updatePathTimer +=  Runner.DeltaTime /*Time.deltaTime*/;
 
             if (_updatePathTimer >= EnemyStats.PathUpdateDelay)
             {

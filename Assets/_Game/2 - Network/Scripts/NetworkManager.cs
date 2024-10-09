@@ -6,6 +6,7 @@ using Fusion;
 using Fusion.Sockets;
 using Helpers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Networking
 {
@@ -43,7 +44,8 @@ namespace Networking
             {
                 GameMode = GameMode.Shared,
                 SessionName = "TestSession",
-                SceneManager = networkSceneManagerDefault
+                SceneManager = networkSceneManagerDefault,
+                Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             };
 
             var result = await NetworkRunner.StartGame(args);
