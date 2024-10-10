@@ -15,15 +15,18 @@ namespace Networking
         [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacks;
         [Header("Other")] 
         [SerializeField] private NetworkPrefabRef playerPrefab;
-
+        
         private void OnEnable()
         {
+            
             networkRunnerCallbacks.PlayerJoined += OnPlayerJoined;
+            networkRunnerCallbacks.PlayerLeft += OnPlayerLeft;
         }
 
         private void OnDisable()
         {
             networkRunnerCallbacks.PlayerJoined -= OnPlayerJoined;
+            networkRunnerCallbacks.PlayerLeft -= OnPlayerLeft;
         }
 
         private void OnPlayerJoined(NetworkRunner networkRunner, PlayerRef playerRef)
@@ -36,6 +39,11 @@ namespace Networking
             
                 networkPlayerCallbacks.OnPlayerSpawn(networkRunner, playerRef);
             }
+        }
+
+        private void OnPlayerLeft(NetworkRunner networkRunner, PlayerRef playerRef)
+        {
+            networkPlayerCallbacks.OnPlayerLeft(playerRef);
         }
     }
 }

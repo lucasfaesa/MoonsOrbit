@@ -10,7 +10,7 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class EnemyBehavior : NetworkBehaviour
+    public class EnemyBehavior : NetworkBehaviour, IStateAuthorityChanged
     {
 
         [Header("SOs")]
@@ -24,7 +24,6 @@ namespace Enemy
         [Header("Patrol Points")] 
         [SerializeField] private Transform patrolLocations;
         [SerializeField] private List<Transform> patrolPoints = new();
-        
         
         public Transform Target { get; set; }
         public EnemyStatsSO EnemyStats => enemyStats;
@@ -49,13 +48,25 @@ namespace Enemy
         private readonly int _speedAnimatorParameter = Animator.StringToHash("Speed");
         private float _updatePathTimer = 0;
 
+
+        public void StateAuthorityChanged()
+        {
+            if (Object.HasStateAuthority)
+            {
+                Debug.Log("I have state authority");
+                
+                Spawned();
+            }
+        }
+        
         public override void Spawned()
         {
             base.Spawned();
             
-            patrolLocations.SetParent(null);
+            if (!HasStateAuthority)
+                return;
             
-            navMeshAgent.stoppingDistance = enemyStats.AttackDistance;
+            patrolLocations.SetParent(null);
             
             BehaviorIdleState = new EnemyBehaviorIdle(this, _stateMachine);
             BehaviorPatrolState = new EnemyBehaviorPatrol(this, _stateMachine);
@@ -65,11 +76,17 @@ namespace Enemy
             _stateMachine.Initialize(BehaviorIdleState);
         }
 
-        public void Update()
+
+        public override void FixedUpdateNetwork()
         {
+            base.FixedUpdateNetwork();
+            
+            if (!HasStateAuthority)
+                return;
+            
             _stateMachine.Update();
         }
-
+        
         public void UpdateMovementBlendTree()
         {
             animator.SetFloat(_speedAnimatorParameter, navMeshAgent.velocity.sqrMagnitude);
@@ -98,7 +115,7 @@ namespace Enemy
         
         public void UpdatePath()
         {
-            _updatePathTimer +=  Runner.DeltaTime /*Time.deltaTime*/;
+            _updatePathTimer += Runner.DeltaTime /*Time.deltaTime*/;
 
             if (_updatePathTimer >= EnemyStats.PathUpdateDelay)
             {
@@ -106,6 +123,7 @@ namespace Enemy
                 NavMeshAgent.SetDestination(Target.position);
             }
         }
+
 
     }
     

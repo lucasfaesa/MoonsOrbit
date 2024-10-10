@@ -1218,6 +1218,7 @@ GameObject:
   - component: {fileID: 4249814087652870669}
   - component: {fileID: 8666603171133599636}
   - component: {fileID: 9112100280534091262}
+  - component: {fileID: 2158448403390573228}
   m_Layer: 12
   m_Name: RobotEnemyPrefab
   m_TagString: Enemy
@@ -1284,11 +1285,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 180682272
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 524289
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: -4449187088048350910}
   - {fileID: 4125853816013041965}
+  - {fileID: 2158448403390573228}
 --- !u!114 &-4449187088048350910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,6 +1388,24 @@ CapsuleCollider:
   m_Height: 2.008162
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 1.0042546, z: -0.0000004172325}
+--- !u!114 &2158448403390573228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170963900711931383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 1562995076386183881}
+  TotalWords: 3
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 00000000a1f7ab0dc552bd7844f885b2cd5c3ec0
+  TriggerHashes: 00000000
 --- !u!1 &5446382939880526966
 GameObject:
   m_ObjectHideFlags: 0
