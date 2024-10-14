@@ -7,4 +7,5 @@ public interface IDamageable
    void InitializeHealth();
    void OnDamageTaken(float damage);
 
+   void OnDamageTakenRPC(float damage);
 }

@@ -10,12 +10,12 @@ public class HealthStatsSO : ScriptableObject
     [field:SerializeField] public float MaxHealth { get; set; } = 100f;
     [field: ReadOnly][field:SerializeField] public float CurrentHealth { get; set; }
     
-    public event Action<float, float> DamageTaken;
+    public event Action<float> CurrentHealthUpdated;
     public event Action Death;
-    
-    public void OnDamageTaken(float damage, float currentHealth)
+
+    public void OnHealthUpdated(float currentHealth)
     {
-        DamageTaken?.Invoke(damage, currentHealth);
+        CurrentHealthUpdated?.Invoke(currentHealth);
     }
 
     public void OnDeath()

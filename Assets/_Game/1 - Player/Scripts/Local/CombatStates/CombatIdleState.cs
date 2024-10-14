@@ -29,7 +29,7 @@ public class CombatIdleState : State<PlayerCombatBehavior>
                     context.PlayerWeaponHolder.localPosition = context.WeaponHolderInitialPosition;
                 });
         }
-        Debug.Log("<color=blue>Entered combat idle state</color>");
+//        Debug.Log("<color=blue>Entered combat idle state</color>");
     }
 
     public override void LogicUpdate()

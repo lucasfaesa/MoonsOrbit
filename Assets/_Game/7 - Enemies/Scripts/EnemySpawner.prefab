@@ -79,12 +79,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkRunnerCallbacks: {fileID: 11400000, guid: 51b3e68d9606b2f45a4b19f943c35de2,
     type: 2}
-  robotEnemy: {fileID: 4125853816013041965, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
+  networkPlayerCallbacks: {fileID: 11400000, guid: 74ce6e0a32cea9a4a823877e54287f2a,
+    type: 2}
+  robotEnemyPrefab: {fileID: 4125853816013041965, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
     type: 3}
   spawnPoints:
   - {fileID: 3179688325444340022}
-  _EnemiesSpawned:
-    _value: 0
 --- !u!114 &4986674462321201425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 4210313944
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 524289
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3030150415443776020}

@@ -2,35 +2,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enemy;
+using Fusion;
 using UnityEngine;
 
-public class EnemyDamageable : MonoBehaviour, IDamageable
+public class EnemyDamageable : NetworkBehaviour, IDamageable
 {
     [SerializeField] private HealthStatsSO healthStats;
     
-    private float _currentHealth;
-    
-    private void Awake()
-    {
-        InitializeHealth();
-    }
+    [Networked, OnChangedRender(nameof(HealthUpdate))] private float CurrentHealth { get; set; }
 
+    public override void Spawned()
+    {
+        base.Spawned();
+        InitializeHealth();
+        HealthUpdate();
+    }
+    
     public void InitializeHealth()
     {
-        _currentHealth = healthStats.MaxHealth;
+        CurrentHealth = healthStats.MaxHealth;
+        Debug.Log($"Current: {CurrentHealth}");
     }
 
-    public void OnDamageTaken(float damage)
+    public void OnDamageTaken(float _)
     {
-        _currentHealth -= damage;
-        _currentHealth = Mathf.Clamp(_currentHealth, 0,  healthStats.MaxHealth);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void OnDamageTakenRPC(float damage)
+    {
+        CurrentHealth -= damage;
         
-        healthStats.OnDamageTaken(damage, _currentHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0,  healthStats.MaxHealth);
         
-            
-        if (_currentHealth == 0)
+        if (CurrentHealth == 0)
         {
             healthStats.OnDeath();
         }
+        
+    }
+
+    private void HealthUpdate()
+    {
+        healthStats.OnHealthUpdated(CurrentHealth);
     }
 }

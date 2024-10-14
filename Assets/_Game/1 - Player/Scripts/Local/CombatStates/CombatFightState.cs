@@ -41,7 +41,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
             _initialized = true;
         }
             
-        Debug.Log("<color=magenta>Entered combat fight state</color>");
+//        Debug.Log("<color=magenta>Entered combat fight state</color>");
         _weaponStats = context.PistolStats;
     }
 
@@ -74,8 +74,6 @@ public class CombatFightState : State<PlayerCombatBehavior>
     private void Shoot()
     {
         context.BulletsLeft--;
-
-        Debug.Log($"Bullets Left{context.BulletsLeft}");
         
         _lastShotTime = Time.time;
         _shotDirection = GetDirection();
@@ -93,7 +91,8 @@ public class CombatFightState : State<PlayerCombatBehavior>
 
             if (_targetType == ConstantsManager.TargetType.ENEMY)
             {
-                _hit.collider.GetComponent<IDamageable>().OnDamageTaken(_weaponStats.Damage);
+                var enemy = _hit.collider;
+                enemy.GetComponent<IDamageable>().OnDamageTakenRPC(_weaponStats.Damage);
             }
         }
         else

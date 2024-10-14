@@ -12,15 +12,15 @@ public class WorldHealthIndicator : MonoBehaviour
     
     private void OnEnable()
     {
-        healthStats.DamageTaken += OnDamageTaken;
+        healthStats.CurrentHealthUpdated += OnHealthUpdated;
     }
 
     private void OnDisable()
     {
-        healthStats.DamageTaken -= OnDamageTaken;
+        healthStats.CurrentHealthUpdated -= OnHealthUpdated;
     }
 
-    private void OnDamageTaken(float damageTaken, float currentHealth)
+    private void OnHealthUpdated(float currentHealth)
     {
         healthPivot.DOScaleX(currentHealth/healthStats.MaxHealth, 0.3f).SetEase(Ease.OutSine);
     }

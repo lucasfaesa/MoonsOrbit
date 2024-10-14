@@ -18,7 +18,7 @@ public class CombatReloadState : State<PlayerCombatBehavior>
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("<color=magenta>Entered combat reload state</color>");
+//        Debug.Log("<color=magenta>Entered combat reload state</color>");
 
         context.CanAim = false;
         context.ToggleAim(false);
