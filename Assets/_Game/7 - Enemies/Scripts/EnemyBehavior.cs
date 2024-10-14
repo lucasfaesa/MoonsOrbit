@@ -47,7 +47,7 @@ namespace Enemy
         
         private readonly int _speedAnimatorParameter = Animator.StringToHash("Speed");
         private float _updatePathTimer = 0;
-
+        private Collider[] _hitColliders = new Collider[10];
 
         public void StateAuthorityChanged()
         {
@@ -124,7 +124,27 @@ namespace Enemy
             }
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, enemyStats.DetectionDistance);
+        }
 
+        public bool CheckIfPlayersOnRadius(out Transform target)
+        {
+            int numHits = Physics.OverlapSphereNonAlloc(transform.position, EnemyStats.DetectionDistance, _hitColliders, EnemyStats.PlayerLayerMasks);
+
+            if (numHits > 0)
+            {
+                target = _hitColliders[0].transform;
+                return true;
+            }
+            else
+            {
+                target = null;
+                return false;
+            }
+        }
     }
     
 }

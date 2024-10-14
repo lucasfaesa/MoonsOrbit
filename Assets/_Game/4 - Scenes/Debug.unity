@@ -348,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &138697893
 Transform:
   m_ObjectHideFlags: 0
@@ -874,11 +874,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- make damageable (networked)\n- fix enemy target (its serialized to
-    the player)\n- make enemy die\n\nproblems:\n- enemy jittery movement\n- when
-    player leaves, enemies are gone\n- when enemy reaches its path, it doenst stop
-    animating the movement\n- slow movement when spawned on network\n- study a better
-    way to implement this enemy\n\nhttps://kenney.nl/assets\n\nhttps://www.reddit.com/r/Unity3D/comments/slch3j/help_with_navmesh_photon/\nhttps://forum.photonengine.com/discussion/11375/how-do-i-sync-a-navmeshagent\n\nEnemies
+  todoList: "- know why bullets wont spawn when shooting another player\n- make enemy
+    attack when attacked outside its attack range\n- make enemy switch targets\n-
+    make enemy die\n\nproblems:\n- enemy jittery movement\n- when player leaves,
+    enemies are gone\n- when enemy reaches its path, it doenst stop animating the
+    movement\n- slow movement when spawned on network\n- study a better way to implement
+    this enemy\n\nhttps://kenney.nl/assets\n\nhttps://www.reddit.com/r/Unity3D/comments/slch3j/help_with_navmesh_photon/\nhttps://forum.photonengine.com/discussion/11375/how-do-i-sync-a-navmeshagent\n\nEnemies
     TODO:\n- fix shooting direction\n- \n\n"
 --- !u!4 &376955803
 Transform:

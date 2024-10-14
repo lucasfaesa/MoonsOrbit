@@ -17,8 +17,8 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 12
   <PathUpdateDelay>k__BackingField: 0.2
   <BulletSpeed>k__BackingField: 45
-  <ShootingLayerMask>k__BackingField:
+  <PlayerLayerMasks>k__BackingField:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 192
   <BulletSpread>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}
   <RotationRate>k__BackingField: 0.2

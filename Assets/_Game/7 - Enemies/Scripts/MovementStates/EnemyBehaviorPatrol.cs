@@ -35,18 +35,18 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
     {
         context.UpdateMovementBlendTree();
 
+        if (context.CheckIfPlayersOnRadius(out var target))
+        {
+            context.Target = target;
+            stateMachine.ChangeState(context.BehaviorAttackState);
+        }
+
+        
         if (!_inRestTimeBetweenWaypoints)
         {
             context.UpdatePath();
             CheckIfReachedDestination();
         }
-
-        
-        /*if (Vector3.Distance(context.transform.position, context.Target.position) <=
-            context.EnemyStats.DetectionDistance)
-        {
-            stateMachine.ChangeState(context.BehaviorChaseState);
-        }*/
     }
 
     private void CheckIfReachedDestination()

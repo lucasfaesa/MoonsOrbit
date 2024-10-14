@@ -23,6 +23,12 @@ namespace Enemy
 
         public override void LogicUpdate()
         {
+            if (context.CheckIfPlayersOnRadius(out var target))
+            {
+                context.Target = target;
+                stateMachine.ChangeState(context.BehaviorAttackState);
+            }
+            
             _timer += Time.deltaTime;
 
             if (_timer >= context.EnemyStats.IdleTime)
@@ -30,6 +36,8 @@ namespace Enemy
                 _timer = 0;
                 stateMachine.ChangeState(context.BehaviorPatrolState);
             }
+            
+
         }
 
         public override void PhysicsUpdate()

@@ -46,8 +46,6 @@ public class EnemySpawner : NetworkBehaviour
     
     private void SpawnEnemies(NetworkRunner networkRunner)
     {
-        Debug.LogError($"Enemies spawned: {EnemiesSpawned}");
-        
         if (EnemiesSpawned) return;
 
         if (networkPlayerCallbacks.PlayersInGame.Count > 0 && _ownerOfEnemiesId == null)
