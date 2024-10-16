@@ -22,9 +22,6 @@ public class PhysicalBulletBehavior : MonoBehaviour
 
         private bool _initialized;
         
-        private IObjectPool<PhysicalBulletBehavior> _thisObjectPool;
-        public IObjectPool<PhysicalBulletBehavior> ObjectPool { set => _thisObjectPool = value; }
-
         private IObjectPool<ParticleSystem> _metalHitEffectPool;
         private IObjectPool<ParticleSystem> _bloodHitEffectPool;
         
@@ -61,6 +58,8 @@ public class PhysicalBulletBehavior : MonoBehaviour
                 {
                     var instance = Instantiate(prefab);
                     var effectBehavior = instance.GetComponent<HitEffectBehavior>();
+                    effectBehavior.SetToDestroyItself = true;
+                    
                     effectBehavior.ObjectPool = type switch
                     {
                         PoolType.METAL => _metalHitEffectPool,
@@ -107,7 +106,7 @@ public class PhysicalBulletBehavior : MonoBehaviour
                 
                 _initialized = false;
                 
-                _thisObjectPool.Release(this);
+                Destroy(this.gameObject);
             }
         }
 
@@ -131,8 +130,8 @@ public class PhysicalBulletBehavior : MonoBehaviour
                 impactParticle.Play();
             }
             
+            Destroy(this.gameObject);
             
-            _thisObjectPool.Release(this);
         }
         
         private ConstantsManager.TargetType GetLayerHit(int layer)

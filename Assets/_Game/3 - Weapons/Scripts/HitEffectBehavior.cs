@@ -11,9 +11,16 @@ public class HitEffectBehavior : MonoBehaviour
     private IObjectPool<ParticleSystem> _thisObjectPool;
     public IObjectPool<ParticleSystem> ObjectPool { set => _thisObjectPool = value; }
 
+    public bool SetToDestroyItself { get; set; }
+    
     private void OnParticleSystemStopped()
     {
         this.transform.parent = null;
         _thisObjectPool.Release(particleSystem);
+        
+        if (SetToDestroyItself)
+            Destroy(this.gameObject);
+        
     }
+    
 }

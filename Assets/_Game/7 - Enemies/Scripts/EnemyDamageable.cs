@@ -10,7 +10,8 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
     [SerializeField] private HealthStatsSO healthStats;
     
     [Networked, OnChangedRender(nameof(HealthUpdate))] private float CurrentHealth { get; set; }
-
+    [Networked] private NetworkBool Initialized { get; set; }
+    
     public override void Spawned()
     {
         base.Spawned();
@@ -20,7 +21,12 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
     
     public void InitializeHealth()
     {
+        if(Initialized)
+            return;
+        
         CurrentHealth = healthStats.MaxHealth;
+        Initialized = true;
+        
         Debug.Log($"Current: {CurrentHealth}");
     }
 

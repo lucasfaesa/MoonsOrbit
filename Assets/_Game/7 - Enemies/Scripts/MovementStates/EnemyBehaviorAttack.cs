@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DesignPatterns;
+using Fusion;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,22 +12,13 @@ namespace Enemy
         
         public EnemyBehaviorAttack(EnemyBehavior context, StateMachine<EnemyBehavior> stateMachine) : base(context, stateMachine)
         {
-            InitPools();
         }
 
         private readonly int _shootingAnimatorParameter = Animator.StringToHash("Shooting");
         
-        private IObjectPool<PhysicalBulletBehavior> _physicalBulletPool;
-
         private Vector3 _randomSpread;
         private Vector3 _spreadDirection;
         
-        
-        private void InitPools()
-        {
-            _physicalBulletPool = new ObjectPool<PhysicalBulletBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
-                OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
-        }
         
         public override void Enter()
         {
@@ -75,36 +67,9 @@ namespace Enemy
             
             context.MuzzleFlashParticle.Play();
             
-            _physicalBulletPool.Get();
-            
-        }
-        
-        private PhysicalBulletBehavior CreateTrailPrefab()
-        {
-            var newPoolObject = Object.Instantiate(context.PhysicalBulletPrefab, context.GunMuzzle.position, Quaternion.LookRotation(_spreadDirection));
-            newPoolObject.ObjectPool = _physicalBulletPool;
-            return newPoolObject;
-        }
+            //_physicalBulletPool.Get();
 
-        private void OnReleaseToTrailPool(PhysicalBulletBehavior pooledObject)
-        {
-            pooledObject.gameObject.SetActive(false);
-        }
-    
-        private void OnGetFromTrailPool(PhysicalBulletBehavior pooledObject)
-        {
-            pooledObject.transform.SetPositionAndRotation(context.GunMuzzle.position, Quaternion.LookRotation(_spreadDirection));
-            
-            var targetPoint = _spreadDirection * 1000f;
-            
-            pooledObject.Initialize(targetPoint, context.EnemyStats.BulletSpeed);
-        
-            pooledObject.gameObject.SetActive(true);
-        }
-    
-        private void OnDestroyTrailOnPool(PhysicalBulletBehavior pooledObject)
-        {
-            Object.Destroy(pooledObject.gameObject);
+            context.InstantiateBulletRPC(_spreadDirection);
         }
     }
 }

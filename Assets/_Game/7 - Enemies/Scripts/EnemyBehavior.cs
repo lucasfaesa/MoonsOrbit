@@ -62,11 +62,16 @@ namespace Enemy
         public override void Spawned()
         {
             base.Spawned();
-            
+
             if (!HasStateAuthority)
+            {
+                navMeshAgent.enabled = false;
                 return;
+            }
             
+            navMeshAgent.enabled = true;
             patrolLocations.SetParent(null);
+            
             
             BehaviorIdleState = new EnemyBehaviorIdle(this, _stateMachine);
             BehaviorPatrolState = new EnemyBehaviorPatrol(this, _stateMachine);
@@ -122,6 +127,16 @@ namespace Enemy
                 _updatePathTimer = 0;
                 NavMeshAgent.SetDestination(Target.position);
             }
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void InstantiateBulletRPC(Vector3 spreadDirection)
+        {
+            var bullet = Instantiate(PhysicalBulletPrefab, GunMuzzle.position, Quaternion.LookRotation(spreadDirection));
+            
+            var targetPoint = spreadDirection * 1000f;
+
+            bullet.Initialize(targetPoint, enemyStats.BulletSpeed);
         }
 
         private void OnDrawGizmos()
