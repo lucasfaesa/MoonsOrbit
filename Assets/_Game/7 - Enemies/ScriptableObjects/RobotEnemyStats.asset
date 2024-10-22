@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: RobotEnemyStats
   m_EditorClassIdentifier: 
   <IdleTime>k__BackingField: 2
+  <MaxChaseTime>k__BackingField: 5
+  <TargetChangeDelayWhenBeingAttacked>k__BackingField: 3
+  <BulletsTakenThresholdToChangeTarget>k__BackingField: 7
   <DetectionDistance>k__BackingField: 12
   <AttackDistance>k__BackingField: 12
   <PathUpdateDelay>k__BackingField: 0.2
   <BulletSpeed>k__BackingField: 45
   <PlayerLayerMasks>k__BackingField:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 1728
   <BulletSpread>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}
   <RotationRate>k__BackingField: 0.2

@@ -874,12 +874,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: "- know why bullets wont spawn when shooting another player\n- make enemy
-    attack when attacked outside its attack range\n- make enemy switch targets\n-
-    make enemy die\n\nproblems:\n- enemy jittery movement\n- when player leaves,
-    enemies are gone\n- when enemy reaches its path, it doenst stop animating the
-    movement\n- slow movement when spawned on network\n- study a better way to implement
-    this enemy\n\nhttps://kenney.nl/assets\n\nhttps://www.reddit.com/r/Unity3D/comments/slch3j/help_with_navmesh_photon/\nhttps://forum.photonengine.com/discussion/11375/how-do-i-sync-a-navmeshagent\n\nEnemies
+  todoList: "- make enemy attack when attacked outside its attack range\n- make enemy
+    switch targets\n- make enemy die\n\nproblems:\n- enemy jittery movement\n- when
+    player leaves, enemies are gone\n- when enemy reaches its path, it doenst stop
+    animating the movement\n- slow movement when spawned on network\n- study a better
+    way to implement this enemy\n\nhttps://kenney.nl/assets\n\nhttps://www.reddit.com/r/Unity3D/comments/slch3j/help_with_navmesh_photon/\nhttps://forum.photonengine.com/discussion/11375/how-do-i-sync-a-navmeshagent\n\nEnemies
     TODO:\n- fix shooting direction\n- \n\n"
 --- !u!4 &376955803
 Transform:
@@ -1866,7 +1865,7 @@ PrefabInstance:
     - target: {fileID: 4152742069830811091, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4152742069830811091, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
@@ -1876,7 +1875,7 @@ PrefabInstance:
     - target: {fileID: 4152742069830811091, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9.43
       objectReference: {fileID: 0}
     - target: {fileID: 4152742069830811091, guid: b36878f162d9d624587982cba1290a01,
         type: 3}

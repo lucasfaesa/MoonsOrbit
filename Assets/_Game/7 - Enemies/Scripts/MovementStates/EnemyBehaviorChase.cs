@@ -12,9 +12,14 @@ namespace Enemy
         {
         }
 
+        private float _chaseTime;
+        
         public override void Enter()
         {
             base.Enter();
+            context.InCombat = true;
+            _chaseTime = 0f;
+            
             Debug.Log("<color=red>Enemy Chase State</color>");
             context.NavMeshAgent.stoppingDistance = context.EnemyStats.AttackDistance;
             context.TriggerImmediatePathUpdate();
@@ -22,6 +27,14 @@ namespace Enemy
 
         public override void LogicUpdate()
         {
+            _chaseTime += context.Runner.DeltaTime;
+
+            if (_chaseTime >= context.EnemyStats.MaxChaseTime)
+            {
+                stateMachine.ChangeState(context.BehaviorPatrolState);
+                return;
+            }
+            
             if (Vector3.Distance(context.transform.position, context.Target.position) <=
                 context.EnemyStats.AttackDistance)
             {
@@ -41,6 +54,7 @@ namespace Enemy
         public override void Exit()
         {
             base.Exit();
+            context.InCombat = false;
         }
         
     }

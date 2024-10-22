@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DesignPatterns;
 using Fusion;
 using NaughtyAttributes;
@@ -15,6 +16,7 @@ namespace Enemy
 
         [Header("SOs")]
         [SerializeField] private EnemyStatsSO enemyStats;
+        [SerializeField] private HealthStatsSO healthStats;
         [Header("References")] 
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
@@ -26,6 +28,7 @@ namespace Enemy
         [SerializeField] private List<Transform> patrolPoints = new();
         
         public Transform Target { get; set; }
+        public bool InCombat { get; set; }
         public EnemyStatsSO EnemyStats => enemyStats;
         public NavMeshAgent NavMeshAgent => navMeshAgent;
         public Animator Animator => animator;
@@ -49,6 +52,8 @@ namespace Enemy
         private float _updatePathTimer = 0;
         private Collider[] _hitColliders = new Collider[10];
 
+        private HashSet<AttackerData> _attackers = new();
+        
         public void StateAuthorityChanged()
         {
             if (Object.HasStateAuthority)
@@ -62,12 +67,14 @@ namespace Enemy
         public override void Spawned()
         {
             base.Spawned();
-
+            
             if (!HasStateAuthority)
             {
                 navMeshAgent.enabled = false;
                 return;
             }
+            
+            healthStats.GotAttacked += OnGotAttacked;
             
             navMeshAgent.enabled = true;
             patrolLocations.SetParent(null);
@@ -79,6 +86,12 @@ namespace Enemy
             BehaviorAttackState = new EnemyBehaviorAttack(this, _stateMachine);
             
             _stateMachine.Initialize(BehaviorIdleState);
+        }
+
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            base.Despawned(runner, hasState);
+            healthStats.GotAttacked -= OnGotAttacked;
         }
 
 
@@ -95,6 +108,63 @@ namespace Enemy
         public void UpdateMovementBlendTree()
         {
             animator.SetFloat(_speedAnimatorParameter, navMeshAgent.velocity.sqrMagnitude);
+        }
+
+        private void OnGotAttacked(Vector3 attackerPosition)
+        {
+            
+            Collider[] hits = new Collider[1];
+            int hitCount = Physics.OverlapSphereNonAlloc(attackerPosition, 1f, hits, enemyStats.PlayerLayerMasks);
+            
+            Debug.LogError($"Attacker Pos {attackerPosition}");
+            
+            if (hitCount == 0)
+                return;
+            
+            var attacker = hits[0].transform;
+            
+            if (!InCombat)
+            {
+                InCombat = true;
+                Target = attacker;
+                _stateMachine.ChangeState(BehaviorChaseState);
+            }
+            
+            var attackerData = _attackers.FirstOrDefault(x => x.AttackerTransform == attacker);
+            
+            if (attackerData == null)
+                _attackers.Add(new AttackerData(attacker, 1, Time.time)); // Add new attacker if it doesn't exist
+            else
+            {
+                attackerData.DamageDone++;
+                attackerData.LastDamageTime = Time.time;
+            }
+
+            Debug.LogError($"Attackers: {_attackers.Count}");
+            
+            // If multiple attackers, handle target switching
+            if (_attackers.Count > 1)
+            {
+                var currentTargetData = _attackers.FirstOrDefault(x => x.AttackerTransform == Target);
+
+                if (currentTargetData != null)
+                {
+                    float timeSinceLastAttack = Time.time - currentTargetData.LastDamageTime;
+                    float damageDifference = attackerData != null ? attackerData.DamageDone - currentTargetData.DamageDone : 0;
+
+                    // Switch target if the current target has not attacked for a certain delay
+                    if (timeSinceLastAttack >= enemyStats.TargetChangeDelayWhenBeingAttacked)
+                    {
+                        Target = attacker;
+                    }
+
+                    // Switch target if there's a significant difference in damage taken
+                    if (damageDifference >= enemyStats.BulletsTakenThresholdToChangeTarget)
+                    {
+                        Target = attacker;
+                    }
+                }
+            }
         }
         
         public void LookAtTarget()
@@ -158,6 +228,20 @@ namespace Enemy
             {
                 target = null;
                 return false;
+            }
+        }
+
+        private class AttackerData
+        {
+            public Transform AttackerTransform { get; }
+            public float DamageDone { get; set; }
+            public float LastDamageTime { get; set; }
+
+            public AttackerData(Transform attackerTransform, float damageDone, float lastDamageTime)
+            {
+                AttackerTransform = attackerTransform;
+                DamageDone = damageDone;
+                LastDamageTime = lastDamageTime;
             }
         }
     }

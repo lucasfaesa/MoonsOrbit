@@ -1321,6 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 4f3c21c15b241054186047240b15747d, type: 2}
+  healthStats: {fileID: 11400000, guid: 6c54109a777f7194ea703744caacf1f2, type: 2}
   navMeshAgent: {fileID: 8666603171133599636}
   animator: {fileID: 1562995076386183881}
   gunMuzzle: {fileID: 8553328722627255274}

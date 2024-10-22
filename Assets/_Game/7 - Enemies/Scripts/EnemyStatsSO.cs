@@ -9,6 +9,9 @@ namespace Enemy
     public class EnemyStatsSO : ScriptableObject
     {
         [field:SerializeField] public float IdleTime { get; private set; } = 2.0f;
+        [field:SerializeField] public float MaxChaseTime { get; private set; } = 5.0f;
+        [field:SerializeField] public float TargetChangeDelayWhenBeingAttacked { get; private set; } = 300.0f;
+        [field:SerializeField] public int BulletsTakenThresholdToChangeTarget { get; private set; } = 15;
         [field:SerializeField] public float DetectionDistance { get; private set; } = 12f;
         [field:SerializeField] public float AttackDistance { get; private set; } = 5f;
         [field:SerializeField] public float PathUpdateDelay { get; private set; } = 0.2f;

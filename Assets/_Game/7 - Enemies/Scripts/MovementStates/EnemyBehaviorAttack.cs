@@ -25,6 +25,8 @@ namespace Enemy
             Debug.Log("<color=purple>Enemy Attack State</color>");
             
             base.Enter();
+            
+            context.InCombat = true;
             context.ShootingAnimationEvent += ShootForward;
             context.Animator.SetBool(_shootingAnimatorParameter, true);
         }
@@ -48,6 +50,7 @@ namespace Enemy
         public override void Exit()
         {
             base.Exit();
+            context.InCombat = false;
             context.ShootingAnimationEvent -= ShootForward;
             context.MuzzleFlashParticle.Stop();
             context.Animator.SetBool(_shootingAnimatorParameter, false);

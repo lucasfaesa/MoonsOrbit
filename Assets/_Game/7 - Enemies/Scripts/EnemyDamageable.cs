@@ -8,7 +8,7 @@ using UnityEngine;
 public class EnemyDamageable : NetworkBehaviour, IDamageable
 {
     [SerializeField] private HealthStatsSO healthStats;
-    
+
     [Networked, OnChangedRender(nameof(HealthUpdate))] private float CurrentHealth { get; set; }
     [Networked] private NetworkBool Initialized { get; set; }
     
@@ -35,7 +35,7 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void OnDamageTakenRPC(float damage)
+    public void OnDamageTakenRPC(float damage, Vector3 position)
     {
         CurrentHealth -= damage;
         
@@ -46,6 +46,7 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
             healthStats.OnDeath();
         }
         
+        healthStats.OnGotAttacked(position);
     }
 
     private void HealthUpdate()
