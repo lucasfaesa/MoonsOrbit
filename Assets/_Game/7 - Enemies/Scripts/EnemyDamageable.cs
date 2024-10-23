@@ -11,6 +11,8 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
 
     [Networked, OnChangedRender(nameof(HealthUpdate))] private float CurrentHealth { get; set; }
     [Networked] private NetworkBool Initialized { get; set; }
+
+    private bool _isDead;
     
     public override void Spawned()
     {
@@ -37,6 +39,9 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void OnDamageTakenRPC(float damage, Vector3 position)
     {
+        if (_isDead)
+            return;
+        
         CurrentHealth -= damage;
         
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0,  healthStats.MaxHealth);
@@ -44,6 +49,8 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
         if (CurrentHealth == 0)
         {
             healthStats.OnDeath();
+            _isDead = true;
+            return;
         }
         
         healthStats.OnGotAttacked(position);

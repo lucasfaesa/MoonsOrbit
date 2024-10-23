@@ -23,6 +23,7 @@ namespace Enemy
         [SerializeField] private Transform gunMuzzle;
         [SerializeField] private ParticleSystem muzzleFlashParticle;
         [SerializeField] private PhysicalBulletBehavior physicalBulletPrefab;
+        [SerializeField] private Collider collider;
         [Header("Patrol Points")] 
         [SerializeField] private Transform patrolLocations;
         [SerializeField] private List<Transform> patrolPoints = new();
@@ -36,6 +37,7 @@ namespace Enemy
         public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
         public PhysicalBulletBehavior PhysicalBulletPrefab => physicalBulletPrefab;
         public List<Transform> PatrolPoints => patrolPoints;
+        public Collider Collider => collider;
         
         public event Action ShootingAnimationEvent;
         
@@ -44,6 +46,7 @@ namespace Enemy
         public EnemyBehaviorPatrol BehaviorPatrolState { get; private set; }
         public EnemyBehaviorChase BehaviorChaseState { get; private set; }
         public EnemyBehaviorAttack BehaviorAttackState { get; private set; }
+        public EnemyBehaviorDead BehaviorDeadState { get; private set; }
         
         private StateMachine<EnemyBehavior> _stateMachine = new();
         //---------
@@ -75,6 +78,7 @@ namespace Enemy
             }
             
             healthStats.GotAttacked += OnGotAttacked;
+            healthStats.Death += OnDeath;
             
             navMeshAgent.enabled = true;
             patrolLocations.SetParent(null);
@@ -84,6 +88,7 @@ namespace Enemy
             BehaviorPatrolState = new EnemyBehaviorPatrol(this, _stateMachine);
             BehaviorChaseState = new EnemyBehaviorChase(this, _stateMachine);
             BehaviorAttackState = new EnemyBehaviorAttack(this, _stateMachine);
+            BehaviorDeadState = new EnemyBehaviorDead(this, _stateMachine);
             
             _stateMachine.Initialize(BehaviorIdleState);
         }
@@ -92,6 +97,7 @@ namespace Enemy
         {
             base.Despawned(runner, hasState);
             healthStats.GotAttacked -= OnGotAttacked;
+            healthStats.Death -= OnDeath;
         }
 
 
@@ -108,6 +114,11 @@ namespace Enemy
         public void UpdateMovementBlendTree()
         {
             animator.SetFloat(_speedAnimatorParameter, navMeshAgent.velocity.sqrMagnitude);
+        }
+
+        private void OnDeath()
+        {
+            _stateMachine.ChangeState(BehaviorDeadState);
         }
 
         private void OnGotAttacked(Vector3 attackerPosition)

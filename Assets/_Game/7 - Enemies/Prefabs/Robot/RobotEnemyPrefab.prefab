@@ -1328,6 +1328,7 @@ MonoBehaviour:
   muzzleFlashParticle: {fileID: 7694275685647235772}
   physicalBulletPrefab: {fileID: 3959586117232672942, guid: 5a9e498caff33e244be1eac9ca75344a,
     type: 3}
+  collider: {fileID: 9112100280534091262}
   patrolLocations: {fileID: 1313623024802127110}
   patrolPoints:
   - {fileID: 157390224413978617}
@@ -1406,8 +1407,8 @@ MonoBehaviour:
   TotalWords: 3
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 00000000a1f7ab0dc552bd7844f885b2cd5c3ec0
-  TriggerHashes: 00000000
+  StateHashes: 00000000a1f7ab0dc552bd7844f885b2cd5c3ec037b93501c6320a95
+  TriggerHashes: 0000000037b93501
 --- !u!1 &5446382939880526966
 GameObject:
   m_ObjectHideFlags: 0
