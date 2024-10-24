@@ -71,6 +71,8 @@ namespace Enemy
         {
             base.Spawned();
             
+            patrolLocations.SetParent(null);
+            
             if (!HasStateAuthority)
             {
                 navMeshAgent.enabled = false;
@@ -81,8 +83,6 @@ namespace Enemy
             healthStats.Death += OnDeath;
             
             navMeshAgent.enabled = true;
-            patrolLocations.SetParent(null);
-            
             
             BehaviorIdleState = new EnemyBehaviorIdle(this, _stateMachine);
             BehaviorPatrolState = new EnemyBehaviorPatrol(this, _stateMachine);

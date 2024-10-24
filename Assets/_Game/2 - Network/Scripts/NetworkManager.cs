@@ -12,8 +12,11 @@ namespace Networking
 {
     public class NetworkManager : SingletonBase<NetworkManager>, INetworkRunnerCallbacks
     {
-        [Header("SOs")] [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
-        [Header("Other")] [SerializeField] private NetworkRunner runnerPrefab;
+        [Header("SOs")] 
+        [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
+        [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacksSo;
+        [Header("Other")] 
+        [SerializeField] private NetworkRunner runnerPrefab;
         [SerializeField] private NetworkSceneManagerDefault networkSceneManagerDefault;
 
         public bool RunnerInitialized { get; private set; }
@@ -26,6 +29,7 @@ namespace Networking
 
         async void Start()
         {
+            networkPlayerCallbacksSo.Reset();
             CreateRunner();
             RunnerInitialized = true;
             await Connect();

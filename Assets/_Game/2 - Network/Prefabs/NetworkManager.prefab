@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkRunnerCallbacks: {fileID: 11400000, guid: 51b3e68d9606b2f45a4b19f943c35de2,
     type: 2}
+  networkPlayerCallbacksSo: {fileID: 11400000, guid: 74ce6e0a32cea9a4a823877e54287f2a,
+    type: 2}
   runnerPrefab: {fileID: -3801618682526563088, guid: a4e1c27b1b093834eba73d3512cf3b60,
     type: 3}
   networkSceneManagerDefault: {fileID: 3341077038100507725}
