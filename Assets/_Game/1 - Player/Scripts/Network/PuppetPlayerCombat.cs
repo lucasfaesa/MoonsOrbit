@@ -8,6 +8,9 @@ public class PuppetPlayerCombat : NetworkBehaviour
     [Header("Components")] 
     [SerializeField] private Transform gunMuzzleRef;
     [SerializeField] private Transform gunTransform;
+    [Header("Rig Aim Refs")]
+    [SerializeField] private Transform pitchTransform;
+    [SerializeField] private Transform rigTargetRef;
     [Space]
     [SerializeField] private BulletTrailBehavior bulletTrailPrefab;
     [SerializeField] private ParticleSystem muzzleFlashParticle;
@@ -19,6 +22,7 @@ public class PuppetPlayerCombat : NetworkBehaviour
     private bool _isLocalPlayer;
     private Vector3 _muzzleWorldVelocity;
     private Vector3 _lastMuzzlePosition;
+    
     
     public override void Spawned()
     {
@@ -32,23 +36,29 @@ public class PuppetPlayerCombat : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
+
         
         if (!GetInput<PuppetPlayerInputData>(out var inputData))
             return;
         
+        SetRigTargetReference(inputData.PlayerTransformNetworkData.PlayerCameraPos, inputData.PlayerTransformNetworkData.PlayerCameraForward);
+        
         CalculateMuzzleVelocity();
         
-        var gunTransformNetData = inputData.GunTransformNetworkData;
-        
-        gunTransform.SetPositionAndRotation(gunTransformNetData.GunModelVisualPos, gunTransformNetData.GunModelVisualRot);
-        gunMuzzleRef.SetPositionAndRotation(gunTransformNetData.GunMuzzleRefPos, gunTransformNetData.GunMuzzleRefRot);
-
         if (inputData.HasShotThisFrame)
         {
             InstantiateBulletRPC(inputData.BulletTrailNetworkData);
         }
     }
 
+    private void SetRigTargetReference(Vector3 playerCameraWorldPos, Vector3 playerCameraForward)
+    {
+        if (Physics.Raycast(playerCameraWorldPos, playerCameraForward, out var hit, float.MaxValue))
+            rigTargetRef.position = hit.point;
+        else
+            rigTargetRef.position = pitchTransform.position + pitchTransform.transform.forward * 100f;
+    }
+    
     private void CalculateMuzzleVelocity()
     {
         _muzzleWorldVelocity = (gunMuzzleRef.position - _lastMuzzlePosition) / Runner.DeltaTime;

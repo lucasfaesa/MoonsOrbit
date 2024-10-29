@@ -13,6 +13,7 @@ namespace Networking
         [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
         [Header("Components")]
         [SerializeField] private Transform playerModelTransform;
+        [SerializeField] private Transform playerCamera;
         [SerializeField] private Transform gunTransform;
         [SerializeField] private Transform bulletTrailRefTransform;
 
@@ -39,8 +40,8 @@ namespace Networking
         {
             var inputData = new PuppetPlayerInputData
             {
-                PlayerTransformNetworkData = new PlayerTransformNetworkData(playerModelTransform.position, playerModelTransform.rotation),
-                GunTransformNetworkData = new GunTransformNetworkData(gunTransform.position, gunTransform.rotation, bulletTrailRefTransform.position, bulletTrailRefTransform.rotation),
+                PlayerTransformNetworkData = new PlayerTransformNetworkData(playerModelTransform.position, playerModelTransform.rotation, playerCamera.position, playerCamera.forward, playerCamera.localRotation),
+                GunTransformNetworkData = new GunTransformNetworkData(gunTransform.position, gunTransform.localRotation, bulletTrailRefTransform.position, bulletTrailRefTransform.rotation),
                 HasShotThisFrame = _hasShotThisFrame
             };
             
@@ -67,11 +68,17 @@ public struct PlayerTransformNetworkData : INetworkInput
 {
     public Vector3 PlayerModelVisualPos { get; set; }
     public Quaternion PlayerModelVisualRot { get; set; }
+    public Vector3 PlayerCameraPos { get; set; }
+    public Vector3 PlayerCameraForward { get; set; }
+    public Quaternion PlayerCameraLocalRot { get; set; }
     
-    public PlayerTransformNetworkData(Vector3 playerModelVisualPos, Quaternion playerModelVisualRot)
+    public PlayerTransformNetworkData(Vector3 playerModelVisualPos, Quaternion playerModelVisualRot, Vector3 playerCameraPos, Vector3 playerCameraForward, Quaternion playerCameraLocalRot)
     {
         PlayerModelVisualPos = playerModelVisualPos;
         PlayerModelVisualRot = playerModelVisualRot;
+        PlayerCameraPos = playerCameraPos;
+        PlayerCameraForward = playerCameraForward;
+        PlayerCameraLocalRot = playerCameraLocalRot;
     }
 }
 

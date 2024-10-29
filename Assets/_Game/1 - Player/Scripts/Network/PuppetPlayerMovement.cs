@@ -6,10 +6,11 @@ namespace Networking
 {
     public class PuppetPlayerMovement : NetworkBehaviour
     {
-        [Header("Components")]
-        [SerializeField] private CapsuleCollider capsuleCollider;
-        [SerializeField] private GameObject playerVisuals;
-
+        [Header("Components")] 
+        [SerializeField] private Transform yawTransform;
+        [SerializeField] private Transform pitchTransform;
+        
+        
         public override void FixedUpdateNetwork()
         {
             base.FixedUpdateNetwork();
@@ -17,7 +18,10 @@ namespace Networking
             if (!GetInput<PuppetPlayerInputData>(out var inputData))
                 return;
         
-            this.transform.SetPositionAndRotation(inputData.PlayerTransformNetworkData.PlayerModelVisualPos, inputData.PlayerTransformNetworkData.PlayerModelVisualRot);
+            this.transform.position =  inputData.PlayerTransformNetworkData.PlayerModelVisualPos;
+            
+            yawTransform.rotation = inputData.PlayerTransformNetworkData.PlayerModelVisualRot;
+            pitchTransform.localRotation = inputData.PlayerTransformNetworkData.PlayerCameraLocalRot;
         }
         
         
