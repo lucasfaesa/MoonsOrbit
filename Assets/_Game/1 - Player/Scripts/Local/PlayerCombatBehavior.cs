@@ -43,6 +43,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     public InputReaderSO InputReader => inputReader;
     public Transform GunMuzzleRef => gunMuzzleRef;
     public WeaponStatsSO PistolStats => pistolStats;
+    public GunStatusChannelSO GunStatusChannel => _gunStatusChannel;
     public LocalPlayerToPuppetSynchronizer LocalPlayerToPuppetSynchronizer => localPlayerToPuppetSynchronizer;
     public ParticleSystem MuzzleFlashParticle => muzzleFlashParticle;
 

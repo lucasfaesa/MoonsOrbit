@@ -1191,7 +1191,7 @@ Transform:
   m_GameObject: {fileID: 5742478444139512871}
   serializedVersion: 2
   m_LocalRotation: {x: -0.087316416, y: 0.9890537, z: -0.11840864, w: -0.011316366}
-  m_LocalPosition: {x: 0.256, y: 0.063, z: 0.235}
+  m_LocalPosition: {x: 0.186, y: 0.447, z: 0.141}
   m_LocalScale: {x: 0.32185265, y: 0.32185265, z: 0.32185262}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1524,11 +1524,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToDeactivateLocally:
-  - {fileID: 3332646519352493777}
   - {fileID: 5810060505322660370}
-  - {fileID: 8766171243431968340}
-  - {fileID: 4371117316064572835}
   - {fileID: 6514899859414027057}
+  - {fileID: 3332646519352493777}
+  - {fileID: 4371117316064572835}
+  - {fileID: 5131767518545652472}
+  - {fileID: 3481799270636307841}
+  - {fileID: 7323065591949019603}
+  - {fileID: 2332889344041209199}
+  - {fileID: 5040638663589232821}
+  - {fileID: 4835906419316096253}
+  - {fileID: 1594730074359197974}
+  - {fileID: 5742478444139512871}
+  - {fileID: 2662133008122217560}
+  - {fileID: 7429979110812594849}
+  - {fileID: 4148611037274737625}
+  - {fileID: 8473793036556486931}
 --- !u!114 &1603813656865217837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1573,19 +1584,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunMuzzleRef: {fileID: 7262658357413067593}
-  gunTransform: {fileID: 2060809374463690915}
+  pistolHolderTransform: {fileID: 1123345959456606123}
+  pistolStats: {fileID: 11400000, guid: 3eaeec8ae8442124fb7cbf1407acf1fc, type: 2}
+  gunStatusChannel: {fileID: 11400000, guid: fb33dee4f82ffda459341967bc829d9d, type: 2}
   pitchTransform: {fileID: 4512231535097967151}
   rigTargetRef: {fileID: 7756156549396121003}
   bulletTrailPrefab: {fileID: 4014543480331847223, guid: 3c6b27d949cdda749892906e1f1d1b27,
     type: 3}
   muzzleFlashParticle: {fileID: 8572278289427537469}
+--- !u!1 &9112073240387942339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1123345959456606123}
+  m_Layer: 6
+  m_Name: PistolHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1123345959456606123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112073240387942339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.055000246, y: 0.5770002, z: 0.060000338}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2060809374463690915}
+  m_Father: {fileID: 8004899959894089622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &211674054512460071
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8004899959894089622}
+    m_TransformParent: {fileID: 1123345959456606123}
     m_Modifications:
     - target: {fileID: 920621828558560239, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
@@ -1600,32 +1645,32 @@ PrefabInstance:
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.2969813
+      value: 3.2969816
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.2969813
+      value: 3.2969818
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.296981
+      value: 3.2969809
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.055
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.577
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
@@ -1640,12 +1685,12 @@ PrefabInstance:
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.49999997
       objectReference: {fileID: 0}
     - target: {fileID: 2191409529476204932, guid: d6de6961480841f498f6dcdefa42ca2b,
         type: 3}
@@ -1933,7 +1978,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: acfce0b1f02dfed4ead41edc9a380869,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2060809374463690915}
+      addedObject: {fileID: 1123345959456606123}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: acfce0b1f02dfed4ead41edc9a380869,
         type: 3}
       insertIndex: -1
@@ -2262,12 +2307,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8548591650290360414}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8766171243431968340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: acfce0b1f02dfed4ead41edc9a380869,
-    type: 3}
-  m_PrefabInstance: {fileID: 8548591650290360414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8819133295370460431 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: acfce0b1f02dfed4ead41edc9a380869,
@@ -2374,7 +2413,7 @@ MonoBehaviour:
   TotalWords: 5
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 00000000b3ce772340c9b44448f31261afd470fe3cc3dc0c7a811fd17e5994686037230f
+  StateHashes: 000000004c653702de96fa4e48f31261afd470fe3cc3dc0c7a811fd17e5994686037230f
   TriggerHashes: 00000000
 --- !u!4 &9138792908056413730 stripped
 Transform:

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Fusion;
 using Networking;
 using UnityEngine;
@@ -7,7 +8,9 @@ public class PuppetPlayerCombat : NetworkBehaviour
 {
     [Header("Components")] 
     [SerializeField] private Transform gunMuzzleRef;
-    [SerializeField] private Transform gunTransform;
+    [SerializeField] private Transform pistolHolderTransform;
+    [SerializeField] private WeaponStatsSO pistolStats;
+    [SerializeField] private GunStatusChannelSO gunStatusChannel;
     [Header("Rig Aim Refs")]
     [SerializeField] private Transform pitchTransform;
     [SerializeField] private Transform rigTargetRef;
@@ -28,6 +31,12 @@ public class PuppetPlayerCombat : NetworkBehaviour
     {
         base.Spawned();
         _isLocalPlayer = Object.HasStateAuthority;
+
+        if (HasInputAuthority)
+        {
+            gunStatusChannel.StartedReloading += ExecuteReloadAnimationRPC;
+        }
+        
         
         _bulletTrailPool = new ObjectPool<BulletTrailBehavior>(CreateTrailPrefab, OnGetFromTrailPool,
             OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
@@ -53,16 +62,19 @@ public class PuppetPlayerCombat : NetworkBehaviour
 
     private void SetRigTargetReference(Vector3 playerCameraWorldPos, Vector3 playerCameraForward)
     {
-        if (Physics.Raycast(playerCameraWorldPos, playerCameraForward, out var hit, 100f))
+        
+        Vector3 targetPosition;
+                                                                                                                //ignoring only the player layer
+        if (Physics.Raycast(playerCameraWorldPos, playerCameraForward, out var hit, 100f, ~LayerMask.NameToLayer("Player")))
         {
-            if(hit.collider.gameObject.name != "Ground")
-                Debug.LogError($"{hit.collider.gameObject.name}");
-            
-            if(hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
-                rigTargetRef.position = hit.point;
+            targetPosition = hit.point;
         }
         else
-            rigTargetRef.position = pitchTransform.position + pitchTransform.transform.forward * 100f;
+        {
+            targetPosition = pitchTransform.position + pitchTransform.transform.forward * 10f;
+        }
+        
+        rigTargetRef.position = Vector3.Lerp(rigTargetRef.position, targetPosition, 20f * Runner.DeltaTime);
     }
     
     private void CalculateMuzzleVelocity()
@@ -79,6 +91,12 @@ public class PuppetPlayerCombat : NetworkBehaviour
         muzzleFlashParticle.Play();
         _networkData = data;
         _bulletTrailPool.Get();
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All, InvokeLocal = false)]
+    private void ExecuteReloadAnimationRPC()
+    {
+        pistolHolderTransform.DOLocalRotate(Vector3.forward * 1080f, pistolStats.ReloadTime, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1f);
     }
     
     private BulletTrailBehavior CreateTrailPrefab()

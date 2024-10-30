@@ -32,6 +32,8 @@ public class CombatReloadState : State<PlayerCombatBehavior>
                 .SetEase(Ease.OutBack, 1f));
         }
         
+        context.GunStatusChannel.OnStartedReloading();
+        
         _reloadAnimation.Play().OnComplete(()=>
         {
             context.BulletsLeft = context.PistolStats.BulletsPerClip;
