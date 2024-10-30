@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Fusion;
 using Helpers;
+using LocalPlayer;
 using UnityEngine;
 
 namespace Networking
@@ -11,6 +12,8 @@ namespace Networking
     {
         [Header("SOs")]
         [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
+        [SerializeField] private InputReaderSO inputReader;
+        [SerializeField] private PlayerMovement playerMovement;
         [Header("Components")]
         [SerializeField] private Transform playerModelTransform;
         [SerializeField] private Transform playerCamera;
@@ -40,6 +43,8 @@ namespace Networking
         {
             var inputData = new PuppetPlayerInputData
             {
+                PlayerInputDirection = inputReader.Direction,
+                IsGrounded = playerMovement.IsGrounded,
                 PlayerTransformNetworkData = new PlayerTransformNetworkData(playerModelTransform.position, playerModelTransform.rotation, playerCamera.position, playerCamera.forward, playerCamera.localRotation),
                 GunTransformNetworkData = new GunTransformNetworkData(gunTransform.position, gunTransform.localRotation, bulletTrailRefTransform.position, bulletTrailRefTransform.rotation),
                 HasShotThisFrame = _hasShotThisFrame
@@ -58,6 +63,8 @@ namespace Networking
 
 public struct PuppetPlayerInputData : INetworkInput
 {
+    public Vector2 PlayerInputDirection { get; set; }
+    public NetworkBool IsGrounded { get; set; }
     public PlayerTransformNetworkData PlayerTransformNetworkData { get; set; }
     public GunTransformNetworkData GunTransformNetworkData { get; set; }
     public NetworkBool HasShotThisFrame { get; set; }

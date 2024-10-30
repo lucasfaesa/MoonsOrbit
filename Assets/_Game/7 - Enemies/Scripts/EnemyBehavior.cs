@@ -127,7 +127,7 @@ namespace Enemy
             Collider[] hits = new Collider[1];
             int hitCount = Physics.OverlapSphereNonAlloc(attackerPosition, 1f, hits, enemyStats.PlayerLayerMasks);
             
-            Debug.LogError($"Attacker Pos {attackerPosition}");
+
             
             if (hitCount == 0)
                 return;
@@ -150,8 +150,7 @@ namespace Enemy
                 attackerData.DamageDone++;
                 attackerData.LastDamageTime = Time.time;
             }
-
-            Debug.LogError($"Attackers: {_attackers.Count}");
+            
             
             // If multiple attackers, handle target switching
             if (_attackers.Count > 1)

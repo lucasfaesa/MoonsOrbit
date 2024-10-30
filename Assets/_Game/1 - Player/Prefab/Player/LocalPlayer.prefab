@@ -214,9 +214,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkRunnerCallbacks: {fileID: 11400000, guid: 51b3e68d9606b2f45a4b19f943c35de2,
     type: 2}
+  inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
+  playerMovement: {fileID: 2468090314056281952}
   playerModelTransform: {fileID: 1259698701558058579}
   playerCamera: {fileID: 5221868680874215839}
-  gunTransform: {fileID: 8765483655526187418}
+  gunTransform: {fileID: 8736610380194460451}
   bulletTrailRefTransform: {fileID: 2792941494703024776}
 --- !u!114 &2468090314056281952
 MonoBehaviour:

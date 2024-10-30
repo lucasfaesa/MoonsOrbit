@@ -20,4 +20,4 @@ MonoBehaviour:
   <BulletSpreadVariance>k__BackingField: {x: 0.05, y: 0.05, z: 0.05}
   <Mask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 6105
+    m_Bits: 5977

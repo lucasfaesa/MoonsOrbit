@@ -53,8 +53,14 @@ public class PuppetPlayerCombat : NetworkBehaviour
 
     private void SetRigTargetReference(Vector3 playerCameraWorldPos, Vector3 playerCameraForward)
     {
-        if (Physics.Raycast(playerCameraWorldPos, playerCameraForward, out var hit, float.MaxValue))
-            rigTargetRef.position = hit.point;
+        if (Physics.Raycast(playerCameraWorldPos, playerCameraForward, out var hit, 100f))
+        {
+            if(hit.collider.gameObject.name != "Ground")
+                Debug.LogError($"{hit.collider.gameObject.name}");
+            
+            if(hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
+                rigTargetRef.position = hit.point;
+        }
         else
             rigTargetRef.position = pitchTransform.position + pitchTransform.transform.forward * 100f;
     }

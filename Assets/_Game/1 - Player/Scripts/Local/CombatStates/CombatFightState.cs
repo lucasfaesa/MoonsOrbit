@@ -88,7 +88,7 @@ public class CombatFightState : State<PlayerCombatBehavior>
             _targetPoint = _hit.point;
             _targetType = GetLayerHit(_hit.collider.gameObject.layer);
             _hitSomething = true;
-
+            
             if (_targetType == ConstantsManager.TargetType.ENEMY)
             {
                 var enemy = _hit.collider;

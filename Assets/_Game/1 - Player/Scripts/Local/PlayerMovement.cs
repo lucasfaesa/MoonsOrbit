@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController CharacterController => characterController;
     public Vector3 Velocity { get; set; }
     public bool IsGrounded { get; private set; }
-    public float FallingThreshold { get; } = -0.05f;
     
     //----- State Machine things -----
     public MovementIdleState MovementIdleState { get; private set; }
