@@ -7,6 +7,7 @@ using Fusion;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 
 namespace Enemy
@@ -17,6 +18,9 @@ namespace Enemy
         [Header("SOs")]
         [SerializeField] private EnemyStatsSO enemyStats;
         [SerializeField] private HealthStatsSO healthStats;
+        [Header("Rig Weights")]
+        [SerializeField] private MultiAimConstraint bodyAimConstraint;
+        [SerializeField] private MultiAimConstraint aimConstraint;
         [Header("References")] 
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
@@ -29,7 +33,7 @@ namespace Enemy
         [SerializeField] private List<Transform> patrolPoints = new();
         
         public Transform Target { get; set; }
-        public bool InCombat { get; set; }
+        [Networked, OnChangedRender(nameof(SetRigWeights))] public NetworkBool InCombat { get; set; }
         public EnemyStatsSO EnemyStats => enemyStats;
         public NavMeshAgent NavMeshAgent => navMeshAgent;
         public Animator Animator => animator;
@@ -70,6 +74,8 @@ namespace Enemy
         public override void Spawned()
         {
             base.Spawned();
+
+            SetRigWeights();
             
             patrolLocations.SetParent(null);
             
@@ -176,9 +182,18 @@ namespace Enemy
                 }
             }
         }
+
+        private void SetRigWeights()
+        {
+            float weight = InCombat ? 1f : 0f;
+            bodyAimConstraint.weight = weight;
+            aimConstraint.weight = weight;
+        }
         
         public void LookAtTarget()
         {
+            return;
+            
             Vector3 lookPos = Target.position - transform.position;
             lookPos.y = 0;
             
