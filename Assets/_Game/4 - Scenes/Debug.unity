@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 2887165945318088276, guid: c46665642e1e3ba42b756c02426c0d74,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4986674462321201425, guid: c46665642e1e3ba42b756c02426c0d74,
         type: 3}
@@ -887,6 +887,12 @@ MonoBehaviour:
     inimigo mirar no player
 
     - continue working on enemy
+
+    - you attack one
+    enemy, the second one takes damage too
+
+    - enemies keep shooting in air when
+    player leaves
 
 
     https://discussions.unity.com/t/multi-aim-constraint-set-source-at-runtime/802978/6
@@ -3250,25 +3256,15 @@ PrefabInstance:
       propertyPath: SortKey
       value: 438662724
       objectReference: {fileID: 0}
-    - target: {fileID: 3687316824152625161, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
+    - target: {fileID: 1403949846296976477, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
         type: 3}
-      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
-      value: 
-      objectReference: {fileID: 1930684220}
-    - target: {fileID: 4778597741052376845, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
-        type: 3}
-      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
-      value: 
-      objectReference: {fileID: 1930684220}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5170963900711931383, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
         type: 3}
       propertyPath: m_Name
       value: RobotEnemyPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 5170963900711931383, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6598914765504932740, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
         type: 3}

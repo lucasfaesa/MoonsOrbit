@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DesignPatterns;
+using DG.Tweening;
 using Fusion;
 using NaughtyAttributes;
 using UnityEngine;
@@ -18,9 +19,13 @@ namespace Enemy
         [Header("SOs")]
         [SerializeField] private EnemyStatsSO enemyStats;
         [SerializeField] private HealthStatsSO healthStats;
-        [Header("Rig Weights")]
+
+        [Header("Animation Rig Related")] 
+        [SerializeField] private Transform weaponTransform;
+        [SerializeField] private Transform rigAimTarget;
         [SerializeField] private MultiAimConstraint bodyAimConstraint;
         [SerializeField] private MultiAimConstraint aimConstraint;
+        [SerializeField] private MultiAimConstraint neckConstraint;
         [Header("References")] 
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
@@ -33,7 +38,8 @@ namespace Enemy
         [SerializeField] private List<Transform> patrolPoints = new();
         
         public Transform Target { get; set; }
-        [Networked, OnChangedRender(nameof(SetRigWeights))] public NetworkBool InCombat { get; set; }
+        [Networked] public bool InCombat { get; set; }
+        [Networked, OnChangedRender(nameof(SetRigWeights))] public bool Attacking { get; set; }
         public EnemyStatsSO EnemyStats => enemyStats;
         public NavMeshAgent NavMeshAgent => navMeshAgent;
         public Animator Animator => animator;
@@ -74,8 +80,6 @@ namespace Enemy
         public override void Spawned()
         {
             base.Spawned();
-
-            SetRigWeights();
             
             patrolLocations.SetParent(null);
             
@@ -114,6 +118,11 @@ namespace Enemy
             if (!HasStateAuthority)
                 return;
             
+            if (InCombat)
+                rigAimTarget.position = Target.position;
+            if (Attacking)
+                weaponTransform.LookAt(Target.position);
+            
             _stateMachine.Update();
         }
         
@@ -129,11 +138,8 @@ namespace Enemy
 
         private void OnGotAttacked(Vector3 attackerPosition)
         {
-            
             Collider[] hits = new Collider[1];
             int hitCount = Physics.OverlapSphereNonAlloc(attackerPosition, 1f, hits, enemyStats.PlayerLayerMasks);
-            
-
             
             if (hitCount == 0)
                 return;
@@ -182,18 +188,20 @@ namespace Enemy
                 }
             }
         }
-
+        
         private void SetRigWeights()
         {
-            float weight = InCombat ? 1f : 0f;
-            bodyAimConstraint.weight = weight;
-            aimConstraint.weight = weight;
+            float targetWeight = Attacking ? 1f : 0f;
+
+            // Smoothly transition each weight to the target value over one second
+            DOTween.To(() => bodyAimConstraint.weight, x => bodyAimConstraint.weight = x, targetWeight, 0.5f);
+            DOTween.To(() => aimConstraint.weight, x => aimConstraint.weight = x, targetWeight, 0.5f);
+            DOTween.To(() => neckConstraint.weight, x => neckConstraint.weight = x, targetWeight, 0.5f);
+        
         }
         
         public void LookAtTarget()
         {
-            return;
-            
             Vector3 lookPos = Target.position - transform.position;
             lookPos.y = 0;
             
