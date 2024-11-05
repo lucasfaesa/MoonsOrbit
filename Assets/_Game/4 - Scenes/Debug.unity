@@ -888,11 +888,9 @@ MonoBehaviour:
 
     - continue working on enemy
 
-    - you attack one
-    enemy, the second one takes damage too
 
-    - enemies keep shooting in air when
-    player leaves
+    - enemies keep
+    shooting in air when player leaves
 
 
     https://discussions.unity.com/t/multi-aim-constraint-set-source-at-runtime/802978/6

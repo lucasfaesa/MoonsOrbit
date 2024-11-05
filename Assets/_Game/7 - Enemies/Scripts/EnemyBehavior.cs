@@ -72,6 +72,9 @@ namespace Enemy
             if (Object.HasStateAuthority)
             {
                 Debug.Log("I have state authority");
+
+                InCombat = false;
+                Attacking = false;
                 
                 Spawned();
             }
