@@ -8,17 +8,20 @@ using UnityEngine;
 public class EnemyDamageable : NetworkBehaviour, IDamageable
 {
     [SerializeField] private HealthStatsSO healthStats;
-
+    [SerializeField] private NetworkObject networkObject;
+    
     [Networked, OnChangedRender(nameof(HealthUpdate))] private float CurrentHealth { get; set; }
     [Networked] private NetworkBool Initialized { get; set; }
 
     private bool _isDead;
+    private uint _networkId;
     
     public override void Spawned()
     {
         base.Spawned();
         InitializeHealth();
         HealthUpdate();
+        _networkId = networkObject.Id.Raw;
     }
     
     public void InitializeHealth()
@@ -48,16 +51,16 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
         
         if (CurrentHealth == 0)
         {
-            healthStats.OnDeath();
+            healthStats.OnDeath(_networkId);
             _isDead = true;
             return;
         }
         
-        healthStats.OnGotAttacked(position);
+        healthStats.OnGotAttacked(position, _networkId);
     }
 
     private void HealthUpdate()
     {
-        healthStats.OnHealthUpdated(CurrentHealth);
+        healthStats.OnHealthUpdated(CurrentHealth, _networkId);
     }
 }

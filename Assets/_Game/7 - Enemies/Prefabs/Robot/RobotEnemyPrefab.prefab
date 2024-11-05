@@ -1501,6 +1501,7 @@ MonoBehaviour:
   bodyAimConstraint: {fileID: 3687316824152625161}
   aimConstraint: {fileID: 4778597741052376845}
   neckConstraint: {fileID: 6617624958774430563}
+  networkObject: {fileID: 1403949846296976477}
   navMeshAgent: {fileID: 8666603171133599636}
   animator: {fileID: 1562995076386183881}
   gunMuzzle: {fileID: 8553328722627255274}
@@ -1527,6 +1528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthStats: {fileID: 11400000, guid: 6c54109a777f7194ea703744caacf1f2, type: 2}
+  networkObject: {fileID: 1403949846296976477}
 --- !u!195 &8666603171133599636
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3638,6 +3640,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6c54109a777f7194ea703744caacf1f2,
         type: 2}
+    - target: {fileID: 4379769362351133292, guid: c534f23b229951c4b8c1ab98895042ba,
+        type: 3}
+      propertyPath: networkObject
+      value: 
+      objectReference: {fileID: 1403949846296976477}
     - target: {fileID: 5246318483162018082, guid: c534f23b229951c4b8c1ab98895042ba,
         type: 3}
       propertyPath: m_Name

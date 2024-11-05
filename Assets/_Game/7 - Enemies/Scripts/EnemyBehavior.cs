@@ -19,7 +19,6 @@ namespace Enemy
         [Header("SOs")]
         [SerializeField] private EnemyStatsSO enemyStats;
         [SerializeField] private HealthStatsSO healthStats;
-
         [Header("Animation Rig Related")] 
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private Transform rigAimTarget;
@@ -27,6 +26,7 @@ namespace Enemy
         [SerializeField] private MultiAimConstraint aimConstraint;
         [SerializeField] private MultiAimConstraint neckConstraint;
         [Header("References")] 
+        [SerializeField] private NetworkObject networkObject;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Animator animator;
         [SerializeField] private Transform gunMuzzle;
@@ -131,13 +131,19 @@ namespace Enemy
             animator.SetFloat(_speedAnimatorParameter, navMeshAgent.velocity.sqrMagnitude);
         }
 
-        private void OnDeath()
+        private void OnDeath(uint networkId)
         {
+            if (networkObject.Id.Raw != networkId)
+                return;
+            
             _stateMachine.ChangeState(BehaviorDeadState);
         }
 
-        private void OnGotAttacked(Vector3 attackerPosition)
+        private void OnGotAttacked(Vector3 attackerPosition, uint networkId)
         {
+            if (networkObject.Id.Raw != networkId)
+                return;
+            
             Collider[] hits = new Collider[1];
             int hitCount = Physics.OverlapSphereNonAlloc(attackerPosition, 1f, hits, enemyStats.PlayerLayerMasks);
             

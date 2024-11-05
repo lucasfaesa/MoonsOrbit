@@ -40,7 +40,7 @@ public class HurtEffectController : MonoBehaviour
                             .Pause();
     }
 
-    private void OnGotAttacked(Vector3 _)
+    private void OnGotAttacked(Vector3 _, uint u)
     {
         if (fadeSequence.IsPlaying())
             return;
@@ -55,6 +55,6 @@ public class HurtEffectController : MonoBehaviour
     [Button]
     private void debug()
     {
-        OnGotAttacked(Vector3.down);
+        OnGotAttacked(Vector3.down, 1);
     }
 }
