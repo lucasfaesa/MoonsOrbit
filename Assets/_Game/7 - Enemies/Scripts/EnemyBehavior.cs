@@ -248,7 +248,7 @@ namespace Enemy
             
             var targetPoint = spreadDirection * 1000f;
 
-            bullet.Initialize(targetPoint, enemyStats.BulletSpeed);
+            bullet.Initialize(targetPoint, enemyStats.BulletSpeed, enemyStats.PerBulletDamage);
         }
 
         private void OnDrawGizmos()

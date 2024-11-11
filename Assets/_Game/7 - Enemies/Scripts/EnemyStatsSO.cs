@@ -7,7 +7,9 @@ namespace Enemy
 {
     [CreateAssetMenu(fileName = "EnemyStats", menuName = "ScriptableObjects/Enemy/EnemyStats")]
     public class EnemyStatsSO : ScriptableObject
-    {
+    { 
+        [field: SerializeField] public float PerBulletDamage { get; private set; } = 1f;
+        [field:Space]
         [field:SerializeField] public float IdleTime { get; private set; } = 2.0f;
         [field:SerializeField] public float MaxChaseTime { get; private set; } = 5.0f;
         [field:SerializeField] public float TargetChangeDelayWhenBeingAttacked { get; private set; } = 300.0f;

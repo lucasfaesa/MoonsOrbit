@@ -14,6 +14,8 @@ namespace Networking
         [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private HealthStatsSO playerHealthStats;
+        
         [Header("Components")]
         [SerializeField] private Transform playerModelTransform;
         [SerializeField] private Transform playerCamera;
@@ -47,7 +49,8 @@ namespace Networking
                 IsGrounded = playerMovement.IsGrounded,
                 PlayerTransformNetworkData = new PlayerTransformNetworkData(playerModelTransform.position, playerModelTransform.rotation, playerCamera.position, playerCamera.forward, playerCamera.localRotation),
                 GunTransformNetworkData = new GunTransformNetworkData(gunTransform.position, gunTransform.localRotation, bulletTrailRefTransform.position, bulletTrailRefTransform.rotation),
-                HasShotThisFrame = _hasShotThisFrame
+                HasShotThisFrame = _hasShotThisFrame,
+                HealthNetworkData = new HealthNetworkData(playerHealthStats.CurrentHealth, playerHealthStats.CurrentHealth <= 0)
             };
             
             if (_hasShotThisFrame)
@@ -55,6 +58,7 @@ namespace Networking
                 inputData.BulletTrailNetworkData = _bulletTrailNetworkData;
                 _hasShotThisFrame = false;
             }
+            
             
             networkInput.Set(inputData);
         }
@@ -69,6 +73,7 @@ public struct PuppetPlayerInputData : INetworkInput
     public GunTransformNetworkData GunTransformNetworkData { get; set; }
     public NetworkBool HasShotThisFrame { get; set; }
     public BulletTrailNetworkData BulletTrailNetworkData { get; set; }
+    public HealthNetworkData HealthNetworkData { get; set; }
 }
 
 public struct PlayerTransformNetworkData : INetworkInput
@@ -121,4 +126,17 @@ public struct BulletTrailNetworkData : INetworkInput
         TargetType = type;
         Direction = direction;
     }
+}
+
+public struct HealthNetworkData : INetworkInput
+{
+    public float CurrentHealth { get; set; }
+    public bool IsDead { get; set; }
+    
+    public HealthNetworkData(float currentHealth, bool isDead)
+    {
+        CurrentHealth = currentHealth;
+        IsDead = isDead;
+    }  
+    
 }

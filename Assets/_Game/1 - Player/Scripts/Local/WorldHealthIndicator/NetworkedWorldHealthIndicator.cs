@@ -5,7 +5,7 @@ using DG.Tweening;
 using Fusion;
 using UnityEngine;
 
-public class WorldHealthIndicator : MonoBehaviour
+public class NetworkedWorldHealthIndicator : MonoBehaviour
 {
     [SerializeField] private HealthStatsSO healthStats;
     [SerializeField] private NetworkObject networkObject;
@@ -14,17 +14,17 @@ public class WorldHealthIndicator : MonoBehaviour
     
     private void OnEnable()
     {
-        healthStats.CurrentHealthUpdated += OnHealthUpdated;
+        healthStats.CurrentHealthUpdatedNetworked += OnHealthUpdated;
     }
 
     private void OnDisable()
     {
-        healthStats.CurrentHealthUpdated -= OnHealthUpdated;
+        healthStats.CurrentHealthUpdatedNetworked -= OnHealthUpdated;
     }
 
     private void OnHealthUpdated(float currentHealth, uint networkId)
     {
-        if (networkObject.Id.Raw != networkId)
+        if (networkObject != null && networkObject.Id.Raw != networkId)
             return;
         
         healthPivot.DOScaleX(currentHealth/healthStats.MaxHealth, 0.3f).SetEase(Ease.OutSine);

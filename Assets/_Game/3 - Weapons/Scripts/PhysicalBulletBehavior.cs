@@ -24,6 +24,8 @@ public class PhysicalBulletBehavior : MonoBehaviour
         
         private IObjectPool<ParticleSystem> _metalHitEffectPool;
         private IObjectPool<ParticleSystem> _bloodHitEffectPool;
+
+        private float _bulletDamage;
         
         private enum PoolType {METAL, BLOOD}
         
@@ -32,7 +34,7 @@ public class PhysicalBulletBehavior : MonoBehaviour
             CreatePools();
         }
         
-        public void Initialize(Vector3 target, float bulletSpeed)
+        public void Initialize(Vector3 target, float bulletSpeed, float damage)
         {
             _targetPoint = target; 
             
@@ -40,6 +42,8 @@ public class PhysicalBulletBehavior : MonoBehaviour
             _startPosition = this.transform.position;
             _distance = Vector3.Distance(_startPosition, _targetPoint);
             _duration = _distance / bulletSpeed;
+            
+            _bulletDamage = damage;
 
             _initialized = true;
         }
@@ -120,6 +124,15 @@ public class PhysicalBulletBehavior : MonoBehaviour
 
             var impactParticle = SetImpactParticle(targetType);
 
+            if (targetType == ConstantsManager.TargetType.HUMAN)
+            {
+                Debug.LogError("I damaged human", other.gameObject);
+
+                if (other.transform.root.TryGetComponent(out IDamageable damageable))
+                {
+                    damageable.OnDamageTaken(_bulletDamage);
+                }
+            }
 
             if (Physics.Raycast(transform.position, transform.forward, out var hit, 10f))
             {
