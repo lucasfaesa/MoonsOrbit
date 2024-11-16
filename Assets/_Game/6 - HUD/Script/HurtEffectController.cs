@@ -14,6 +14,7 @@ public class HurtEffectController : MonoBehaviour
     [Space] 
     [SerializeField] private float fadeInTime = 0.1f;
     [SerializeField] private float fadeOutTime = 0.3f;
+    [SerializeField] private float postDelay = 0.2f;
 
     private Sequence fadeSequence;
     
@@ -36,6 +37,7 @@ public class HurtEffectController : MonoBehaviour
                             {
                                 brokenGlassImg.SetActive(false);
                             })
+                            .AppendInterval(postDelay)
                             .SetAutoKill(false)
                             .Pause();
     }

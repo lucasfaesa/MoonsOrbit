@@ -27,6 +27,7 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
         
         healthStats.CurrentHealth -= damage;
         healthStats.OnHealthUpdated();
+        healthStats.OnGotAttacked(default, default);
         
         if (healthStats.CurrentHealth <= 0)
         {

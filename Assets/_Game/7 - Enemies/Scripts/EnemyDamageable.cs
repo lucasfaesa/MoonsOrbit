@@ -19,9 +19,10 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
     public override void Spawned()
     {
         base.Spawned();
+        _networkId = networkObject.Id.Raw;
+        
         InitializeHealth();
         HealthUpdate();
-        _networkId = networkObject.Id.Raw;
     }
     
     public void InitializeHealth()
@@ -32,7 +33,7 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
         CurrentHealth = healthStats.MaxHealth;
         Initialized = true;
         
-        Debug.Log($"Current: {CurrentHealth}");
+//        Debug.Log($"Current: {CurrentHealth}");
     }
 
     public void OnDamageTaken(float _)
@@ -61,6 +62,7 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
 
     private void HealthUpdate()
     {
+        Debug.LogError($"Health update: {CurrentHealth} {_networkId}");
         healthStats.OnHealthUpdated(CurrentHealth, _networkId);
     }
 }

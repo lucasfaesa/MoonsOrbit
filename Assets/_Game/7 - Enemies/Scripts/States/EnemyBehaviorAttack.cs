@@ -22,7 +22,7 @@ namespace Enemy
         
         public override void Enter()
         {
-            Debug.Log("<color=purple>Enemy Attack State</color>");
+//            Debug.Log("<color=purple>Enemy Attack State</color>");
             
             base.Enter();
             context.Attacking = true;

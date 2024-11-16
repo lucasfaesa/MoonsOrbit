@@ -16,7 +16,7 @@ namespace Enemy
         
         public override void Enter()
         {
-            Debug.Log("<color=yellow>Enemy Idle State</color>");
+//            Debug.Log("<color=yellow>Enemy Idle State</color>");
             base.Enter();
             _timer = 0;
         }
