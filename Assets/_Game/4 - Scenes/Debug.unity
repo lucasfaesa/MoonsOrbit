@@ -1014,15 +1014,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- see enemies bugged when player leaves
+  todoList: '- make level
 
+    - make menu
 
+    - make players hit eachother
 
-    - make players die and
-    respawn
+    -
+    make respawn points
 
+    - make players die and respawn
 
     - sounds
+
+    -
+    fix enemies walk speed
 
 
 
