@@ -56,7 +56,7 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
         if (context.NavMeshAgent.remainingDistance <= context.NavMeshAgent.stoppingDistance 
                 && context.NavMeshAgent.velocity.sqrMagnitude == 0f)
         {
-            Debug.Log("Reached Destination");
+            
             _inRestTimeBetweenWaypoints = true;
             _waitToChangeTargetPatrolPoint = context.StartCoroutine(WaitAndChangeTargetPatrolPoint());
         }
@@ -75,7 +75,7 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
         _inRestTimeBetweenWaypoints = false;
         context.TriggerImmediatePathUpdate();
         
-        Debug.Log("Set New Destination");
+        
     }
     
     public override void PhysicsUpdate()

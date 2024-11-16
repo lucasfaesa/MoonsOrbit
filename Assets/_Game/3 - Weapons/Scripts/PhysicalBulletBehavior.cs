@@ -126,7 +126,7 @@ public class PhysicalBulletBehavior : MonoBehaviour
 
             if (targetType == ConstantsManager.TargetType.HUMAN)
             {
-                Debug.LogError("I damaged human", other.gameObject);
+                
 
                 if (other.transform.root.TryGetComponent(out IDamageable damageable))
                 {

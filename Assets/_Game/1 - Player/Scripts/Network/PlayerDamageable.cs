@@ -22,8 +22,6 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
 
     public void OnDamageTaken(float damage)
     {
-        Debug.LogError($"I took {damage} damage");
-        
         if (_isDead)
             return;
         
