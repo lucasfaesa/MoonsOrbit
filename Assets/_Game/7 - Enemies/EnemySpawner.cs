@@ -63,18 +63,19 @@ public class EnemySpawner : NetworkBehaviour
 
     private void OnPlayerLeft(NetworkRunner networkRunner, PlayerRef playerRef)
     {
-        Debug.Log("Player Left");
+        Debug.LogError("Player Left");
         _ownerOfEnemiesId = networkPlayerCallbacks.PlayersInGame.First(x=>x.PlayerId != playerRef.PlayerId).PlayerId;
         
         if (_ownerOfEnemiesId == networkRunner.LocalPlayer.PlayerId)
         {
-            Debug.Log("You are the new owner of the enemies");
+            Debug.LogError("You are the new owner of the enemies");
 
             var spawnedEnemies = FindObjectsByType<EnemyBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             
             foreach (var enemy in spawnedEnemies)
             {
-                Debug.Log("Asked for state authority");
+                Debug.LogError("Asked for state authority");
+                enemy.IsPreparingToChangeStateAuthority();
                 enemy.GetComponent<NetworkObject>().RequestStateAuthority();
             }
         }

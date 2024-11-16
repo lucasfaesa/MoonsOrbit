@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace LocalPlayer
 {
@@ -23,6 +24,12 @@ namespace LocalPlayer
 
         private void Update()
         {
+            if (Keyboard.current.qKey.isPressed)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            
             HandleLook();
         }
 

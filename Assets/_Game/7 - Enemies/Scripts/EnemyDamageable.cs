@@ -62,7 +62,7 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
 
     private void HealthUpdate()
     {
-        Debug.LogError($"Health update: {CurrentHealth} {_networkId}");
+
         healthStats.OnHealthUpdated(CurrentHealth, _networkId);
     }
 }

@@ -66,15 +66,25 @@ namespace Enemy
         private Collider[] _hitColliders = new Collider[10];
 
         private HashSet<AttackerData> _attackers = new();
+
+        public void IsPreparingToChangeStateAuthority()
+        {
+            Debug.LogError("Preparing to change state authority");
+            
+            InCombat = false;
+            Attacking = false;
+            Target = null;
+        }
         
         public void StateAuthorityChanged()
         {
             if (Object.HasStateAuthority)
             {
-                Debug.Log("I have state authority");
+                Debug.LogError("I have state authority");
 
                 InCombat = false;
                 Attacking = false;
+                Target = null;
                 
                 Spawned();
             }

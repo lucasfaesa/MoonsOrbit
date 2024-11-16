@@ -20,7 +20,7 @@ namespace Enemy
             context.InCombat = true;
             _chaseTime = 0f;
             
-            Debug.Log("<color=red>Enemy Chase State</color>");
+//            Debug.Log("<color=red>Enemy Chase State</color>");
             context.NavMeshAgent.stoppingDistance = context.EnemyStats.AttackDistance;
             context.TriggerImmediatePathUpdate();
         }

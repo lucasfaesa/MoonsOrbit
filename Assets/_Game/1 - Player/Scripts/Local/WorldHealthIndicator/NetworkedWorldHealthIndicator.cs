@@ -14,7 +14,7 @@ public class NetworkedWorldHealthIndicator : MonoBehaviour
     
     private void OnEnable()
     {
-        Debug.LogError($"Subscribed:");
+        
         healthStats.CurrentHealthUpdatedNetworked += OnHealthUpdated;
     }
 
@@ -25,7 +25,7 @@ public class NetworkedWorldHealthIndicator : MonoBehaviour
 
     private void OnHealthUpdated(float currentHealth, uint networkId)
     {
-        Debug.LogError($"Listened: {currentHealth} {networkId}");
+        
         if (networkObject != null && networkObject.Id.Raw != networkId)
             return;
         
