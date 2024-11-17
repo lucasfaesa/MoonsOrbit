@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Group_16","Group_15","Group_14","Group_13","Group_12","Group_11","Group_10","Group_9","Group_8","Group_7","Group_6","Group_5","Group_4","Group_3","Group_2","Group_1","Group"],"padding":[64,64,64,64,145,145,145,33,87,87,145,145,87,87,145,145,145],"unwrapper":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

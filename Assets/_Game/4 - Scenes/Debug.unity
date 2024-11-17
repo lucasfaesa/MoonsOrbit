@@ -291,11 +291,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 2887165945318088276, guid: c46665642e1e3ba42b756c02426c0d74,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4986674462321201425, guid: c46665642e1e3ba42b756c02426c0d74,
         type: 3}
       propertyPath: SortKey
@@ -1014,21 +1009,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make level
+  todoList: '- make players hit eachother
+
+    - fix bug player shooting himself
+    when flying
+
+    - place enemies on level
 
     - make menu
 
-    - make players hit eachother
-
-    -
-    make respawn points
+    - make respawn
+    points
 
     - make players die and respawn
 
     - sounds
 
-    -
-    fix enemies walk speed
+    - fix enemies walk
+    speed
 
 
 
@@ -1406,25 +1404,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 346227001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &555428943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029741807}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &555428950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555428943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76389b1aade9574bb0416ac23800a5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthStats: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
 --- !u!1 &574696524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,12 +2217,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1193199613828071586, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      propertyPath: playerHealthStats
-      value: 
-      objectReference: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d,
-        type: 2}
     - target: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       propertyPath: m_Name
@@ -2303,10 +2276,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1729274901573904122, guid: b36878f162d9d624587982cba1290a01,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 555428950}
     - targetCorrespondingSourceObject: {fileID: 6388043116596363368, guid: b36878f162d9d624587982cba1290a01,
         type: 3}
       insertIndex: -1
@@ -4610,11 +4579,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetworkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151837649115609763, guid: 5bc75f14c8fd92e48ad8a963d3773eae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

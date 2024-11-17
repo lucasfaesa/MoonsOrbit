@@ -30,7 +30,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["planet-ring","planet","table-display-small"],"padding":[256,256,77],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:

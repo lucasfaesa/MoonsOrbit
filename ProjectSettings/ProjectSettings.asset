@@ -814,7 +814,7 @@ PlayerSettings:
     PS5: DOTWEEN
     QNX: DOTWEEN
     Stadia: DOTWEEN
-    Standalone: FUSION_WEAVER;FUSION2;DOTWEEN
+    Standalone: FUSION_WEAVER;FUSION2;DOTWEEN;BAKERY_INCLUDED
     VisionOS: DOTWEEN
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
