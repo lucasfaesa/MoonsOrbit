@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f397f5d5da1eee458068e449dd2de1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trailSpeed: 300
+  weaponStats: {fileID: 11400000, guid: 3eaeec8ae8442124fb7cbf1407acf1fc, type: 2}
   metalHitEffectPrefab: {fileID: 9064919875212695174, guid: a5e1e2c4d2cd81f4abed6272a2b8187a,
     type: 3}
   bloodHitEffectPrefab: {fileID: 8254822079367412463, guid: 0d018a6ccd6659545a514109b64274fd,

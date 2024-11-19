@@ -291,6 +291,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2887165945318088276, guid: c46665642e1e3ba42b756c02426c0d74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4986674462321201425, guid: c46665642e1e3ba42b756c02426c0d74,
         type: 3}
       propertyPath: SortKey
@@ -1615,6 +1620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RobotEnemyPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170963900711931383, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6598914765504932740, guid: f65f7bb640b759c4eabd8b78e2ab24bf,
         type: 3}

@@ -91,9 +91,9 @@ public class CombatFightState : State<PlayerCombatBehavior>
             
             if (_targetType == ConstantsManager.TargetType.ENEMY)
             {
-                var enemy = _hit.collider;
-                var enemyDamageable = enemy.GetComponent<IDamageable>();
-                enemyDamageable.OnDamageTakenRPC(_weaponStats.Damage, context.transform.position);
+                var target = _hit.collider;
+                var targetDamageable = target.GetComponent<IDamageable>();
+                targetDamageable.OnDamageTakenRPC(_weaponStats.Damage, context.transform.position);
             }
         }
         else

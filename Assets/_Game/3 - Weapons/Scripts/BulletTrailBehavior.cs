@@ -15,6 +15,7 @@ namespace Networking
 
         [Header("Refs")] 
         [SerializeField] private float trailSpeed = 300f;
+        [SerializeField] private WeaponStatsSO weaponStats;
         [Space]
         [SerializeField] private ParticleSystem metalHitEffectPrefab;
         [SerializeField] private ParticleSystem bloodHitEffectPrefab;
@@ -129,9 +130,19 @@ namespace Networking
                 if (_hitSomething)
                 {
                     _impactParticle.transform.SetPositionAndRotation(_targetPoint, Quaternion.LookRotation(_hitNormal));
-                    
-                    if (Physics.SphereCast(transform.position, 0.1f, transform.forward, out var hit, 10f))
+
+                    if (Physics.Raycast(_startPosition, transform.forward, out var hit, _distance + 1f))
                     {
+                        var targetType = GetLayerHit(hit.transform.gameObject.layer);
+                        
+                        if (targetType == ConstantsManager.TargetType.HUMAN)
+                        {
+                            if (hit.transform.root.TryGetComponent(out IDamageable damageable))
+                            {
+                                damageable.OnDamageTaken(weaponStats.Damage);
+                            }
+                        }
+                        
                         _impactParticle.transform.SetParent(hit.transform);
                     }
                     
@@ -141,6 +152,22 @@ namespace Networking
                 _thisObjectPool.Release(this);
             }
         }
+        
+        private ConstantsManager.TargetType GetLayerHit(int layer)
+        {
+            string layerName = LayerMask.LayerToName(layer);
+            
+            return layerName switch
+            {
+                ConstantsManager.PLAYER_HITDETECTION_COLLIDER_LAYER 
+                    or ConstantsManager.NETWORK_PLAYER_HITDETECTION_COLLIDER_LAYER => ConstantsManager.TargetType.HUMAN,
+                
+                ConstantsManager.ENEMY_LAYER => ConstantsManager.TargetType.ENEMY,
+                
+                _ => ConstantsManager.TargetType.METAL
+            };
+        }
     }
+    
 }
 

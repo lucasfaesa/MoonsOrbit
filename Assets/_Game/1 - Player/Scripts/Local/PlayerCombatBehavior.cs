@@ -15,7 +15,8 @@ public class PlayerCombatBehavior : MonoBehaviour
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
     [SerializeField] private GunStatusChannelSO _gunStatusChannel;
-    [Space] [Header("Refs")] 
+    [Space] 
+    [Header("Refs")] 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Camera weaponCamera;
     [SerializeField] private Transform playerWeaponHolder;
