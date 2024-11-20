@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5725738a311e4444db32c49d1dcbc890, type: 3}
   m_Name: RobotEnemyStats
   m_EditorClassIdentifier: 
+  <PerBulletDamage>k__BackingField: 2
   <IdleTime>k__BackingField: 2
-  <MaxChaseTime>k__BackingField: 5
+  <MaxChaseTime>k__BackingField: 10
   <TargetChangeDelayWhenBeingAttacked>k__BackingField: 3
   <BulletsTakenThresholdToChangeTarget>k__BackingField: 7
   <DetectionDistance>k__BackingField: 12

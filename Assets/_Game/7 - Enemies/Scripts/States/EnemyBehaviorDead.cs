@@ -21,15 +21,6 @@ public class EnemyBehaviorDead : State<EnemyBehavior>
         
         context.Collider.enabled = false;
         context.Animator.SetBool(_deathAnimatorParameter, true);
-
-        context.StartCoroutine(Disappear());
-    }
-
-    private IEnumerator Disappear()
-    {
-        yield return new WaitForSeconds(5f);
-        
-        context.Runner.Despawn(context.GetComponent<NetworkObject>());
     }
 
     public override void LogicUpdate()

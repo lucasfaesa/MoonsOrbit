@@ -126,8 +126,6 @@ public class PhysicalBulletBehavior : MonoBehaviour
 
             if (targetType == ConstantsManager.TargetType.HUMAN)
             {
-                
-
                 if (other.transform.root.TryGetComponent(out IDamageable damageable))
                 {
                     damageable.OnDamageTaken(_bulletDamage);

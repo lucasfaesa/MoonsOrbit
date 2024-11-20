@@ -36,6 +36,12 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
 //        Debug.Log($"Current: {CurrentHealth}");
     }
 
+    public void ResetHealth()
+    {
+        _isDead = false;
+        CurrentHealth = healthStats.MaxHealth;
+    }
+
     public void OnDamageTaken(float _)
     {
     }

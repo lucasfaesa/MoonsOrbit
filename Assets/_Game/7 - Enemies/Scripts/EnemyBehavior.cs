@@ -101,6 +101,8 @@ namespace Enemy
                 navMeshAgent.enabled = false;
                 return;
             }
+
+            Reset();
             
             healthStats.GotAttacked += OnGotAttacked;
             healthStats.Death += OnDeath;
@@ -123,6 +125,11 @@ namespace Enemy
             healthStats.Death -= OnDeath;
         }
 
+        public void UnsubscribeFromEvents()
+        {
+            healthStats.GotAttacked -= OnGotAttacked;
+            healthStats.Death -= OnDeath;
+        }
 
         public override void FixedUpdateNetwork()
         {
@@ -148,6 +155,8 @@ namespace Enemy
         {
             if (networkObject.Id.Raw != networkId)
                 return;
+            
+            navMeshAgent.isStopped = true;
             
             _stateMachine.ChangeState(BehaviorDeadState);
         }
@@ -175,11 +184,11 @@ namespace Enemy
             var attackerData = _attackers.FirstOrDefault(x => x.AttackerTransform == attacker);
             
             if (attackerData == null)
-                _attackers.Add(new AttackerData(attacker, 1, Time.time)); // Add new attacker if it doesn't exist
+                _attackers.Add(new AttackerData(attacker, 1, Runner.LocalRenderTime)); // Add new attacker if it doesn't exist
             else
             {
                 attackerData.DamageDone++;
-                attackerData.LastDamageTime = Time.time;
+                attackerData.LastDamageTime = Runner.LocalRenderTime;
             }
             
             
@@ -190,7 +199,7 @@ namespace Enemy
 
                 if (currentTargetData != null)
                 {
-                    float timeSinceLastAttack = Time.time - currentTargetData.LastDamageTime;
+                    float timeSinceLastAttack = Runner.LocalRenderTime - currentTargetData.LastDamageTime;
                     float damageDifference = attackerData != null ? attackerData.DamageDone - currentTargetData.DamageDone : 0;
 
                     // Switch target if the current target has not attacked for a certain delay
@@ -295,6 +304,15 @@ namespace Enemy
                 DamageDone = damageDone;
                 LastDamageTime = lastDamageTime;
             }
+        }
+        
+        
+        private void Reset()
+        {
+            navMeshAgent.isStopped = false;
+            InCombat = false;
+            Attacking = false;
+            Collider.enabled = true;
         }
     }
     

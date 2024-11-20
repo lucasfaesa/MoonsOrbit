@@ -27,7 +27,7 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
         
         context.TriggerImmediatePathUpdate();
         
- //       Debug.Log("<color=cyan>Enemy Patrol State</color>");
+        Debug.Log("<color=cyan>Enemy Patrol State</color>");
         base.Enter();
     }
 
@@ -74,8 +74,6 @@ public class EnemyBehaviorPatrol : State<EnemyBehavior>
 
         _inRestTimeBetweenWaypoints = false;
         context.TriggerImmediatePathUpdate();
-        
-        
     }
     
     public override void PhysicsUpdate()

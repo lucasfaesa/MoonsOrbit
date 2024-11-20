@@ -1,39 +1,52 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Enemy;
 using Fusion;
 using Networking;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : NetworkBehaviour
 {
     [Header("SO's")]
     [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
     [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacks;
-    [Header("Enemy")]
-    [SerializeField] private EnemyBehavior robotEnemyPrefab;
-    [Header("Spawn Points")]
-    [SerializeField] private List<Transform> spawnPoints = new();
+    [Header("Enemies")] 
+    [SerializeField] private HealthStatsSO enemyHealthStats;
+    [SerializeField] private List<EnemyBehavior> enemies = new();
+
+    private List<EnemyData> _enemiesDatas = new();
     
-    [Networked] private NetworkBool EnemiesSpawned { get; set; }
+    [Networked] private NetworkBool EnemiesSetToPlayer { get; set; }
     
     private int? _ownerOfEnemiesId;
 
     public override void Spawned()
     {
         base.Spawned();
-        SpawnEnemies(Runner);
+        SetEnemiesToPlayer(Runner);
 
         networkRunnerCallbacks.PlayerJoined += OnPlayerJoined;
         networkRunnerCallbacks.PlayerLeft += OnPlayerLeft;
+
+        enemyHealthStats.Death += OnEnemyDeath;
+        
+        foreach (var enemyBehavior in enemies)
+        {
+            _enemiesDatas.Add(new EnemyData(enemyBehavior, 
+                                enemyBehavior.GetComponent<NetworkObject>().Id.Raw, 
+                                    enemyBehavior.transform.position));
+        }
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         base.Despawned(runner, hasState);
 
+        enemyHealthStats.Death -= OnEnemyDeath;
+        
         networkRunnerCallbacks.PlayerJoined -= OnPlayerJoined;
         networkRunnerCallbacks.PlayerLeft -= OnPlayerLeft;
     }
@@ -44,9 +57,9 @@ public class EnemySpawner : NetworkBehaviour
             _ownerOfEnemiesId = playerRef.PlayerId;
     }
     
-    private void SpawnEnemies(NetworkRunner networkRunner)
+    private void SetEnemiesToPlayer(NetworkRunner networkRunner)
     {
-        if (EnemiesSpawned) return;
+        if (EnemiesSetToPlayer) return;
 
         if (networkPlayerCallbacks.PlayersInGame.Count > 0 && _ownerOfEnemiesId == null)
             _ownerOfEnemiesId = networkPlayerCallbacks.PlayersInGame[0].PlayerId;
@@ -54,30 +67,62 @@ public class EnemySpawner : NetworkBehaviour
         
         Debug.Log($"Owner of the enemies is: {_ownerOfEnemiesId}");
         
-        EnemiesSpawned = true;
-        foreach (var spawnPoint in spawnPoints)
-        {
-            var enemy = networkRunner.Spawn(robotEnemyPrefab, spawnPoint.position, spawnPoint.rotation, PlayerRef.None);
-        }
+        EnemiesSetToPlayer = true;
     }
 
     private void OnPlayerLeft(NetworkRunner networkRunner, PlayerRef playerRef)
     {
-        Debug.LogError("Player Left");
+        //Debug.LogError("Player Left");
         _ownerOfEnemiesId = networkPlayerCallbacks.PlayersInGame.First(x=>x.PlayerId != playerRef.PlayerId).PlayerId;
         
         if (_ownerOfEnemiesId == networkRunner.LocalPlayer.PlayerId)
         {
-            Debug.LogError("You are the new owner of the enemies");
+            //Debug.LogError("You are the new owner of the enemies");
 
             var spawnedEnemies = FindObjectsByType<EnemyBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             
             foreach (var enemy in spawnedEnemies)
             {
-                Debug.LogError("Asked for state authority");
+                //Debug.LogError("Asked for state authority");
                 enemy.IsPreparingToChangeStateAuthority();
                 enemy.GetComponent<NetworkObject>().RequestStateAuthority();
             }
+        }
+    }
+
+    private void OnEnemyDeath(uint networkId)
+    {
+        var enemyData = _enemiesDatas.Find(x=>x.Id == networkId);
+        
+        DespawnAndRespawnEnemy(enemyData);
+        
+    }
+
+    private async void DespawnAndRespawnEnemy(EnemyData data)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(2));
+        
+        data.Behavior.gameObject.SetActive(false);
+        
+        await Task.Delay(TimeSpan.FromSeconds(2));
+
+        data.Behavior.GetComponent<EnemyDamageable>().ResetHealth();
+        data.Behavior.UnsubscribeFromEvents();
+        data.Behavior.gameObject.SetActive(true);
+        data.Behavior.Spawned();
+    }
+
+    private struct EnemyData
+    {
+        public EnemyBehavior Behavior;
+        public uint Id;
+        public Vector3 InitialPosition;
+
+        public EnemyData(EnemyBehavior behavior, uint id, Vector3 initialPosition)
+        {
+            Behavior = behavior;
+            Id = id;
+            InitialPosition = initialPosition;
         }
     }
 }

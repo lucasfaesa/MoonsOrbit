@@ -1014,24 +1014,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make players hit eachother
-
-    - fix bug player shooting himself
-    when flying
-
-    - place enemies on level
+  todoList: '- place enemies on level
 
     - make menu
 
-    - make respawn
-    points
+    - make respawn points
 
-    - make players die and respawn
+    -
+    make players die and respawn
 
     - sounds
 
-    - fix enemies walk
-    speed
+    - fix enemies walk speed
 
 
 
