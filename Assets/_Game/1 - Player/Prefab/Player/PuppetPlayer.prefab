@@ -1464,7 +1464,7 @@ GameObject:
   - component: {fileID: 7087487884138111467}
   m_Layer: 6
   m_Name: PuppetPlayer
-  m_TagString: Untagged
+  m_TagString: PuppetPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

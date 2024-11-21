@@ -33,6 +33,9 @@ namespace Enemy
 
         public override void LogicUpdate()
         {
+            if (context.Target == null)
+                return;
+            
             if (Vector3.Distance(context.transform.position, context.Target.position) >=
                 context.EnemyStats.AttackDistance)
             {
