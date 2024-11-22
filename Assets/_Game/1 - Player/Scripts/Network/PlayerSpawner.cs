@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DG.Tweening;
 using Fusion;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +16,7 @@ namespace Networking
         [Header("SOs")] 
         [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
         [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacks;
+        [SerializeField] private HealthStatsSO playerHealthStats;
         [Header("Other")] 
         [SerializeField] private GameObject localPlayerPrefab;
         [SerializeField] private NetworkPrefabRef puppetPlayerPrefab;
@@ -22,6 +24,9 @@ namespace Networking
         [SerializeField] private List<Transform> spawnPointsTransform = new();
 
         private List<Transform> _puppetPlayersInGame = new();
+
+        private GameObject _localPlayer;
+        private CharacterController _localPlayerCharacterController; 
         
         private bool _spawned;
         
@@ -29,48 +34,45 @@ namespace Networking
         {
             networkRunnerCallbacks.PlayerJoined += OnPlayerJoined;
             networkRunnerCallbacks.PlayerLeft += OnPlayerLeft;
+            playerHealthStats.Death += RespawnDeadPlayer;
         }
 
         private void OnDisable()
         {
             networkRunnerCallbacks.PlayerJoined -= OnPlayerJoined;
             networkRunnerCallbacks.PlayerLeft -= OnPlayerLeft;
+            playerHealthStats.Death -= RespawnDeadPlayer;
         }
 
         private void OnPlayerJoined(NetworkRunner networkRunner, PlayerRef playerRef)
         {
-            if (playerRef == networkRunner.LocalPlayer)
-            {
-                if (networkPlayerCallbacks.PlayersInGame.Count == 0)
-                {
-                    int randSpawnPointIndex = Random.Range(0, spawnPointsTransform.Count);
-                    
-                    var localPlayer = Instantiate(localPlayerPrefab, spawnPointsTransform[randSpawnPointIndex]);
-                    
-                    localPlayer.transform.SetParent(null);
-                    
-                    networkRunner.Spawn(puppetPlayerPrefab, spawnPointsTransform[randSpawnPointIndex].position, Quaternion.identity, playerRef);
-                   
-                }
-                else
-                {
-                    var furthestSpawnPoints = GetFurthestSpawnPointsFromOtherPlayers();
-                    
-                    int randSpawnPointIndex = Random.Range(0, furthestSpawnPoints.Count);
-                    
-                    var localPlayer = Instantiate(localPlayerPrefab, spawnPointsTransform[randSpawnPointIndex]);
-                    
-                    localPlayer.transform.SetParent(null);
-                    
-                    networkRunner.Spawn(puppetPlayerPrefab, spawnPointsTransform[randSpawnPointIndex].position, Quaternion.identity, playerRef);
+            if (playerRef != networkRunner.LocalPlayer)
+                return;
 
-                }
-                
-            }
-            
-            
+            Transform spawnPoint = GetSpawnPoint();
+            _localPlayer = Instantiate(localPlayerPrefab, spawnPoint.position, Quaternion.identity);
+            _localPlayerCharacterController = _localPlayer.GetComponent<CharacterController>();
+            _localPlayer.transform.SetParent(null);
+
+            networkRunner.Spawn(puppetPlayerPrefab, spawnPoint.position, Quaternion.identity, playerRef);
+
             RefreshPuppetPlayerList();
             networkPlayerCallbacks.OnPlayerSpawn(networkRunner, playerRef);
+        }
+        
+        private Transform GetSpawnPoint()
+        {
+            if (networkPlayerCallbacks.PlayersInGame.Count == 0)
+            {
+                int randIndex = Random.Range(0, spawnPointsTransform.Count);
+                return spawnPointsTransform[randIndex];
+            }
+            else
+            {
+                var furthestSpawnPoints = GetFurthestSpawnPointsFromOtherPlayers();
+                int randIndex = Random.Range(0, furthestSpawnPoints.Count);
+                return furthestSpawnPoints[randIndex];
+            }
         }
         
         private async void RefreshPuppetPlayerList()
@@ -110,6 +112,19 @@ namespace Networking
 
             // Order the dictionary by distance in descending order and select the top 2 spawn points
             return spawnPointDistances.OrderByDescending(sp => sp.Value).Take(2).Select(sp => sp.Key).ToList();
+        }
+
+        private async void RespawnDeadPlayer(uint _)
+        {
+            _localPlayerCharacterController.enabled = false;
+            
+            await Task.Delay(TimeSpan.FromSeconds(2f));
+            
+            Transform spawnPoint = GetSpawnPoint();
+            
+            _localPlayer.transform.position = spawnPoint.position;
+            
+            _localPlayerCharacterController.enabled = true;
         }
         
         private void OnPlayerLeft(NetworkRunner networkRunner, PlayerRef playerRef)

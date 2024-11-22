@@ -31,7 +31,9 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
         
         if (healthStats.CurrentHealth <= 0)
         {
+            _isDead = true;
             healthStats.CurrentHealth = 0;
+            Debug.LogError("DEath");
             OnDeath();
         }
     }

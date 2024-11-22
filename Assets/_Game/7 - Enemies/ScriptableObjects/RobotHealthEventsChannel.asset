@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212dc581ce6a5fc4c80479ca9141312b, type: 3}
   m_Name: RobotHealthEventsChannel
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 10
+  <MaxHealth>k__BackingField: 60
   <CurrentHealth>k__BackingField: 0
