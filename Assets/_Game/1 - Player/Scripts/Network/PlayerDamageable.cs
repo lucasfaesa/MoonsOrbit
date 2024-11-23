@@ -47,6 +47,12 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
         }
     }
 
+    public void RegenerateHealth()
+    {
+        healthStats.CurrentHealth = healthStats.MaxHealth;
+        healthStats.OnHealthUpdated();
+    }
+
     public void OnDamageTakenRPC(float damage, Vector3 position)
     {
     }

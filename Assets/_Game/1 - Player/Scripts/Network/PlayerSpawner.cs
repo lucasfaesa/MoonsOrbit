@@ -47,25 +47,26 @@ namespace Networking
             playerHealthStats.Death -= RespawnDeadPlayer;
         }
 
-        private void OnPlayerJoined(NetworkRunner networkRunner, PlayerRef playerRef)
+        private async void OnPlayerJoined(NetworkRunner networkRunner, PlayerRef playerRef)
         {
             if (playerRef != networkRunner.LocalPlayer)
                 return;
 
+            await RefreshPuppetPlayerList();
+            
             Transform spawnPoint = GetSpawnPoint();
-            _localPlayer = Instantiate(localPlayerPrefab, spawnPoint.position, Quaternion.identity);
+            _localPlayer = Instantiate(localPlayerPrefab, spawnPoint.position, spawnPoint.rotation);
             _localPlayerCharacterController = _localPlayer.GetComponent<CharacterController>();
             _localPlayer.transform.SetParent(null);
 
-            networkRunner.Spawn(puppetPlayerPrefab, spawnPoint.position, Quaternion.identity, playerRef);
+            networkRunner.Spawn(puppetPlayerPrefab, spawnPoint.position, spawnPoint.rotation, playerRef);
 
-            RefreshPuppetPlayerList();
             networkPlayerCallbacks.OnPlayerSpawn(networkRunner, playerRef);
         }
         
         private Transform GetSpawnPoint()
         {
-            if (networkPlayerCallbacks.PlayersInGame.Count is 0 or 1)
+            if (networkPlayerCallbacks.PlayersInGame.Count is 0)
             {
                 int randIndex = Random.Range(0, spawnPointsTransform.Count);
                 return spawnPointsTransform[randIndex];
@@ -78,7 +79,7 @@ namespace Networking
             }
         }
         
-        private async void RefreshPuppetPlayerList()
+        private async Task RefreshPuppetPlayerList()
         {
             await Task.Delay(TimeSpan.FromSeconds(1f));
             

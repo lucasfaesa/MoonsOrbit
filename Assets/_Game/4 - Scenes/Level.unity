@@ -2351,14 +2351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make health bar look at camera
+  todoList: '- make health pack
 
     - make menu
-
-    - make health
-    pack
-
-    - increase enemy respawn delay
 
     - sounds
 
@@ -3923,6 +3918,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3030150415443776020, guid: c46665642e1e3ba42b756c02426c0d74,
+        type: 3}
+      propertyPath: healthPack
+      value: 
+      objectReference: {fileID: 5850171566811117370, guid: 73503239c65b90e43a933e60528b5d6a,
+        type: 3}
     - target: {fileID: 3030150415443776020, guid: c46665642e1e3ba42b756c02426c0d74,
         type: 3}
       propertyPath: enemyHealthStats

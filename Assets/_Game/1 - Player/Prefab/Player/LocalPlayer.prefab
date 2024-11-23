@@ -174,11 +174,11 @@ GameObject:
   - component: {fileID: 2468090314056281952}
   - component: {fileID: 4589021415814109792}
   - component: {fileID: 9048846002145129729}
-  - component: {fileID: 1387288679317959547}
   - component: {fileID: 5523893807411696311}
+  - component: {fileID: 1387288679317959547}
   m_Layer: 7
   m_Name: LocalPlayer
-  m_TagString: Untagged
+  m_TagString: LocalPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,6 +279,19 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
   playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
   playerCamera: {fileID: 5119214507320053186}
+--- !u!114 &5523893807411696311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729274901573904122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76389b1aade9574bb0416ac23800a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthStats: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
 --- !u!143 &1387288679317959547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -305,19 +318,6 @@ CharacterController:
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5523893807411696311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729274901573904122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76389b1aade9574bb0416ac23800a5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthStats: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
 --- !u!1 &5298678072961702454
 GameObject:
   m_ObjectHideFlags: 0

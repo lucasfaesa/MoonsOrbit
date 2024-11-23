@@ -18,6 +18,9 @@ public class EnemySpawner : NetworkBehaviour
     [Header("Enemies")] 
     [SerializeField] private HealthStatsSO enemyHealthStats;
     [SerializeField] private List<EnemyBehavior> enemies = new();
+    [Header("Health Pack")]
+    [SerializeField] private GameObject healthPack;
+    
     
     private List<EnemyData> _enemiesDatas = new();
     
@@ -106,6 +109,10 @@ public class EnemySpawner : NetworkBehaviour
         
         data.Behavior.UnsubscribeFromEvents();
         data.Behavior.ToggleVisualsRPC(false);
+        
+        Runner.Spawn(healthPack, new Vector3(data.Behavior.transform.position.x, 
+                                                data.Behavior.transform.position.y + healthPack.transform.position.y, 
+                                                    data.Behavior.transform.position.z));
         
         await Task.Delay(TimeSpan.FromSeconds(enemyRespawnDelay));
 

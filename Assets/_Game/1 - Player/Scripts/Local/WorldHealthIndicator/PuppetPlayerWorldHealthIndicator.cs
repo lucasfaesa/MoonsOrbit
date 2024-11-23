@@ -35,6 +35,7 @@ public class PuppetPlayerWorldHealthIndicator : NetworkBehaviour
 
     private void Update()
     {
-        this.transform.LookAt(Camera.main.transform);
+        if(Camera.main != null)
+            this.transform.LookAt(Camera.main.transform);
     }
 }
