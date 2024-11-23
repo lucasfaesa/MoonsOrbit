@@ -19,7 +19,6 @@ public class PuppetPlayerWorldHealthIndicator : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
-
         
         if (!GetInput<PuppetPlayerInputData>(out var inputData))
             return;
@@ -32,5 +31,10 @@ public class PuppetPlayerWorldHealthIndicator : NetworkBehaviour
 
         // Apply the updated scale to the health bar
         healthPivot.localScale = new Vector3(_currentHealthScaleX, healthPivot.localScale.y, healthPivot.localScale.z);
+    }
+
+    private void Update()
+    {
+        this.transform.LookAt(Camera.main.transform);
     }
 }

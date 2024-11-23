@@ -121,8 +121,19 @@ namespace Enemy
         public override void Despawned(NetworkRunner runner, bool hasState)
         {
             base.Despawned(runner, hasState);
-            healthStats.GotAttacked -= OnGotAttacked;
-            healthStats.Death -= OnDeath;
+            UnsubscribeFromEvents();
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void ToggleVisualsRPC(bool active)
+        {
+            var children = transform.childCount;
+    
+            for (int i = 0; i < children; i++)
+            {
+                var child = transform.GetChild(i);
+                child.gameObject.SetActive(active);
+            }
         }
 
         public void UnsubscribeFromEvents()

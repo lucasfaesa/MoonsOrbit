@@ -10,7 +10,7 @@ namespace DesignPatterns
 
         public void Initialize(State<T> startingState)
         {
-            CurrentState = startingState;
+            ChangeState(startingState);
             startingState.Enter();
         }
 
@@ -19,7 +19,7 @@ namespace DesignPatterns
             if (newState == CurrentState)
                 return;
             
-            CurrentState.Exit();
+            CurrentState?.Exit();
             CurrentState = newState;
             CurrentState.Enter();
         }

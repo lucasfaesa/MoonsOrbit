@@ -13,10 +13,12 @@ public class EnemySpawner : NetworkBehaviour
     [Header("SO's")]
     [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
     [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacks;
+    [Header("Settings")] 
+    [SerializeField] private float enemyRespawnDelay = 10f;
     [Header("Enemies")] 
     [SerializeField] private HealthStatsSO enemyHealthStats;
     [SerializeField] private List<EnemyBehavior> enemies = new();
-
+    
     private List<EnemyData> _enemiesDatas = new();
     
     [Networked] private NetworkBool EnemiesSetToPlayer { get; set; }
@@ -97,19 +99,19 @@ public class EnemySpawner : NetworkBehaviour
         DespawnAndRespawnEnemy(enemyData);
         
     }
-
+    
     private async void DespawnAndRespawnEnemy(EnemyData data)
     {
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await Task.Delay(TimeSpan.FromSeconds(2f));
         
-        data.Behavior.gameObject.SetActive(false);
+        data.Behavior.UnsubscribeFromEvents();
+        data.Behavior.ToggleVisualsRPC(false);
         
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await Task.Delay(TimeSpan.FromSeconds(enemyRespawnDelay));
 
         data.Behavior.GetComponent<EnemyDamageable>().ResetHealth();
-        data.Behavior.UnsubscribeFromEvents();
-        data.Behavior.gameObject.SetActive(true);
         data.Behavior.Spawned();
+        data.Behavior.ToggleVisualsRPC(true);
     }
 
     private struct EnemyData

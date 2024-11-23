@@ -25,6 +25,8 @@ public class EnemyDamageable : NetworkBehaviour, IDamageable
         HealthUpdate();
     }
     
+    
+    
     public void InitializeHealth()
     {
         if(Initialized)

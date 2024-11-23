@@ -36,5 +36,6 @@ public class EnemyBehaviorDead : State<EnemyBehavior>
     public override void Exit()
     {
         base.Exit();
+        context.Animator.SetBool(_deathAnimatorParameter, false);
     }
 }
