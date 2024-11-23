@@ -1526,8 +1526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToDeactivateLocally:
-  - {fileID: 5810060505322660370}
-  - {fileID: 6514899859414027057}
   - {fileID: 3332646519352493777}
   - {fileID: 4371117316064572835}
   - {fileID: 5131767518545652472}
@@ -1545,6 +1543,8 @@ MonoBehaviour:
   - {fileID: 8473793036556486931}
   - {fileID: 6831862308494767541}
   - {fileID: 5187762904280477329}
+  - {fileID: 5810060505322660370}
+  - {fileID: 6514899859414027057}
 --- !u!114 &1603813656865217837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1573,6 +1573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103684cf1a28c7849a80b4eb3ae9f685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealthStats: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
   yawTransform: {fileID: 378348681348500170}
   pitchTransform: {fileID: 4512231535097967151}
   animator: {fileID: 2866584566664912335}

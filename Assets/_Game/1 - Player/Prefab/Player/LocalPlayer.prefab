@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14be42c7644794c479a75f1684d8c5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
   inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
   playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
   _gunStatusChannel: {fileID: 11400000, guid: fb33dee4f82ffda459341967bc829d9d, type: 2}
@@ -274,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d26ac91124632a4183ef898270bb518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 11400000, guid: 31f6c5a4b4c190547a11a3d18bde6e1d, type: 2}
   inputReader: {fileID: 11400000, guid: 5a76c12ed838b62418f1464eb84a3811, type: 2}
   playerStats: {fileID: 11400000, guid: 1fc9053b21525064ebea62e687e082a7, type: 2}
   playerCamera: {fileID: 5119214507320053186}

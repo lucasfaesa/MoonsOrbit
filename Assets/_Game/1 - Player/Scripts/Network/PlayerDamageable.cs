@@ -10,6 +10,16 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
     
     private bool _isDead;
 
+    private void OnEnable()
+    {
+        healthStats.Respawn += OnRespawn;
+    }
+
+    private void OnDisable()
+    {
+        healthStats.Respawn += OnRespawn;
+    }
+
     private void Start()
     {
         InitializeHealth();
@@ -33,7 +43,6 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
         {
             _isDead = true;
             healthStats.CurrentHealth = 0;
-            Debug.LogError("DEath");
             OnDeath();
         }
     }
@@ -45,5 +54,12 @@ public class PlayerDamageable : MonoBehaviour, IDamageable
     private void OnDeath()
     {
         healthStats.OnDeath(0);
+    }
+
+    private void OnRespawn()
+    {
+        _isDead = false;
+        healthStats.CurrentHealth = healthStats.MaxHealth;
+        healthStats.OnHealthUpdated();
     }
 }

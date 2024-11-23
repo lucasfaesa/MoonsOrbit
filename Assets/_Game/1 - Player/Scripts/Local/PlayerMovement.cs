@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         MovementWalkState = new MovementWalkState(this, _stateMachine);
         MovementJumpState = new MovementJumpState(this, _stateMachine);
         MovementFallingState = new MovementFallingState(this, _stateMachine);
-
+        
         _stateMachine.Initialize(MovementIdleState);
     }
 
@@ -52,6 +52,15 @@ public class PlayerMovement : MonoBehaviour
         _stateMachine.Update();
     }
 
+    private void OnDeath()
+    {
+        
+    }
+
+    private void OnRevived()
+    {
+        
+    }
     
     public void HandleMovement()
     {

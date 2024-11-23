@@ -17,6 +17,9 @@ namespace Networking
         [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
         [SerializeField] private NetworkPlayerCallbacksSO networkPlayerCallbacks;
         [SerializeField] private HealthStatsSO playerHealthStats;
+        [Header("Settings")] 
+        [SerializeField] private float respawnDelay = 3f;
+        
         [Header("Other")] 
         [SerializeField] private GameObject localPlayerPrefab;
         [SerializeField] private NetworkPrefabRef puppetPlayerPrefab;
@@ -62,7 +65,7 @@ namespace Networking
         
         private Transform GetSpawnPoint()
         {
-            if (networkPlayerCallbacks.PlayersInGame.Count == 0)
+            if (networkPlayerCallbacks.PlayersInGame.Count is 0 or 1)
             {
                 int randIndex = Random.Range(0, spawnPointsTransform.Count);
                 return spawnPointsTransform[randIndex];
@@ -118,11 +121,13 @@ namespace Networking
         {
             _localPlayerCharacterController.enabled = false;
             
-            await Task.Delay(TimeSpan.FromSeconds(2f));
+            await Task.Delay(TimeSpan.FromSeconds(respawnDelay));
             
             Transform spawnPoint = GetSpawnPoint();
             
-            _localPlayer.transform.position = spawnPoint.position;
+            _localPlayer.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+            
+            playerHealthStats.OnRespawn();
             
             _localPlayerCharacterController.enabled = true;
         }

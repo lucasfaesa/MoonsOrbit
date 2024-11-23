@@ -9,8 +9,10 @@ namespace Networking
         private static readonly int XMovement = Animator.StringToHash("XMovement");
         private static readonly int YMovement = Animator.StringToHash("YMovement");
         private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
 
         [Header("Components")] 
+        [SerializeField] private HealthStatsSO playerHealthStats;
         [SerializeField] private Transform yawTransform;
         [SerializeField] private Transform pitchTransform;
         [SerializeField] private Animator animator;
@@ -20,12 +22,43 @@ namespace Networking
         
         private float _currentXMovement = 0f;
         private float _currentYMovement = 0f;
+
+        private bool _isDead;
+        
+        public override void Spawned()
+        {
+            base.Spawned();
+            
+            playerHealthStats.Death += OnDeath;
+            playerHealthStats.Respawn += OnRespawn;
+        }
+
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            base.Despawned(runner, hasState);
+            
+            playerHealthStats.Death -= OnDeath;
+            playerHealthStats.Respawn -= OnRespawn;
+        }
+
+        private void OnDeath(uint u)
+        {
+            Debug.Log("Death");
+            _isDead = true;
+            animator.SetBool(IsDead, true);
+        }
+
+        private void OnRespawn()
+        {
+            _isDead = false;
+            animator.SetBool(IsDead, false);
+        }
         
         public override void FixedUpdateNetwork()
         {
             base.FixedUpdateNetwork();
-
-            if (!GetInput<PuppetPlayerInputData>(out var inputData))
+            
+            if (!GetInput<PuppetPlayerInputData>(out var inputData) || _isDead)
                 return;
 
             UpdatePositionAndRotation(inputData);

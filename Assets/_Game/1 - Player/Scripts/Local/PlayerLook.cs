@@ -9,12 +9,27 @@ namespace LocalPlayer
     public class PlayerLook : MonoBehaviour
     {
         [Header("SOs")]
+        [SerializeField] private HealthStatsSO playerHealth;
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private PlayerStatsSO playerStats;
         [Header("Other")]
         [SerializeField] private Camera playerCamera;
         
         private float _verticalLookRotation;
+
+        private bool _isDead;
+        
+        private void OnEnable()
+        {
+            playerHealth.Death += OnDeath;
+            playerHealth.Respawn += OnRespawn;
+        }
+
+        private void OnDisable()
+        {
+            playerHealth.Death -= OnDeath;
+            playerHealth.Respawn -= OnRespawn;
+        }
 
         private void Start()
         {
@@ -24,13 +39,18 @@ namespace LocalPlayer
 
         private void Update()
         {
-            if (Keyboard.current.qKey.isPressed)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            
-            HandleLook();
+            if (!_isDead)
+                HandleLook();
+        }
+
+        private void OnDeath(uint u)
+        {
+            _isDead = true;
+        }
+
+        private void OnRespawn()
+        {
+            _isDead = false;
         }
 
         private void HandleLook()

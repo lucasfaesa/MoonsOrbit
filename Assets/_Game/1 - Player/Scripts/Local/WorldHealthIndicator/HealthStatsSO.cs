@@ -14,12 +14,18 @@ public class HealthStatsSO : ScriptableObject
     public event Action<float> CurrentHealthUpdated;
     public event Action<Vector3, uint> GotAttacked;
     public event Action<uint> Death;
+    public event Action Respawn;
 
     public void OnHealthUpdated(float currentHealth, uint affectedEntityId)
     {
         CurrentHealthUpdatedNetworked?.Invoke(currentHealth, affectedEntityId);
     }
 
+    public void OnRespawn()
+    {
+        Respawn?.Invoke();
+    }
+    
     public void OnHealthUpdated()
     {
         CurrentHealthUpdated?.Invoke(CurrentHealth);

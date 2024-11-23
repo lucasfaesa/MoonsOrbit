@@ -12,6 +12,7 @@ using UnityEngine.InputSystem;
 public class PlayerCombatBehavior : MonoBehaviour
 {
     [Header("SOs")]
+    [SerializeField] private HealthStatsSO playerHealth;
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private PlayerStatsSO playerStats;
     [SerializeField] private GunStatusChannelSO _gunStatusChannel;
@@ -40,6 +41,7 @@ public class PlayerCombatBehavior : MonoBehaviour
     
     private Sequence _aimSequence;
     private Sequence _leaveAimSequence;
+    private bool _isDead;
     
     public InputReaderSO InputReader => inputReader;
     public Transform GunMuzzleRef => gunMuzzleRef;
@@ -73,6 +75,31 @@ public class PlayerCombatBehavior : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        playerHealth.Death += OnDeath;
+        playerHealth.Respawn += OnRespawn;
+    }
+
+    private void OnDisable()
+    {
+        playerHealth.Death -= OnDeath;
+        playerHealth.Respawn -= OnRespawn;
+    }
+    
+    private void OnDeath(uint u)
+    {
+        _stateMachine.ChangeState(CombatIdleState);
+        _isDead = true;
+        
+    }
+
+    private void OnRespawn()
+    {
+        BulletsLeft = PistolStats.BulletsPerClip;
+        _isDead = false;
+    }
+    
     public void Start()
     {
         WeaponHolderInitialPosition = playerWeaponHolder.localPosition;
@@ -113,13 +140,11 @@ public class PlayerCombatBehavior : MonoBehaviour
 
     private void Update()
     {
+        if (_isDead)
+            return;
+        
         MuzzleWorldVelocity = (GunMuzzleRef.position - _lastMuzzlePosition) / Time.deltaTime;
         _lastMuzzlePosition = GunMuzzleRef.position;
-
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            Time.timeScale = 0.05f;
-        if (Keyboard.current.digit1Key.wasReleasedThisFrame)
-            Time.timeScale = 1f;
         
         _stateMachine.Update();
         
