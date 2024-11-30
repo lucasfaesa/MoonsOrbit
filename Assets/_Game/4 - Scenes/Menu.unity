@@ -261,6 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d13ef958f45de47aaacd97526ca3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkRunnerCallbacks: {fileID: 11400000, guid: 51b3e68d9606b2f45a4b19f943c35de2,
+    type: 2}
   scrollViewContent: {fileID: 771222635}
   activeGamesDisplay: {fileID: 4696980325794231474, guid: 341ae1639f4441449a34c2c6c9eba9c8,
     type: 3}
@@ -1407,7 +1409,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1598397525}
   m_HandleRect: {fileID: 1598397524}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

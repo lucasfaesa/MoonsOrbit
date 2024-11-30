@@ -87,14 +87,10 @@ namespace Networking
             
             var puppetPlayersInGame = GameObject.FindGameObjectsWithTag("PuppetPlayer");
             
-            Debug.LogError($"Quantity {puppetPlayersInGame.Length} Playerszz");
-            
             foreach (var puppetPlayer in puppetPlayersInGame)
             {
                 _puppetPlayersInGame.Add(puppetPlayer.transform);
             }
-            
-            Debug.LogError($"Quantity {_puppetPlayersInGame.Count} Players");
         }
         
         public List<Transform> GetFurthestSpawnPointsFromOtherPlayers()

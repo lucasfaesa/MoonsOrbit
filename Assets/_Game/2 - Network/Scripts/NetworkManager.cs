@@ -32,10 +32,21 @@ namespace Networking
         {
             networkPlayerCallbacksSo.Reset();
             CreateRunner();
+
+            await JoinLobby("Lobby");
             RunnerInitialized = true;
-            await Connect();
         }
 
+        private async Task JoinLobby(string lobbyName)
+        {
+            var result = await NetworkRunner.JoinSessionLobby(SessionLobby.Shared);
+            
+            if(result.Ok)
+                Debug.Log("Joined Lobby");
+            else
+                Debug.Log(result.ErrorMessage);
+        }
+        
         private void CreateRunner()
         {
             NetworkRunner = Instantiate(runnerPrefab, transform).GetComponent<NetworkRunner>();
@@ -43,12 +54,15 @@ namespace Networking
             NetworkRunner.AddCallbacks(this);
         }
 
-        public async Task Connect()
+        public async Task Connect(string roomName)
         {
+            while (!RunnerInitialized)
+                await Task.Yield();
+            
             var args = new StartGameArgs()
             {
                 GameMode = GameMode.Shared,
-                SessionName = GenerateRandomString(7),
+                SessionName = roomName,
                 SceneManager = networkSceneManagerDefault,
                 Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1),
             };
@@ -59,18 +73,6 @@ namespace Networking
                 Debug.Log("StartGame successful");
             else
                 Debug.LogError($"Error: {result.ErrorMessage}");
-        }
-
-        string GenerateRandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var random = new Random();
-            var result = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                result[i] = chars[random.Next(chars.Length)];
-            }
-            return new string(result);
         }
         
         #region NetworkRunnerCallbacks
@@ -140,6 +142,7 @@ namespace Networking
 
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
         {
+            Debug.Log("Session List Updated");
             networkRunnerCallbacks.OnSessionListUpdated(runner, sessionList);
         }
 
