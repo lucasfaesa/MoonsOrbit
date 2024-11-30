@@ -2351,7 +2351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- create esc button (score, return to menu (runner shutdown, mouse sensivity)
+  todoList: '- create esc button (return to menu (runner shutdown, mouse sensivity)
 
     -
     sounds

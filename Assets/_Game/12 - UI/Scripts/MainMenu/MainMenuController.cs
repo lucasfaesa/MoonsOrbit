@@ -16,6 +16,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private ActiveGamesDisplay activeGamesDisplay;
     [Space]
     [SerializeField] private Button createRoomButton;
+    [SerializeField] private Button quitButton;
     
     private List<ActiveGamesDisplay> _instantiatedActiveGamesDisplayList = new();
 
@@ -27,12 +28,15 @@ public class MainMenuController : MonoBehaviour
     private void OnEnable()
     {
         createRoomButton.onClick.AddListener(OnCreateRoom);
+        quitButton.onClick.AddListener(OnQuit);
     }
 
     private void OnDisable()
     {
         createRoomButton.onClick.RemoveListener(OnCreateRoom);
-
+        quitButton.onClick.RemoveListener(OnQuit);
+        
+        
         networkRunnerCallbacks.SessionListUpdated -= OnSessionListUpdated;
     }
     
@@ -76,5 +80,10 @@ public class MainMenuController : MonoBehaviour
             result[i] = chars[random.Next(chars.Length)];
         }
         return new string(result);
+    }
+
+    private void OnQuit()
+    {
+        Application.Quit();
     }
 }
