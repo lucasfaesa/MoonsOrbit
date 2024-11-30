@@ -2351,23 +2351,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c76c174c93d70b4583d4237fcbb6915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todoList: '- make health pack
+  todoList: '- volume and sensitivity settings
+
+    - make Tab
 
     - make menu
 
-    - sounds
-
-
-
-    https://kenney.nl/assets
-
-    https://discussions.unity.com/t/multi-aim-constraint-set-source-at-runtime/802978/6
-
-    https://www.youtube.com/watch?v=luBBz5oeR4Q
-
-    https://www.reddit.com/r/Unity3D/comments/slch3j/help_with_navmesh_photon/
-
-    https://forum.photonengine.com/discussion/11375/how-do-i-sync-a-navmeshagent
+    -
+    sounds
 
 '
 --- !u!4 &570209972

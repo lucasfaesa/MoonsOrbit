@@ -7,6 +7,7 @@ using Fusion.Sockets;
 using Helpers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 namespace Networking
 {
@@ -42,14 +43,14 @@ namespace Networking
             NetworkRunner.AddCallbacks(this);
         }
 
-        private async Task Connect()
+        public async Task Connect()
         {
             var args = new StartGameArgs()
             {
                 GameMode = GameMode.Shared,
-                SessionName = "TestSession",
+                SessionName = GenerateRandomString(7),
                 SceneManager = networkSceneManagerDefault,
-                Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
+                Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex + 1),
             };
 
             var result = await NetworkRunner.StartGame(args);
@@ -58,10 +59,20 @@ namespace Networking
                 Debug.Log("StartGame successful");
             else
                 Debug.LogError($"Error: {result.ErrorMessage}");
-
-            //eventsChannel.OnConnectedToRoom();
         }
 
+        string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var result = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = chars[random.Next(chars.Length)];
+            }
+            return new string(result);
+        }
+        
         #region NetworkRunnerCallbacks
 
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
