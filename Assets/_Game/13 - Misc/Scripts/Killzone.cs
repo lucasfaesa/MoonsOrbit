@@ -7,6 +7,9 @@ public class Killzone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<PlayerDamageable>().OnDamageTaken(40000);
+        if (other.CompareTag("LocalPlayer"))
+        {
+            other.GetComponent<PlayerDamageable>().OnDamageTaken(40000);
+        }
     }
 }

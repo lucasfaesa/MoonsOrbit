@@ -42,6 +42,16 @@ public class PuppetPlayerCombat : NetworkBehaviour
             OnReleaseToTrailPool, OnDestroyTrailOnPool, false, 20, 100);
     }
 
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        base.Despawned(runner, hasState);
+        
+        if (HasInputAuthority)
+        {
+            gunStatusChannel.StartedReloading -= ExecuteReloadAnimationRPC;
+        }
+    }
+
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
