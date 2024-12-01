@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Neon Rave
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -226382326
   material: {fileID: -4929593627876627908}
-  materialHashCode: 0
+  materialHashCode: -1420512150
   m_Version: 1.1.0
   m_SourceFontFileGUID: dd9d7ed0eb1d4944f8f53ec434287d3e
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: dd9d7ed0eb1d4944f8f53ec434287d3e,

@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Fusion;
+using LocalPlayer;
 using Networking;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
 public class MainMenuController : MonoBehaviour
 {
-    
+    [SerializeField] private PlayerStatsSO playerStats;
     [SerializeField] private NetworkRunnerCallbacksSO networkRunnerCallbacks;
     [Space]
     [SerializeField] private Transform scrollViewContent;
@@ -17,27 +19,41 @@ public class MainMenuController : MonoBehaviour
     [Space]
     [SerializeField] private Button createRoomButton;
     [SerializeField] private Button quitButton;
+    [Space]
+    [SerializeField] private TMP_InputField nameInputField;
     
     private List<ActiveGamesDisplay> _instantiatedActiveGamesDisplayList = new();
 
     private void Awake()
     {
+        playerStats.PlayerName = nameInputField.text;
         networkRunnerCallbacks.SessionListUpdated += OnSessionListUpdated;
     }
 
     private void OnEnable()
     {
+        nameInputField.onValueChanged.AddListener(OnNameChanged);
         createRoomButton.onClick.AddListener(OnCreateRoom);
         quitButton.onClick.AddListener(OnQuit);
     }
 
     private void OnDisable()
     {
+        nameInputField.onValueChanged.RemoveListener(OnNameChanged);
         createRoomButton.onClick.RemoveListener(OnCreateRoom);
         quitButton.onClick.RemoveListener(OnQuit);
         
         
         networkRunnerCallbacks.SessionListUpdated -= OnSessionListUpdated;
+    }
+
+    private void OnNameChanged(string text)
+    {
+        playerStats.PlayerName = text;
+        
+        if(string.IsNullOrEmpty(text))
+            playerStats.PlayerName = "Cool Player";
+            
     }
     
     private void OnSessionListUpdated(NetworkRunner networkRunner, List<SessionInfo> sessionInfos)

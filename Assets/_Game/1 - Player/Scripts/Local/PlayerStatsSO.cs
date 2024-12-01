@@ -8,6 +8,7 @@ namespace LocalPlayer
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "ScriptableObjects/Player/PlayerStats")]
     public class PlayerStatsSO : ScriptableObject
     {
+        [field:SerializeField] public string PlayerName { get; set; }
         [field:SerializeField] public float Acceleration { get; set; } = 10;
         [field:SerializeField] public float Braking { get; set; } = 10;
         [field:SerializeField] public float MaxSpeed { get; set; } = 2;

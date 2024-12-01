@@ -69,7 +69,7 @@ namespace Enemy
 
         public void IsPreparingToChangeStateAuthority()
         {
-            Debug.LogError("Preparing to change state authority");
+            //Debug.LogError("Preparing to change state authority");
             
             InCombat = false;
             Attacking = false;
@@ -80,7 +80,7 @@ namespace Enemy
         {
             if (Object.HasStateAuthority)
             {
-                Debug.LogError("I have state authority");
+                //Debug.LogError("I have state authority");
 
                 InCombat = false;
                 Attacking = false;
