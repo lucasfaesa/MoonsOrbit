@@ -107,6 +107,7 @@ public class EnemySpawner : NetworkBehaviour
     {
         await Task.Delay(TimeSpan.FromSeconds(2f));
         
+        data.Behavior.Collider.enabled = false;
         data.Behavior.UnsubscribeFromEvents();
         data.Behavior.ToggleVisualsRPC(false);
         
@@ -116,6 +117,7 @@ public class EnemySpawner : NetworkBehaviour
         
         await Task.Delay(TimeSpan.FromSeconds(enemyRespawnDelay));
 
+        data.Behavior.Collider.enabled = true;
         data.Behavior.GetComponent<EnemyDamageable>().ResetHealth();
         data.Behavior.Spawned();
         data.Behavior.ToggleVisualsRPC(true);
